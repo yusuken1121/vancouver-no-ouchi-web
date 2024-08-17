@@ -1,0 +1,16 @@
+# npm packages
+node_modules
+
+# environment
+.env*
+!.env.example
+
+#secret key
+secrets
+
+#DS_Store
+.DS_Store
+
+#public
+# src/public/css
+# src/public/js
