@@ -1,15 +1,19 @@
 "use client";
 
 import apiClient from "@/config/apiClient";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
+import { Input } from "../ui/input";
+import { PrimarySelect } from "../atoms/PrimarySelect";
+import PrimaryCalender from "../atoms/PrimaryCalender";
 
 const MyForm = () => {
   const [name, setName] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-  const options = ["", "Not started", "In progress", "Done"];
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const options = ["Not started", "In progress", "Done"];
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(e.target.value);
+  const handleChange = (e: SetStateAction<string>) => {
+    setSelectedValue(e);
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,31 +32,25 @@ const MyForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="title">title</label>
-      <input
+      <Input
         id="title"
-        className="text-black"
+        className="text-black w-48"
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
       <br />
       <label htmlFor="progress">Choose a progress status:</label>
-      <select
-        id="progress"
-        value={selectedValue}
-        onChange={handleChange}
-        className="p-2 text-black border rounded"
-      >
-        {options.map((o, index) => {
-          return (
-            <option key={index} value={o}>
-              {o}
-            </option>
-          );
-        })}
-      </select>
+      <br />
+      <PrimarySelect
+        handleChange={handleChange}
+        placeholder="Select"
+        labelName="progress"
+        selectItems={options}
+      />
       <br />
       <br />
+      <PrimaryCalender date={date} setDate={setDate} />
       <button className="bg-slate-500 rounded-md p-2" type="submit">
         Submit
       </button>

@@ -41,6 +41,13 @@ export const postTestDb = async (req: Request, res: Response) => {
             name: selectedValue,
           },
         },
+        Date: {
+          date: {
+            start: "2024-08-16",
+            end: "2024-08-20",
+            time_zone: null,
+          },
+        },
       },
     });
     res.status(200).json({ message: "Data added successfully", response });
