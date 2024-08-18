@@ -14,7 +14,7 @@ export const getTestDb = async (req: Request, res: Response) => {
 };
 
 export const postTestDb = async (req: Request, res: Response) => {
-  const { name } = req.body;
+  const { title, selectedValue } = req.body;
   try {
     const response = await notion.pages.create({
       parent: { database_id: NOTION_DATABASE_ID! },
@@ -30,7 +30,7 @@ export const postTestDb = async (req: Request, res: Response) => {
             {
               type: "text",
               text: {
-                content: name,
+                content: title,
               },
             },
           ],
@@ -38,7 +38,7 @@ export const postTestDb = async (req: Request, res: Response) => {
         Status: {
           type: "status",
           status: {
-            name: "Done",
+            name: selectedValue,
           },
         },
       },
