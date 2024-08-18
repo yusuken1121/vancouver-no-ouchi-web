@@ -9,13 +9,14 @@
   ],
   "scripts": {
     "setup": "npm i",
-    "server": "tsnd --inspect -- src/index.ts"
+    "server": "NODE_ENV=production tsnd --inspect -- src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "An Express MVC setup tool",
   "dependencies": {
+    "@notionhq/client": "^2.2.15",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
