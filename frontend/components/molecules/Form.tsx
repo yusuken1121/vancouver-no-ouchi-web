@@ -1,7 +1,7 @@
 "use client";
 
 import apiClient from "@/config/apiClient";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { PrimarySelect } from "../atoms/PrimarySelect";
 import PrimaryCalender from "../atoms/PrimaryCalender";
@@ -15,7 +15,23 @@ const MyForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [url, setUrl] = useState("");
+  const [schema, setSchema] = useState("");
   const statusOptions = ["Not started", "In progress", "Done"];
+
+  const fetchSchema = async () => {
+    try {
+      const notionSchema = await apiClient.get("/test/notion-schema");
+      console.log(notionSchema.data);
+
+      setSchema(notionSchema.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSchema();
+  }, []);
 
   const handleChange = (e: SetStateAction<string>) => {
     setSelectedValue(e);
@@ -36,7 +52,9 @@ const MyForm = () => {
       console.error("Failed to send the data", error);
     }
   };
+
   console.log("selectedValue:::", selectedValue, "name:::", name);
+  // console.log(JSON.stringify(schema.Select1.select.options));
 
   return (
     <form
