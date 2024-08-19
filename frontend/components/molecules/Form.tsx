@@ -5,6 +5,7 @@ import { SetStateAction, useState } from "react";
 import { Input } from "../ui/input";
 import { PrimarySelect } from "../atoms/PrimarySelect";
 import PrimaryCalender from "../atoms/PrimaryCalender";
+import { Label } from "../ui/label";
 
 const MyForm = () => {
   const [name, setName] = useState("");
@@ -32,7 +33,7 @@ const MyForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
-      <label htmlFor="title">title</label>
+      <Label htmlFor="title">title</Label>
       <Input
         id="title"
         className="text-black w-48"
@@ -41,8 +42,7 @@ const MyForm = () => {
         onChange={(e) => setName(e.target.value)}
       />
 
-      <label htmlFor="progress">Choose a progress status:</label>
-
+      <Label htmlFor="progress">Choose a progress status:</Label>
       <PrimarySelect
         handleChange={handleChange}
         placeholder="Select"
@@ -50,7 +50,7 @@ const MyForm = () => {
         selectItems={options}
       />
 
-      <label htmlFor="startDate">Choose the start date</label>
+      <Label htmlFor="startDate">Choose the start date</Label>
       <PrimaryCalender id="startDate" date={date} setDate={setDate} />
       <button className="bg-slate-500 rounded-md p-2" type="submit">
         Submit
