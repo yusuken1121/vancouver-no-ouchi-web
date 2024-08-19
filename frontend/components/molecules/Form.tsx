@@ -31,7 +31,7 @@ const MyForm = () => {
   console.log("selectedValue:::", selectedValue, "name:::", name);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
       <label htmlFor="title">title</label>
       <Input
         id="title"
@@ -40,17 +40,16 @@ const MyForm = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <br />
+
       <label htmlFor="progress">Choose a progress status:</label>
-      <br />
+
       <PrimarySelect
         handleChange={handleChange}
         placeholder="Select"
         labelName="progress"
         selectItems={options}
       />
-      <br />
-      <br />
+
       <label htmlFor="startDate">Choose the start date</label>
       <PrimaryCalender id="startDate" date={date} setDate={setDate} />
       <button className="bg-slate-500 rounded-md p-2" type="submit">

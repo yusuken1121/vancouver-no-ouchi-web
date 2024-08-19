@@ -4,7 +4,7 @@ import React from "react";
 
 const Home = () => {
   return (
-    <main>
+    <main className="w-full flex flex-col items-center justify-center">
       <MyForm />
     </main>
   );
