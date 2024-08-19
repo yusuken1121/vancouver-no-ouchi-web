@@ -11,6 +11,7 @@ const MyForm = () => {
   const [name, setName] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const [phoneNumber, setPhoneNumber] = useState("");
   const options = ["Not started", "In progress", "Done"];
 
   const handleChange = (e: SetStateAction<string>) => {
@@ -23,6 +24,7 @@ const MyForm = () => {
         title: name,
         selectedValue,
         date,
+        phoneNumber,
       });
       console.log(response.data);
     } catch (error) {
@@ -52,6 +54,16 @@ const MyForm = () => {
 
       <Label htmlFor="startDate">Choose the start date</Label>
       <PrimaryCalender id="startDate" date={date} setDate={setDate} />
+
+      <Label htmlFor="phone">Enter your phone number</Label>
+      <Input
+        id="phone"
+        type="tel"
+        value={phoneNumber}
+        onChange={(e) => setPhoneNumber(e.target.value)}
+        placeholder="phone number"
+      />
+
       <button className="bg-slate-500 rounded-md p-2" type="submit">
         Submit
       </button>

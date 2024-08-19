@@ -14,14 +14,16 @@ export const getTestDb = async (req: Request, res: Response) => {
 };
 
 export const postTestDb = async (req: Request, res: Response) => {
-  const { title, selectedValue, date } = req.body;
+  const { title, selectedValue, date, phoneNumber } = req.body;
   console.log(
     "title: ",
     title,
     "selectedValue: ",
     selectedValue,
     "date: ",
-    date
+    date,
+    "phoneNumber: ",
+    phoneNumber
   );
 
   try {
@@ -56,6 +58,10 @@ export const postTestDb = async (req: Request, res: Response) => {
             // end: "2024-08-20",
             time_zone: null,
           },
+        },
+        Phone1: {
+          type: "phone_number",
+          phone_number: phoneNumber,
         },
       },
     });
