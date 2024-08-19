@@ -12,6 +12,7 @@ const MyForm = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const options = ["Not started", "In progress", "Done"];
 
   const handleChange = (e: SetStateAction<string>) => {
@@ -25,6 +26,7 @@ const MyForm = () => {
         selectedValue,
         date,
         phoneNumber,
+        email,
       });
       console.log(response.data);
     } catch (error) {
@@ -62,6 +64,15 @@ const MyForm = () => {
         value={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
         placeholder="phone number"
+      />
+
+      <Label htmlFor="email">Enter your email</Label>
+      <Input
+        id="email"
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="email"
       />
 
       <button className="bg-slate-500 rounded-md p-2" type="submit">
