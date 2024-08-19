@@ -21,6 +21,7 @@ const MyForm = () => {
       const response = await apiClient.post("/test", {
         title: name,
         selectedValue,
+        date,
       });
       console.log(response.data);
     } catch (error) {
@@ -50,7 +51,8 @@ const MyForm = () => {
       />
       <br />
       <br />
-      <PrimaryCalender date={date} setDate={setDate} />
+      <label htmlFor="startDate">Choose the start date</label>
+      <PrimaryCalender id="startDate" date={date} setDate={setDate} />
       <button className="bg-slate-500 rounded-md p-2" type="submit">
         Submit
       </button>

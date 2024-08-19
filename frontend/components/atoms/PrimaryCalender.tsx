@@ -12,11 +12,12 @@ import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
 
 type PrimaryCalendarProps = {
+  id: string;
   date: Date | undefined;
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
 };
 
-const PrimaryCalender = ({ date, setDate }: PrimaryCalendarProps) => {
+const PrimaryCalender = ({ date, setDate, id }: PrimaryCalendarProps) => {
   return (
     <div>
       <Popover>
@@ -34,6 +35,7 @@ const PrimaryCalender = ({ date, setDate }: PrimaryCalendarProps) => {
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
           <Calendar
+            id={id}
             mode="single"
             selected={date}
             onSelect={setDate}

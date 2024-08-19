@@ -14,7 +14,16 @@ export const getTestDb = async (req: Request, res: Response) => {
 };
 
 export const postTestDb = async (req: Request, res: Response) => {
-  const { title, selectedValue } = req.body;
+  const { title, selectedValue, date } = req.body;
+  console.log(
+    "title: ",
+    title,
+    "selectedValue: ",
+    selectedValue,
+    "date: ",
+    date
+  );
+
   try {
     const response = await notion.pages.create({
       parent: { database_id: NOTION_DATABASE_ID! },
@@ -43,8 +52,8 @@ export const postTestDb = async (req: Request, res: Response) => {
         },
         Date: {
           date: {
-            start: "2024-08-16",
-            end: "2024-08-20",
+            start: date,
+            // end: "2024-08-20",
             time_zone: null,
           },
         },
