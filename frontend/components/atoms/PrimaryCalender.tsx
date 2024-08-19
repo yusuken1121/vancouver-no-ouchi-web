@@ -43,7 +43,6 @@ const PrimaryCalender = ({ date, setDate, id }: PrimaryCalendarProps) => {
           />
         </PopoverContent>
       </Popover>
-      ;
     </div>
   );
 };

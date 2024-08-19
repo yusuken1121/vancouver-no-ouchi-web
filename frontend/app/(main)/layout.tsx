@@ -5,7 +5,10 @@ const MainLayout = ({
 }>) => {
   return (
     <div>
-      <h1>header</h1>
+      <div className="h-[8vh] bg-slate-800 mb-7">
+        <h1 className="text-white text-2xl">header</h1>
+      </div>
+
       <main>{children}</main>
     </div>
   );
