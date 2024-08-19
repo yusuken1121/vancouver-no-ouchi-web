@@ -47,7 +47,6 @@ const MyForm = () => {
       <Label htmlFor="title">title</Label>
       <Input
         id="title"
-        className="text-black w-48"
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
