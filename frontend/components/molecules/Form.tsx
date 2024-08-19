@@ -13,6 +13,7 @@ const MyForm = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
+  const [url, setUrl] = useState("");
   const options = ["Not started", "In progress", "Done"];
 
   const handleChange = (e: SetStateAction<string>) => {
@@ -27,6 +28,7 @@ const MyForm = () => {
         date,
         phoneNumber,
         email,
+        url,
       });
       console.log(response.data);
     } catch (error) {
@@ -73,6 +75,15 @@ const MyForm = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="email"
+      />
+
+      <Label htmlFor="url">Enter your url</Label>
+      <Input
+        id="url"
+        type="url"
+        value={url}
+        onChange={(e) => setUrl(e.target.value)}
+        placeholder="url"
       />
 
       <button className="bg-slate-500 rounded-md p-2" type="submit">

@@ -14,7 +14,7 @@ export const getTestDb = async (req: Request, res: Response) => {
 };
 
 export const postTestDb = async (req: Request, res: Response) => {
-  const { title, selectedValue, date, phoneNumber, email } = req.body;
+  const { title, selectedValue, date, phoneNumber, email, url } = req.body;
   console.log(
     "title: ",
     title,
@@ -25,7 +25,9 @@ export const postTestDb = async (req: Request, res: Response) => {
     "phoneNumber: ",
     phoneNumber,
     "email: ",
-    email
+    email,
+    "url: ",
+    url
   );
 
   try {
@@ -68,6 +70,10 @@ export const postTestDb = async (req: Request, res: Response) => {
         Email1: {
           type: "email",
           email,
+        },
+        URL1: {
+          type: "url",
+          url,
         },
       },
     });
