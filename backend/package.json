@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "setup": "npm i",
-    "server": "NODE_ENV=production tsnd --inspect -- src/index.ts"
+    "server": "NODE_ENV=development tsnd --inspect -- src/index.ts"
   },
   "keywords": [],
   "author": "",

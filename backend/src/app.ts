@@ -3,6 +3,7 @@ import { CustomError } from "./errors/custom-error";
 import cors from "cors";
 import { router as indexRouter } from "./routes/indexRouter";
 import { router as testRouter } from "./routes/testRouter";
+import { router as authRouter } from "./routes/authRouter";
 
 export const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/test", testRouter);
+app.use("/auth", authRouter);
 
 app.all("*", (req: Request, res: Response) => {
   res
