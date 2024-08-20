@@ -11,9 +11,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/", indexRouter);
-app.use("/test", testRouter);
-app.use("/auth", authRouter);
+const routers = [
+  { route: "/", controller: indexRouter },
+  { route: "/test", controller: testRouter },
+  { route: "/auth", controller: authRouter },
+];
+routers.forEach((r) => {
+  app.use(r.route, r.controller);
+});
 
 app.all("*", (req: Request, res: Response) => {
   res
