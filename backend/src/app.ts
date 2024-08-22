@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { CustomError } from "./errors/custom-error";
 import cors from "cors";
 import { router as indexRouter } from "./routes/indexRouter";
-import { router as testRouter } from "./routes/testRouter";
+import { router as testRouter } from "./routes/propertyRouter";
 import { router as authRouter } from "./routes/authRouter";
 
 export const app = express();
@@ -13,7 +13,7 @@ app.use(cors());
 
 const routers = [
   { route: "/", controller: indexRouter },
-  { route: "/test", controller: testRouter },
+  { route: "/property", controller: testRouter },
   { route: "/auth", controller: authRouter },
 ];
 routers.forEach((r) => {
