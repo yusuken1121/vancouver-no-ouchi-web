@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {
+  getProperties,
+  getProperty,
   getSchema,
-  getTestDb,
-  postTestDb,
-} from "../controllers/testController";
+} from "../controllers/propertyController";
 
 export const router = Router();
 
-router.get("/", getTestDb);
+router.get("/", getProperties);
+router.get("/:propertyId", getProperty);
 router.get("/notion-schema", getSchema);
-router.post("/", postTestDb);
