@@ -13,7 +13,7 @@ app.use(cors());
 
 const routers = [
   { route: "/", controller: indexRouter },
-  { route: "/property", controller: testRouter },
+  { route: "/properties", controller: testRouter },
   { route: "/auth", controller: authRouter },
 ];
 routers.forEach((r) => {
