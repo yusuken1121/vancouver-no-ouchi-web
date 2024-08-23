@@ -21,7 +21,7 @@ const PropertyCards = () => {
   console.log(properties);
   console.log(
     properties.map((p) => {
-      return p.properties.入居可能日.date?.end;
+      return p.properties.エリア.select?.name;
     })
   );
 
@@ -30,7 +30,15 @@ const PropertyCards = () => {
       {properties.map((p) => {
         const {
           id,
-          properties: { 物件名, ステータス, 入居可能日, 退去予定日 },
+          properties: {
+            物件名,
+            ステータス,
+            入居可能日,
+            退去予定日,
+            家賃,
+            部屋写真,
+            エリア,
+          },
         } = p;
 
         const title = 物件名.title[0]?.plain_text || null;
@@ -38,13 +46,19 @@ const PropertyCards = () => {
         const startDate =
           status === "要確認"
             ? `${退去予定日.date?.start} (入居予定日)` || null
-            : 入居可能日.date?.start || null;
+            : `${入居可能日.date?.start} (入居可能日)` || null;
+        const rent = `$${家賃.number}` || "確認中";
+        const imgUrl = 部屋写真.files[0].file.url || null;
+        const area = エリア.select?.name || null;
         return (
           <PropertyCard
             key={id}
             title={title}
             status={status}
             startDate={startDate}
+            rent={rent}
+            imgUrl={imgUrl}
+            area={area}
           />
         );
       })}
