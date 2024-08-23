@@ -26,7 +26,7 @@ const PropertyCards = () => {
   console.log(properties);
   console.log(
     properties.map((p) => {
-      return p.properties.エリア.select?.name;
+      return p.properties.タイトル.title[0].plain_text;
     })
   );
 
@@ -34,28 +34,28 @@ const PropertyCards = () => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
       {loading
         ? [...Array(30)].map((_, i) => <SkeletonPropertyCard key={i} />)
-        : properties.map((p) => {
+        : properties.map((p: NotionPage) => {
             const {
               id,
               properties: {
-                物件名,
+                タイトル,
                 ステータス,
                 入居可能日,
                 退去予定日,
                 家賃,
-                部屋写真,
+                サムネイル,
                 エリア,
               },
             } = p;
 
-            const title = 物件名.title[0]?.plain_text || null;
+            const title = タイトル.title[0]?.plain_text || null;
             const status = ステータス.status?.name || null;
             const startDate =
-              status === "要確認"
-                ? `${退去予定日.date?.start} (入居予定日)` || null
+              status === "入居中"
+                ? `${退去予定日.date?.start} (退去予定日)` || null
                 : `${入居可能日.date?.start} (入居可能日)` || null;
             const rent = `$${家賃.number}` || "確認中";
-            const imgUrl = 部屋写真.files[0].file.url || null;
+            const imgUrl = サムネイル.files[0].file.url || null;
             const area = エリア.select?.name || null;
             return (
               <PropertyCard

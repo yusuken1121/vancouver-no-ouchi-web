@@ -1,15 +1,16 @@
-// メタデータに関する型定義
+// ユーザーに関する型定義
 type NotionUser = {
   object: "user";
   id: string;
 };
 
+// 親要素に関する型定義
 type NotionParent = {
   type: "database_id";
   database_id: string;
 };
 
-// プロパティに関する型定義
+// 日付プロパティに関する型定義
 type DateProperty = {
   id: string;
   type: "date";
@@ -20,18 +21,21 @@ type DateProperty = {
   } | null;
 };
 
+// URLプロパティに関する型定義
 type URLProperty = {
   id: string;
   type: "url";
   url: string | null;
 };
 
+// チェックボックスプロパティに関する型定義
 type CheckboxProperty = {
   id: string;
   type: "checkbox";
   checkbox: boolean;
 };
 
+// 選択プロパティに関する型定義
 type SelectProperty = {
   id: string;
   type: "select";
@@ -42,12 +46,14 @@ type SelectProperty = {
   } | null;
 };
 
+// 数値プロパティに関する型定義
 type NumberProperty = {
   id: string;
   type: "number";
   number: number | null;
 };
 
+// ステータスプロパティに関する型定義
 type StatusProperty = {
   id: string;
   type: "status";
@@ -58,6 +64,7 @@ type StatusProperty = {
   } | null;
 };
 
+// リッチテキストプロパティに関する型定義
 type RichTextProperty = {
   id: string;
   type: "rich_text";
@@ -80,6 +87,7 @@ type RichTextProperty = {
   }[];
 };
 
+// ファイルプロパティに関する型定義
 type FilesProperty = {
   id: string;
   type: "files";
@@ -93,6 +101,15 @@ type FilesProperty = {
   }[];
 };
 
+// 関連プロパティに関する型定義
+type RelationProperty = {
+  id: string;
+  type: "relation";
+  relation: any[];
+  has_more: boolean;
+};
+
+// タイトルプロパティに関する型定義
 type TitleProperty = {
   id: string;
   type: "title";
@@ -115,7 +132,7 @@ type TitleProperty = {
   }[];
 };
 
-// プロパティデータに関する型
+// プロパティデータに関する型定義
 type PropertyData = {
   入居可能日: DateProperty;
   物件写真: URLProperty;
@@ -131,26 +148,28 @@ type PropertyData = {
   住居人の性別: SelectProperty;
   鍵付き: CheckboxProperty;
   エリア: SelectProperty;
+  管理会社: RelationProperty;
   住居人の国籍: SelectProperty;
   男性限定: CheckboxProperty;
+  スタッフからのコメント: RichTextProperty;
   プール: CheckboxProperty;
   退去予定日: DateProperty;
   女性限定: CheckboxProperty;
-  管理会社: SelectProperty;
   Wifi込み: CheckboxProperty;
   光熱費込み: CheckboxProperty;
-  "最寄り駅までの時間（分）": SelectProperty;
+  最寄り駅まで: SelectProperty;
   キッチンのシェア人数: SelectProperty;
+  顧客データ: RelationProperty;
   ランドリー無料: CheckboxProperty;
   ジム: CheckboxProperty;
   住所: RichTextProperty;
-  部屋写真: FilesProperty;
+  サムネイル: FilesProperty;
   ゾーン: SelectProperty;
   物件のシェア人数: SelectProperty;
-  物件名: TitleProperty;
+  タイトル: TitleProperty; // タイトルプロパティを追加
 };
 
-// Notionページ全体の型
+// Notionページ全体の型定義
 export type NotionPage = {
   object: "page";
   id: string;
@@ -163,5 +182,7 @@ export type NotionPage = {
   parent: NotionParent;
   archived: boolean;
   in_trash: boolean;
-  properties: PropertyData; // ページ内のプロパティデータを格納
+  properties: PropertyData;
+  url: string;
+  public_url: null | string;
 };
