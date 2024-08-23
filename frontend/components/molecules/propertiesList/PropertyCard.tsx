@@ -1,8 +1,14 @@
 import Tag from "@/components/atoms/propertiesList/Tag";
 import { BadgeCheck, CalendarIcon, HouseIcon, MapIcon } from "lucide-react";
-import React from "react";
+import React, { FC } from "react";
 
-const PropertyCard = () => {
+type PropertyCardProps = {
+  title: string | null;
+  status: string | null;
+  startDate: string | null;
+};
+
+const PropertyCard: FC<PropertyCardProps> = ({ title, status, startDate }) => {
   return (
     <div className="relative shadow-md border border-gray-200 rounded-lg">
       <Tag />
@@ -14,15 +20,15 @@ const PropertyCard = () => {
       <div className="flex flex-col gap-1 w-full h-full p-2 pb-5">
         <div className="flex items-center">
           <HouseIcon className="iconLabelItem" />
-          <span>物件名</span>
+          <span>{title}</span>
         </div>
         <div className="flex items-center">
           <BadgeCheck className="iconLabelItem" />
-          <span>ステータス</span>
+          <span>{status}</span>
         </div>
         <div className="flex items-center">
           <CalendarIcon className="iconLabelItem" />
-          <span>入居可能日</span>
+          <span>{startDate}</span>
         </div>
         <div className="flex items-center">
           <MapIcon className="iconLabelItem" />
