@@ -1,3 +1,5 @@
+import Header from "@/components/organisms/Header";
+
 const MainLayout = ({
   children,
 }: Readonly<{
@@ -5,11 +7,10 @@ const MainLayout = ({
 }>) => {
   return (
     <div>
-      <div className="h-[8vh] bg-slate-800 mb-7">
-        <h1 className="text-white text-2xl">header</h1>
+      <div className="flex flex-col h-screen">
+        <Header />
+        <main className="flex-1 overflow-y-auto p-4 z-0">{children}</main>
       </div>
-
-      <main>{children}</main>
     </div>
   );
 };
