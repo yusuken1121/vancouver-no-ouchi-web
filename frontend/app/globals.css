@@ -59,6 +59,12 @@
   }
 }
 
+@layer components {
+  .iconLabelItem {
+    @apply mr-2 h-4 w-4;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

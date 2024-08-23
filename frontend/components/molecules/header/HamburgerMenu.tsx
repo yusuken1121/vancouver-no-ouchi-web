@@ -29,7 +29,7 @@ export function HamburgerMenu() {
   return (
     <div className="flex items-center justify-center">
       <button className="" onClick={toggleMenu}>
-        <HamburgerMenuIcon className="mr-2 h-4 w-4" />
+        <HamburgerMenuIcon className="iconLabelItem" />
       </button>
 
       {isOpen && (
@@ -40,39 +40,39 @@ export function HamburgerMenu() {
             <CommandGroup heading="サービス案内">
               <CommandItem className="cursor-pointer">
                 <Link href="/properties" className="flex items-center w-full">
-                  <HouseIcon className="mr-2 h-4 w-4" />
+                  <HouseIcon className="iconLabelItem" />
                   <span>部屋探し</span>
                 </Link>
               </CommandItem>
               <CommandItem className="cursor-pointer">
                 <Link href="/blogs" className="flex items-center w-full">
-                  <Pencil1Icon className="mr-2 h-4 w-4" />
+                  <Pencil1Icon className="iconLabelItem" />
                   <span>ブログ</span>
                 </Link>
               </CommandItem>
               {/* <CommandItem>
-                <FaceIcon className="mr-2 h-4 w-4" />
+                <FaceIcon className="iconLabelItem" />
                 <span>Search Emoji</span>
               </CommandItem> */}
               {/* <CommandItem disabled>
-                <RocketIcon className="mr-2 h-4 w-4" />
+                <RocketIcon className="iconLabelItem" />
                 <span>Launch</span>
               </CommandItem> */}
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="お問い合わせ">
               <CommandItem>
-                <PersonIcon className="mr-2 h-4 w-4" />
+                <PersonIcon className="iconLabelItem" />
                 <span>Profile</span>
                 <CommandShortcut>⌘P</CommandShortcut>
               </CommandItem>
               <CommandItem>
-                <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
+                <EnvelopeClosedIcon className="iconLabelItem" />
                 <span>Mail</span>
                 <CommandShortcut>⌘B</CommandShortcut>
               </CommandItem>
               <CommandItem>
-                <GearIcon className="mr-2 h-4 w-4" />
+                <GearIcon className="iconLabelItem" />
                 <span>Settings</span>
                 <CommandShortcut>⌘S</CommandShortcut>
               </CommandItem>
