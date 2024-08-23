@@ -9,7 +9,9 @@ const MainLayout = ({
     <div>
       <div className="flex flex-col h-screen">
         <Header />
-        <main className="flex-1 overflow-y-auto p-4 z-0">{children}</main>
+        <main className="py-2 base-px flex-1 overflow-y-auto z-0">
+          {children}
+        </main>
       </div>
     </div>
   );

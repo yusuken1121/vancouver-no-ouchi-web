@@ -5,7 +5,7 @@ import React from "react";
 const Home = () => {
   return (
     <main className="w-full flex items-center justify-center bg-slate-100">
-      <MyForm />
+      {/* <MyForm /> */}
     </main>
   );
 };

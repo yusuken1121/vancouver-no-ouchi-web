@@ -18,7 +18,7 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import { useState } from "react";
-import { HouseIcon } from "lucide-react";
+import { HouseIcon, X } from "lucide-react";
 import Link from "next/link";
 
 export function HamburgerMenu() {
@@ -29,7 +29,11 @@ export function HamburgerMenu() {
   return (
     <div className="flex items-center justify-center">
       <button className="" onClick={toggleMenu}>
-        <HamburgerMenuIcon className="iconLabelItem" />
+        {isOpen ? (
+          <X className="iconLabelItem" />
+        ) : (
+          <HamburgerMenuIcon className="iconLabelItem" />
+        )}
       </button>
 
       {isOpen && (

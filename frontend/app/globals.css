@@ -63,6 +63,9 @@
   .iconLabelItem {
     @apply mr-2 h-4 w-4;
   }
+  .base-px {
+    @apply px-2 md:px-12 lg:px-20;
+  }
 }
 
 @layer base {
