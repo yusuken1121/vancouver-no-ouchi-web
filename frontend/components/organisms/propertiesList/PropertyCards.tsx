@@ -50,10 +50,17 @@ const PropertyCards = () => {
 
             const title = タイトル.title[0]?.plain_text || null;
             const status = ステータス.status?.name || null;
-            const startDate =
-              status === "入居中"
-                ? `${退去予定日.date?.start} (退去予定日)` || null
-                : `${入居可能日.date?.start} (入居可能日)` || null;
+            const startDate = (() => {
+              switch (status) {
+                case "入居中":
+                  return `${退去予定日.date?.start} (退去予定日)` || null;
+                case "成約済み":
+                  return `${退去予定日.date?.start} (退去予定日)` || null;
+                default:
+                  return `${入居可能日.date?.start} (入居可能日)` || null;
+              }
+            })();
+
             const rent = `$${家賃.number}` || "確認中";
             const imgUrl = サムネイル.files[0].file.url || null;
             const area = エリア.select?.name || null;
