@@ -1,12 +1,12 @@
-import PropertyCards from "@/components/organisms/propertiesList/PropertyCards";
+import PropertiesList from "@/components/template/propertiesList/PropertiesList";
 import React from "react";
 
-const PropertiesList = () => {
+const Page = () => {
   return (
     <div className="">
-      <PropertyCards />
+      <PropertiesList />
     </div>
   );
 };
 
-export default PropertiesList;
+export default Page;

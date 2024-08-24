@@ -1,34 +1,11 @@
 "use client";
 import PropertyCard from "@/components/molecules/propertiesList/PropertyCard";
 import { SkeletonPropertyCard } from "@/components/molecules/propertiesList/SkeletonCard";
-import apiClient from "@/config/apiClient";
+import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
 import { NotionPage } from "@/types/notionTypes";
-import React, { useEffect, useState } from "react";
 
 const PropertyCards = () => {
-  const [properties, setProperties] = useState<NotionPage[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const response = await apiClient.get("/properties");
-        const data = response.data;
-        setProperties(data);
-      } catch (error) {
-        console.error("Failed to fetch the properties: ", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProperties();
-  }, []);
-  console.log(properties);
-  console.log(
-    properties.map((p) => {
-      return p.properties.タイトル.title[0].plain_text;
-    })
-  );
+  const { properties, loading, error } = useFetchPropertyData();
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
