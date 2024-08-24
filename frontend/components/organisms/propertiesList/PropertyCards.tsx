@@ -45,6 +45,7 @@ const PropertyCards = () => {
                 家賃,
                 サムネイル,
                 エリア,
+                ゾーン,
               },
             } = p;
 
@@ -60,6 +61,7 @@ const PropertyCards = () => {
                   return `${入居可能日.date?.start} (入居可能日)` || null;
               }
             })();
+            const zone = ゾーン.select?.name || null;
 
             const rent = 家賃.number || "確認中";
             const imgUrl = サムネイル.files[0].file.url || null;
@@ -73,6 +75,7 @@ const PropertyCards = () => {
                 rent={rent}
                 imgUrl={imgUrl}
                 area={area}
+                zone={zone}
               />
             );
           })}

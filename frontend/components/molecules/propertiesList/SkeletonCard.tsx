@@ -27,6 +27,10 @@ export const SkeletonPropertyCard = () => {
           {/* <MapIcon className="iconLabelItem" /> */}
           <Skeleton className="w-28 h-4 rounded" />
         </div>
+        <div className="flex items-center">
+          {/* <MapIcon className="iconLabelItem" /> */}
+          <Skeleton className="w-28 h-4 rounded" />
+        </div>
       </div>
     </div>
   );

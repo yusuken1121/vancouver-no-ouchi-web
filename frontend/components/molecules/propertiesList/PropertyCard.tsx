@@ -1,5 +1,12 @@
 import Tag from "@/components/atoms/propertiesList/Tag";
-import { BadgeCheck, CalendarIcon, HouseIcon, MapIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  BadgeCheck,
+  CalendarIcon,
+  HouseIcon,
+  MapIcon,
+  TrainIcon,
+} from "lucide-react";
 import Image from "next/image";
 import React, { FC } from "react";
 
@@ -10,6 +17,7 @@ type PropertyCardProps = {
   rent: number | string;
   imgUrl: string | null;
   area: string | null;
+  zone: string | null;
 };
 
 const PropertyCard: FC<PropertyCardProps> = ({
@@ -19,9 +27,10 @@ const PropertyCard: FC<PropertyCardProps> = ({
   rent,
   imgUrl,
   area,
+  zone,
 }) => {
   return (
-    <div className="relative shadow-md border border-gray-200 rounded-lg">
+    <div className="relative shadow-md border border-gray-200 rounded-lg sm:hover:scale-105">
       {/* image */}
       <div className="z-0 min-w-full h-64 sm:h-48 xl:h-56 bg-slate-300 relative">
         {imgUrl ? (
@@ -47,7 +56,18 @@ const PropertyCard: FC<PropertyCardProps> = ({
         </div>
         <div className="flex items-center">
           <BadgeCheck className="iconLabelItem" />
-          <span>{status}</span>
+          <span
+            className={cn(
+              "text-white bg-slate-400  rounded-lg px-2 font-semibold",
+              status === "即入居可能" && "bg-red-400",
+              status === "入居者募集中" && "bg-orange-400",
+              status === "入居中" && "bg-yellow-400",
+              status === "成約済み" && "bg-slate-400",
+              status === "休止中" && "bg-slate-400"
+            )}
+          >
+            {status}
+          </span>
         </div>
         <div className="flex items-center">
           <CalendarIcon className="iconLabelItem" />
@@ -56,6 +76,10 @@ const PropertyCard: FC<PropertyCardProps> = ({
         <div className="flex items-center">
           <MapIcon className="iconLabelItem" />
           <span>{area}</span>
+        </div>
+        <div className="flex items-center">
+          <TrainIcon className="iconLabelItem" />
+          <span>{zone}</span>
         </div>
       </div>
     </div>
