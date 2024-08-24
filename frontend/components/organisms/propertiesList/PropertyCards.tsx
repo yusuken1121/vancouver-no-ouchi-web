@@ -61,7 +61,7 @@ const PropertyCards = () => {
               }
             })();
 
-            const rent = `$${家賃.number}` || "確認中";
+            const rent = 家賃.number || "確認中";
             const imgUrl = サムネイル.files[0].file.url || null;
             const area = エリア.select?.name || null;
             return (
