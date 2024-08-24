@@ -4,14 +4,17 @@ import { SkeletonPropertyCard } from "@/components/molecules/propertiesList/Skel
 import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
 import { NotionPage } from "@/types/notionTypes";
 
-const PropertyCards = () => {
+const PropertyCards = ({ currentPage }: { currentPage: number }) => {
   const { properties, loading, error } = useFetchPropertyData();
-
+  const selectedPageProperties = properties.slice(
+    (currentPage - 1) * 20,
+    (currentPage - 1) * 20 + 20
+  );
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
       {loading
         ? [...Array(30)].map((_, i) => <SkeletonPropertyCard key={i} />)
-        : properties.map((p: NotionPage) => {
+        : selectedPageProperties.map((p: NotionPage) => {
             const {
               id,
               properties: {

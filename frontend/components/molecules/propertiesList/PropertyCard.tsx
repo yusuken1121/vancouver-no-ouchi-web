@@ -49,7 +49,7 @@ const PropertyCard: FC<PropertyCardProps> = ({
       </div>
       <Tag rent={rent} />
       {/* detail */}
-      <div className="flex flex-col gap-1 w-full h-full p-2 pb-5">
+      <div className="flex flex-col gap-1 w-full p-2 pb-5">
         <div className="flex items-center">
           <HouseIcon className="iconLabelItem" />
           <span>{title}</span>
