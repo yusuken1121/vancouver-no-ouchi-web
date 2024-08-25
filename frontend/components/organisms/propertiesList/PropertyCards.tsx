@@ -6,6 +6,14 @@ import { NotionPage } from "@/types/notionTypes";
 
 const PropertyCards = () => {
   const { properties, loading, error } = useFetchPropertyData();
+  if (error) {
+    return (
+      <div className="text-center text-red-500">
+        データの取得中にエラーが発生しました。もう一度お試しください。
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
       {loading
@@ -40,7 +48,7 @@ const PropertyCards = () => {
             const zone = ゾーン.select?.name || null;
 
             const rent = 家賃.number || "確認中";
-            const imgUrl = サムネイル.files[0].file.url || null;
+            const imgUrl = サムネイル.files[0]?.file.url || null;
             const area = エリア.select?.name || null;
             return (
               <PropertyCard
