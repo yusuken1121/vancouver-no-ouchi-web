@@ -35,6 +35,37 @@ export const getProperty = async (req: Request, res: Response) => {
   }
 };
 
+export const getPropertyPage = async (req: Request, res: Response) => {
+  const { pageNumber } = req.params;
+  const pageSize = 20;
+  try {
+    let hasMore = true;
+    let nextCursor: string | null = null;
+    let results: any[] = [];
+    for (let i = 1; i < Number(pageNumber); i++) {
+      if (!hasMore) break;
+      const response = await notion.databases.query({
+        database_id: NOTION_DATABASE_ID!,
+        page_size: pageSize,
+        start_cursor: nextCursor || undefined,
+      });
+      nextCursor = response.next_cursor;
+      hasMore = response.has_more;
+    }
+    if (hasMore) {
+      const response = await notion.databases.query({
+        database_id: NOTION_DATABASE_ID!,
+        page_size: pageSize,
+        start_cursor: nextCursor || undefined,
+      });
+      results = response.results;
+    }
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const getSchema = async (req: Request, res: Response) => {
   try {
     const notionSchema = await getNotionSchema();
