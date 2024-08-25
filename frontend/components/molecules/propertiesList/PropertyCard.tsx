@@ -37,9 +37,11 @@ const PropertyCard: FC<PropertyCardProps> = ({
           <Image
             src={imgUrl}
             alt={title ?? "物件画像"}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
             className="rounded-t-lg"
+            loading="lazy"
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500">

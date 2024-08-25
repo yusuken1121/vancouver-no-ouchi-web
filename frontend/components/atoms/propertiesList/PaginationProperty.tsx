@@ -25,7 +25,7 @@ export const PaginationProperty: FC<PaginationPropertyProps> = ({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href="#"
+            href=""
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             isActive={currentPage === 1}
           />
@@ -33,7 +33,7 @@ export const PaginationProperty: FC<PaginationPropertyProps> = ({
         {currentPage > 1 && (
           <PaginationItem>
             <PaginationLink
-              href="#"
+              href=""
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             >
               {currentPage - 1}
@@ -50,7 +50,7 @@ export const PaginationProperty: FC<PaginationPropertyProps> = ({
         {currentPage < totalPages && (
           <PaginationItem>
             <PaginationLink
-              href="#"
+              href=""
               onClick={() =>
                 setCurrentPage((prev) => Math.min(prev + 1, totalPages))
               }
