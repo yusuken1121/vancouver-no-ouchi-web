@@ -8,9 +8,11 @@ import {
   TrainIcon,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { FC } from "react";
 
 type PropertyCardProps = {
+  id: string | null;
   title: string | null;
   status: string | null;
   startDate: string | null;
@@ -21,6 +23,7 @@ type PropertyCardProps = {
 };
 
 const PropertyCard: FC<PropertyCardProps> = ({
+  id,
   title,
   status,
   startDate,
@@ -30,7 +33,10 @@ const PropertyCard: FC<PropertyCardProps> = ({
   zone,
 }) => {
   return (
-    <div className="relative shadow-md border border-gray-200 rounded-lg sm:hover:scale-105">
+    <Link
+      href={`/properties/property/${id}`}
+      className="relative shadow-md border border-gray-200 rounded-lg sm:hover:scale-105"
+    >
       {/* image */}
       <div className="z-0 min-w-full h-64 sm:h-48 xl:h-56 bg-slate-300 relative">
         {imgUrl ? (
@@ -84,7 +90,7 @@ const PropertyCard: FC<PropertyCardProps> = ({
           <span>{zone}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

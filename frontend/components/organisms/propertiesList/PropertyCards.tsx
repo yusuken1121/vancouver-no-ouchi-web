@@ -45,6 +45,7 @@ const PropertyCards = () => {
             return (
               <PropertyCard
                 key={id}
+                id={id}
                 title={title}
                 status={status}
                 startDate={startDate}
