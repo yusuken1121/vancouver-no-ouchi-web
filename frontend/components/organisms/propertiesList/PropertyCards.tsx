@@ -4,40 +4,19 @@ import { SkeletonPropertyCard } from "@/components/molecules/propertiesList/Skel
 import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
 import { NotionPage } from "@/types/notionTypes";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-const PropertyCards = () => {
-  const { properties, loading, error } = useFetchPropertyData();
-  const [filteredProperties, setFilteredProperties] =
-    useState<NotionPage[]>(properties);
-  const searchParams = useSearchParams();
+type PropertyCardsProps = {
+  error: string | null;
+  loading: boolean;
+  filteredProperties: NotionPage[];
+};
 
-  // Query
-  const minPrice = searchParams.get("minPrice");
-  const maxPrice = searchParams.get("maxPrice");
-  const zone = searchParams.get("zone");
-  const area = searchParams.get("area");
-
-  useEffect(() => {
-    if (!loading) {
-      let filteredData = properties.filter((p) => {
-        const matchesZone = zone
-          ? p.properties.ゾーン.select?.name === `Zone${zone}`
-          : true;
-        const rent = p.properties.家賃.number || 0;
-        const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
-        const matchesMaxPrice = maxPrice ? rent <= parseFloat(maxPrice) : true;
-        const matchesArea = area
-          ? p.properties.エリア.select?.name === area
-          : true;
-        return matchesZone && matchedMinPrice && matchesMaxPrice && matchesArea;
-      });
-      setFilteredProperties(filteredData);
-    } else {
-      setFilteredProperties(properties);
-    }
-  }, [properties, zone, minPrice, maxPrice]);
-
+const PropertyCards: FC<PropertyCardsProps> = ({
+  loading,
+  error,
+  filteredProperties,
+}) => {
   if (error) {
     return (
       <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-red-500 text-xl">
