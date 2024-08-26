@@ -16,7 +16,7 @@ const PropertyCards = () => {
   const minPrice = searchParams.get("minPrice");
   const maxPrice = searchParams.get("maxPrice");
   const zone = searchParams.get("zone");
-  console.log(minPrice, maxPrice, zone);
+  const area = searchParams.get("area");
 
   useEffect(() => {
     if (!loading) {
@@ -27,19 +27,29 @@ const PropertyCards = () => {
         const rent = p.properties.家賃.number || 0;
         const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
         const matchesMaxPrice = maxPrice ? rent <= parseFloat(maxPrice) : true;
-        return matchesZone && matchedMinPrice && matchesMaxPrice;
+        const matchesArea = area
+          ? p.properties.エリア.select?.name === area
+          : true;
+        return matchesZone && matchedMinPrice && matchesMaxPrice && matchesArea;
       });
       setFilteredProperties(filteredData);
     } else {
       setFilteredProperties(properties);
     }
   }, [properties, zone, minPrice, maxPrice]);
-  console.log(filteredProperties);
 
   if (error) {
     return (
-      <div className="text-center text-red-500">
+      <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-red-500 text-xl">
         データの取得中にエラーが発生しました。もう一度お試しください。
+      </div>
+    );
+  }
+
+  if (!loading && filteredProperties.length === 0) {
+    return (
+      <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
+        条件に一致する物件が見つかりませんでした。
       </div>
     );
   }
