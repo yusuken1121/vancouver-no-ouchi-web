@@ -29,7 +29,7 @@ export function PrimarySelect({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectLabel>{labelName}</SelectLabel>
+          {/* <SelectLabel>{labelName}</SelectLabel> */}
           {selectItems.map((item, index) => {
             return (
               <SelectItem value={item} key={index}>

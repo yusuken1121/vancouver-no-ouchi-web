@@ -1,4 +1,5 @@
 "use client";
+import { PrimarySelect } from "@/components/atoms/PrimarySelect";
 import { PaginationProperty } from "@/components/atoms/propertiesList/PaginationProperty";
 import PropertyCards from "@/components/organisms/propertiesList/PropertyCards";
 import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
@@ -44,6 +45,12 @@ const PropertiesList = () => {
         <p>
           {properties.length || 0} 件中 {filteredProperties.length || 0} 件表示
         </p>
+        <PrimarySelect
+          selectItems={["金額：高い順", "金額：低い順"]}
+          handleChange={() => {}}
+          labelName="表示順"
+          placeholder="表示順"
+        />
       </div>
       <div className="flex flex-col gap-8 mb-2">
         <PropertyCards
