@@ -12,12 +12,44 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { areaOptions, zoneOptions } from "@/utlis/commonOptions";
+import { createQueryString } from "@/utlis/queryStringHelper";
 import { Select } from "@radix-ui/react-select";
 import { LucideListFilter } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 export function FilterDialog() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [zone, setZone] = useState("");
+  const [area, setArea] = useState("");
+
+  const handleMinPriceChange = (e) => {
+    const newValue = e.target.value;
+    setMinPrice(newValue);
+  };
+  const handleMaxPriceChange = (e) => {
+    const newValue = e.target.value;
+    setMaxPrice(newValue);
+  };
+
+  const handleSubmit = () => {
+    router.push(
+      pathname + "?" + createQueryString(searchParams, "minPrice", minPrice)
+    );
+    router.push(
+      pathname + "?" + createQueryString(searchParams, "maxPrice", maxPrice)
+    );
+    setOpen(false);
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">
           <LucideListFilter className="iconLabelItem" />
@@ -39,14 +71,16 @@ export function FilterDialog() {
             <div className="flex items-center gap-2">
               <Input
                 id="minPrice"
-                value="" // e渡す
+                value={minPrice}
+                onChange={handleMinPriceChange}
                 placeholder="最小金額"
                 className="min-w-24"
               />
               <p> 〜 </p>
               <Input
                 id="maxPrice"
-                value=""
+                value={maxPrice}
+                onChange={handleMaxPriceChange}
                 placeholder="最高金額"
                 className="min-w-24"
               />
@@ -58,7 +92,9 @@ export function FilterDialog() {
             </Label>
             <PrimarySelect
               placeholder="選択してください"
-              handleChange={() => {}}
+              handleChange={(value) => {
+                setZone(value);
+              }}
               selectItems={zoneOptions}
               labelName=""
             />
@@ -69,14 +105,18 @@ export function FilterDialog() {
             </Label>
             <PrimarySelect
               placeholder="選択してください"
-              handleChange={() => {}}
+              handleChange={(value) => {
+                setArea(value);
+              }}
               selectItems={areaOptions}
               labelName=""
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">保存</Button>
+          <Button type="button" onClick={handleSubmit}>
+            保存
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

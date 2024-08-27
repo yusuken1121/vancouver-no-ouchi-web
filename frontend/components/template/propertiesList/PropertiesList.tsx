@@ -5,6 +5,7 @@ import PropertyCards from "@/components/organisms/propertiesList/PropertyCards";
 import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
 import { NotionPage } from "@/types/notionTypes";
 import { sortOptions } from "@/utlis/commonOptions";
+import { createQueryString } from "@/utlis/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { SetStateAction, useCallback, useEffect, useState } from "react";
@@ -12,23 +13,13 @@ import { SetStateAction, useCallback, useEffect, useState } from "react";
 const PropertiesList = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { properties, loading, error } = useFetchPropertyData();
   const [filteredProperties, setFilteredProperties] =
     useState<NotionPage[]>(properties);
-  const searchParams = useSearchParams();
 
   // Sort
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams]
-  );
 
   // Query
   const sort = searchParams.get("sort");
@@ -91,10 +82,14 @@ const PropertiesList = () => {
   const handleChangeSort = (e: SetStateAction<string>) => {
     switch (e) {
       case sortOptions[0]:
-        router.push(pathname + "?" + createQueryString("sort", "price-asc"));
+        router.push(
+          pathname + "?" + createQueryString(searchParams, "sort", "price-asc")
+        );
         break;
       case sortOptions[1]:
-        router.push(pathname + "?" + createQueryString("sort", "price-dec"));
+        router.push(
+          pathname + "?" + createQueryString(searchParams, "sort", "price-dec")
+        );
         break;
       default:
         router.push(pathname);
