@@ -20,6 +20,7 @@ import {
 import { useState } from "react";
 import { HouseIcon, X } from "lucide-react";
 import Link from "next/link";
+import { headerOptions } from "@/utlis/headerOptions";
 
 export function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,18 +43,18 @@ export function HamburgerMenu() {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="サービス案内">
-              <CommandItem className="cursor-pointer">
-                <Link href="/properties" className="flex items-center w-full">
-                  <HouseIcon className="iconLabelItem" />
-                  <span>部屋探し</span>
-                </Link>
-              </CommandItem>
-              <CommandItem className="cursor-pointer">
-                <Link href="/blogs" className="flex items-center w-full">
-                  <Pencil1Icon className="iconLabelItem" />
-                  <span>ブログ</span>
-                </Link>
-              </CommandItem>
+              {headerOptions
+                .filter((h) => h.category === "サービス案内")
+                .map((h) => {
+                  return (
+                    <CommandItem className="cursor-pointer">
+                      <Link href={h.href} className="flex items-center w-full">
+                        <h.icon className="iconLabelItem" />
+                        <span>{h.name}</span>
+                      </Link>
+                    </CommandItem>
+                  );
+                })}
               {/* <CommandItem>
                 <FaceIcon className="iconLabelItem" />
                 <span>Search Emoji</span>
@@ -65,21 +66,18 @@ export function HamburgerMenu() {
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="お問い合わせ">
-              <CommandItem>
-                <PersonIcon className="iconLabelItem" />
-                <span>Profile</span>
-                <CommandShortcut>⌘P</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <EnvelopeClosedIcon className="iconLabelItem" />
-                <span>Mail</span>
-                <CommandShortcut>⌘B</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <GearIcon className="iconLabelItem" />
-                <span>Settings</span>
-                <CommandShortcut>⌘S</CommandShortcut>
-              </CommandItem>
+              {headerOptions
+                .filter((h) => h.category === "お問い合わせ")
+                .map((h) => {
+                  return (
+                    <CommandItem className="cursor-pointer">
+                      <Link href={h.href} className="flex items-center w-full">
+                        <h.icon className="iconLabelItem" />
+                        <span>{h.name}</span>
+                      </Link>
+                    </CommandItem>
+                  );
+                })}
             </CommandGroup>
           </CommandList>
         </Command>
