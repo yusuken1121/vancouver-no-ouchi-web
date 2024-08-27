@@ -1,8 +1,10 @@
 "use client";
 import { PrimarySelect } from "@/components/atoms/PrimarySelect";
+import { FilterDialog } from "@/components/organisms/propertiesList/FilterDialog";
 import PropertyCards from "@/components/organisms/propertiesList/PropertyCards";
 import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
 import { NotionPage } from "@/types/notionTypes";
+import { sortOptions } from "@/utlis/commonOptions";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { SetStateAction, useCallback, useEffect, useState } from "react";
@@ -17,7 +19,6 @@ const PropertiesList = () => {
 
   // Sort
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const sortOptions = ["金額：高い順", "金額：低い順"];
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -98,8 +99,6 @@ const PropertiesList = () => {
       default:
         router.push(pathname);
     }
-
-    // setSelectedOption(e);
   };
 
   return (
@@ -108,12 +107,15 @@ const PropertiesList = () => {
         <p>
           {properties.length || 0} 件中 {filteredProperties.length || 0} 件表示
         </p>
-        <PrimarySelect
-          selectItems={sortOptions}
-          handleChange={handleChangeSort}
-          labelName="表示順"
-          placeholder="表示順"
-        />
+        <div className="flex flex-col sm:flex-row gap-2 ">
+          <PrimarySelect
+            selectItems={sortOptions}
+            handleChange={handleChangeSort}
+            labelName="表示順"
+            placeholder="表示順"
+          />
+          <FilterDialog />
+        </div>
       </div>
       <div className="flex flex-col gap-8 mb-2">
         <PropertyCards

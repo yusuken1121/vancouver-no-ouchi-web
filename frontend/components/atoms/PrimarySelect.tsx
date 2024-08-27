@@ -24,7 +24,7 @@ export function PrimarySelect({
 }: PrimarySelectType) {
   return (
     <Select onValueChange={handleChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-[200px]">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
