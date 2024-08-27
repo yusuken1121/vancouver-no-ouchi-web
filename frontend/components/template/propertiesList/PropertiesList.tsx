@@ -1,5 +1,5 @@
 "use client";
-import { PrimarySelect } from "@/components/atoms/PrimarySelect";
+import { PrimarySelect } from "@/components/atoms/common/PrimarySelect";
 import { FilterDialog } from "@/components/organisms/propertiesList/FilterDialog";
 import PropertyCards from "@/components/organisms/propertiesList/PropertyCards";
 import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";

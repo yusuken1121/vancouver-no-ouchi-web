@@ -1,4 +1,4 @@
-import { PrimarySelect } from "@/components/atoms/PrimarySelect";
+import { PrimarySelect } from "@/components/atoms/common/PrimarySelect";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

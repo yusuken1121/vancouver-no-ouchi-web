@@ -3,8 +3,8 @@
 import apiClient from "@/config/apiClient";
 import { SetStateAction, useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { PrimarySelect } from "../atoms/PrimarySelect";
-import PrimaryCalender from "../atoms/PrimaryCalender";
+import { PrimarySelect } from "../atoms/common/PrimarySelect";
+import PrimaryCalender from "../atoms/common/PrimaryCalender";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 
