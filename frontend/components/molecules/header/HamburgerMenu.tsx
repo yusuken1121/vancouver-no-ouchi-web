@@ -48,7 +48,11 @@ export function HamburgerMenu() {
                 .map((h) => {
                   return (
                     <CommandItem className="cursor-pointer">
-                      <Link href={h.href} className="flex items-center w-full">
+                      <Link
+                        key={h.id}
+                        href={h.href}
+                        className="flex items-center w-full"
+                      >
                         <h.icon className="iconLabelItem" />
                         <span>{h.name}</span>
                       </Link>

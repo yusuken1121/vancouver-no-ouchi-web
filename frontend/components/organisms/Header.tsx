@@ -1,12 +1,18 @@
+import HomeNav from "../atoms/header/HomeNav";
 import { HamburgerMenu } from "../molecules/header/HamburgerMenu";
+import NavMenu from "../molecules/header/NavMenu";
 
 const Header = () => {
   return (
     <header className="flex h-14 justify-center shadow-md">
       <div className="base-px relative z-50 w-screen flex items-center justify-between">
         <div>Logo</div>
-        <div>middle content</div>
-        <HamburgerMenu />
+        <div className="hidden md:block">
+          <NavMenu />
+        </div>
+        <div className="block md:hidden">
+          <HamburgerMenu />
+        </div>
       </div>
     </header>
   );
