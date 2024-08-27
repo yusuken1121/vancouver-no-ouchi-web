@@ -46,7 +46,7 @@ const PropertiesList = () => {
     if (!loading) {
       let filteredData = properties.filter((p) => {
         const matchesZone = zone
-          ? p.properties.ゾーン.select?.name === `Zone${zone}`
+          ? p.properties.ゾーン.select?.name === `${zone}`
           : true;
         const rent = p.properties.家賃.number || 0;
         const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
@@ -77,7 +77,7 @@ const PropertiesList = () => {
     } else {
       setFilteredProperties(properties);
     }
-  }, [properties, selectedOption, zone, minPrice, maxPrice]);
+  }, [properties, selectedOption, zone, area, minPrice, maxPrice]);
 
   const handleChangeSort = (e: SetStateAction<string>) => {
     switch (e) {

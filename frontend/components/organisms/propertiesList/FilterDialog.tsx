@@ -29,22 +29,32 @@ export function FilterDialog() {
   const [zone, setZone] = useState("");
   const [area, setArea] = useState("");
 
-  const handleMinPriceChange = (e) => {
+  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setMinPrice(newValue);
   };
-  const handleMaxPriceChange = (e) => {
+  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setMaxPrice(newValue);
   };
 
   const handleSubmit = () => {
-    router.push(
-      pathname + "?" + createQueryString(searchParams, "minPrice", minPrice)
-    );
-    router.push(
-      pathname + "?" + createQueryString(searchParams, "maxPrice", maxPrice)
-    );
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
+    if (minPrice) {
+      newSearchParams.set("minPrice", minPrice);
+    }
+    if (maxPrice) {
+      newSearchParams.set("maxPrice", maxPrice);
+    }
+    if (zone) {
+      newSearchParams.set("zone", zone);
+    }
+    if (area) {
+      newSearchParams.set("area", area);
+    }
+
+    router.push(pathname + "?" + newSearchParams.toString());
     setOpen(false);
   };
 
