@@ -68,7 +68,7 @@
   }
 
   .propertyPageImage {
-    @apply w-full max-w-[1000px] h-[300px] sm:h-[450px] xl:h-[480px] bg-slate-300 relative mx-auto;
+    @apply w-full max-w-[1200px] h-[300px] sm:h-[450px] xl:h-[480px] bg-slate-300 relative mx-auto;
   }
 }
 
