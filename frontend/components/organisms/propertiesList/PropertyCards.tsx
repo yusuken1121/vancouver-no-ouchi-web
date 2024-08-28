@@ -1,10 +1,8 @@
-"use client";
 import PropertyCard from "@/components/molecules/propertiesList/PropertyCard";
 import { SkeletonPropertyCard } from "@/components/molecules/propertiesList/SkeletonCard";
-import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
+import { FC } from "react";
 import { NotionPage } from "@/types/notionTypes";
-import { useSearchParams } from "next/navigation";
-import { FC, useEffect, useState } from "react";
+import { getPropertyValue } from "@/utlis/getPropertyValue";
 
 type PropertyCardsProps = {
   error: string | null;
@@ -52,23 +50,28 @@ const PropertyCards: FC<PropertyCardsProps> = ({
               },
             } = p;
 
-            const title = タイトル.title[0]?.plain_text || null;
-            const status = ステータス.status?.name || null;
+            const title = getPropertyValue(タイトル, "title");
+            const status = getPropertyValue(ステータス, "status");
             const startDate = (() => {
               switch (status) {
                 case "入居中":
-                  return `${退去予定日.date?.start} (退去予定日)` || null;
                 case "成約済み":
-                  return `${退去予定日.date?.start} (退去予定日)` || null;
+                  return (
+                    `${getPropertyValue(退去予定日, "date")} (退去予定日)` ||
+                    null
+                  );
                 default:
-                  return `${入居可能日.date?.start} (入居可能日)` || null;
+                  return (
+                    `${getPropertyValue(入居可能日, "date")} (入居可能日)` ||
+                    null
+                  );
               }
             })();
-            const zone = ゾーン.select?.name || null;
+            const zone = getPropertyValue(ゾーン, "select");
+            const rent = getPropertyValue(家賃, "number");
+            const imgUrl = getPropertyValue(サムネイル, "file");
+            const area = getPropertyValue(エリア, "select");
 
-            const rent = 家賃.number || "確認中";
-            const imgUrl = サムネイル.files[0]?.file.url || null;
-            const area = エリア.select?.name || null;
             return (
               <PropertyCard
                 key={id}
