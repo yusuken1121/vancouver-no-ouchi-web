@@ -17,13 +17,21 @@ const PropertyPage = () => {
         .map((p) => {
           const {
             id,
-            properties: { サムネイル, タイトル },
+            properties: { サムネイル, タイトル, 物件写真 },
           } = p;
 
           const imgUrl = getPropertyValue(サムネイル, "file");
           const title = getPropertyValue(タイトル, "title");
+          const imgLink = getPropertyValue(物件写真, "url");
 
-          return <PropertyImage key={id} imgUrl={imgUrl} title={title} />;
+          return (
+            <PropertyImage
+              key={id}
+              imgUrl={imgUrl}
+              title={title}
+              imgLink={imgLink}
+            />
+          );
         })}
     </div>
   );

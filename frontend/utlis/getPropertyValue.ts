@@ -12,6 +12,8 @@ export const getPropertyValue = (property: any, type: string): any => {
       return property?.select?.name || null;
     case "file":
       return property?.files?.[0]?.file?.url || null;
+    case "url":
+      return property?.url;
     default:
       return null;
   }

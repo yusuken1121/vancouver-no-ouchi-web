@@ -66,6 +66,10 @@
   .base-px {
     @apply px-2 md:px-12 lg:px-20;
   }
+
+  .propertyPageImage {
+    @apply w-full max-w-[1000px] h-[300px] sm:h-[450px] xl:h-[480px] bg-slate-300 relative mx-auto;
+  }
 }
 
 @layer base {
