@@ -1,3 +1,4 @@
+"use client";
 import PropertyCard from "@/components/molecules/propertiesList/PropertyCard";
 import { SkeletonPropertyCard } from "@/components/molecules/propertiesList/SkeletonCard";
 import { FC } from "react";

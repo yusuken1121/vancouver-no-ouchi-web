@@ -1,3 +1,4 @@
+"use client";
 import apiClient from "@/config/apiClient";
 import { NotionPage } from "@/types/notionTypes";
 import { useEffect, useState } from "react";
