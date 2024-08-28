@@ -9,11 +9,13 @@ export const sortOptions: optionType[] = [
 ];
 
 export const zoneOptions: optionType[] = [
+  { label: "未選択", value: "未選択" },
   { label: "ゾーン1", value: "Zone1" },
   { label: "ゾーン2", value: "Zone2" },
   { label: "ゾーン3", value: "Zone3" },
 ];
 export const areaOptions: optionType[] = [
+  { label: "未選択", value: "未選択" },
   { label: "ダウンタウン", value: "ダウンタウン" },
   { label: "イーストバンクーバー", value: "イーストバンクーバー" },
   { label: "ウェストバンクーバー", value: "ウェストバンクーバー" },

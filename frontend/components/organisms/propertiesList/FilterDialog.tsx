@@ -111,7 +111,11 @@ export function FilterDialog() {
             <PrimarySelect
               placeholder="選択してください"
               handleChange={(value) => {
-                setZone(value || "");
+                if (value === "未選択") {
+                  setZone("");
+                } else {
+                  setZone(value);
+                }
               }}
               selectItems={zoneOptions}
               labelName="選択してください"
@@ -124,7 +128,11 @@ export function FilterDialog() {
             <PrimarySelect
               placeholder="選択してください"
               handleChange={(value) => {
-                setArea(value);
+                if (value === "未選択") {
+                  setArea("");
+                } else {
+                  setArea(value);
+                }
               }}
               selectItems={areaOptions}
               labelName=""
