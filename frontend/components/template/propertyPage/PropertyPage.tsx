@@ -6,6 +6,7 @@ import React from "react";
 import { useSearchParams, usePathname, useParams } from "next/navigation";
 import PropertyTitle from "@/components/atoms/propertyPage/PropertyTitle";
 import CommentAndInquirySection from "@/components/molecules/propertyPage/CommentAndInquirySection";
+import { PropertyTabs } from "@/components/organisms/propertyPage/PropertyInfo";
 const PropertyPage = () => {
   const { properties } = useFetchPropertyData();
   const searchParams = useSearchParams();
@@ -42,13 +43,14 @@ const PropertyPage = () => {
                 <div className="w-full md:w-[60%] p-2">
                   <PropertyTitle title={title} rent={rent} />
                   <div>物件詳細情報</div>
+                  <PropertyTabs />
                 </div>
                 <div className="w-full md:w-[40%] p-2">
                   <div className="flex flex-col">
                     <div className="h-80 overflow-y-auto">
                       スタッフからの一言
                     </div>
-                    <CommentAndInquirySection inquiryForm={inquiryForm}/>
+                    <CommentAndInquirySection inquiryForm={inquiryForm} />
                   </div>
                 </div>
               </div>

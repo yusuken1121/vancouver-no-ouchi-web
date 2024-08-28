@@ -25,4 +25,23 @@ export const areaOptions: optionType[] = [
   { label: "バーナビー", value: "バーナビー" },
 ];
 
+export const propertyTabsOptions: optionType[] = [
+  {
+    value: "basic",
+    label: "基本情報",
+  },
+  {
+    value: "room_facilities",
+    label: "部屋設備",
+  },
+  {
+    value: "shared_facilities",
+    label: "共有設備",
+  },
+  {
+    value: "occupancy_conditions",
+    label: "入居条件",
+  },
+];
+
 // export const zoneAreaOptions = [{ zone1: ["ダウンタウン"] }];
