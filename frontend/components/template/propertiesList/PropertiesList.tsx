@@ -31,13 +31,13 @@ const PropertiesList = () => {
   useEffect(() => {
     switch (sort) {
       case "price-asc":
-        setSelectedOption(sortOptions[0]);
+        setSelectedOption(sortOptions[0].value);
         break;
       case "price-dec":
-        setSelectedOption(sortOptions[1]);
+        setSelectedOption(sortOptions[1].value);
         break;
       default:
-        setSelectedOption(sortOptions[0]);
+        setSelectedOption(sortOptions[0].value);
     }
   }, [sort]);
 
@@ -59,14 +59,14 @@ const PropertiesList = () => {
 
       // Sort
       switch (selectedOption) {
-        case sortOptions[0]:
+        case sortOptions[0].value:
           filteredData = filteredData.sort((a, b) => {
             const rentA = a.properties.家賃.number ?? 0;
             const rentB = b.properties.家賃.number ?? 0;
             return rentB - rentA;
           });
           break;
-        case sortOptions[1]:
+        case sortOptions[1].value:
           filteredData = filteredData.sort((a, b) => {
             const rentA = a.properties.家賃.number ?? 0;
             const rentB = b.properties.家賃.number ?? 0;
@@ -81,12 +81,12 @@ const PropertiesList = () => {
 
   const handleChangeSort = (e: SetStateAction<string>) => {
     switch (e) {
-      case sortOptions[0]:
+      case sortOptions[0].value:
         router.push(
           pathname + "?" + createQueryString(searchParams, "sort", "price-asc")
         );
         break;
-      case sortOptions[1]:
+      case sortOptions[1].value:
         router.push(
           pathname + "?" + createQueryString(searchParams, "sort", "price-dec")
         );

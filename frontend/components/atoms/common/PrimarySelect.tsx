@@ -12,7 +12,7 @@ import {
 type PrimarySelectType = {
   placeholder: string;
   labelName: string;
-  selectItems: string[];
+  selectItems: { label: string; value: string }[];
   handleChange: (e: React.SetStateAction<string>) => void;
 };
 
@@ -32,8 +32,8 @@ export function PrimarySelect({
           {/* <SelectLabel>{labelName}</SelectLabel> */}
           {selectItems.map((item, index) => {
             return (
-              <SelectItem value={item} key={index}>
-                {item}
+              <SelectItem value={item.value} key={index}>
+                {item.label}
               </SelectItem>
             );
           })}

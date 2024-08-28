@@ -12,8 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { areaOptions, zoneOptions } from "@/utlis/commonOptions";
-import { createQueryString } from "@/utlis/queryStringHelper";
-import { Select } from "@radix-ui/react-select";
 import { LucideListFilter } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -29,6 +27,17 @@ export function FilterDialog() {
   const [zone, setZone] = useState("");
   const [area, setArea] = useState("");
 
+  console.log(
+    "minPrice:",
+    minPrice,
+    "maxPrice:",
+    maxPrice,
+    "zone:",
+    zone,
+    "area:",
+    area
+  );
+
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setMinPrice(newValue);
@@ -40,21 +49,20 @@ export function FilterDialog() {
 
   const handleSubmit = () => {
     const newSearchParams = new URLSearchParams(searchParams.toString());
+    // reset the previous query string
+    router.push(pathname);
+    console.log("pathname: ", pathname);
 
-    if (minPrice) {
-      newSearchParams.set("minPrice", minPrice);
-    }
-    if (maxPrice) {
-      newSearchParams.set("maxPrice", maxPrice);
-    }
+    if (minPrice) newSearchParams.set("minPrice", minPrice);
+    if (maxPrice) newSearchParams.set("maxPrice", maxPrice);
     if (zone) {
       newSearchParams.set("zone", zone);
+      console.log("zone発動⭐️ ", zone);
     }
-    if (area) {
-      newSearchParams.set("area", area);
-    }
+    if (area) newSearchParams.set("area", area);
 
     router.push(pathname + "?" + newSearchParams.toString());
+
     setOpen(false);
   };
 
@@ -103,10 +111,10 @@ export function FilterDialog() {
             <PrimarySelect
               placeholder="選択してください"
               handleChange={(value) => {
-                setZone(value);
+                setZone(value || "");
               }}
               selectItems={zoneOptions}
-              labelName=""
+              labelName="選択してください"
             />
           </div>
           <div>
