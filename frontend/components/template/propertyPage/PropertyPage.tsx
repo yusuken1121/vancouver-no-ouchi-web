@@ -11,30 +11,22 @@ const PropertyPage = () => {
   const { properties } = useFetchPropertyData();
   const searchParams = useSearchParams();
   const params = useParams();
-  console.log("name::::", params.propertyId);
 
   return (
     <div>
       {properties
         .filter((p) => p.id === params.propertyId)
         .map((p) => {
-          const {
-            id,
-            properties: {
-              サムネイル,
-              タイトル,
-              物件写真,
-              家賃,
-              スタッフからのコメント,
-              お問い合わせフォーム,
-            },
-          } = p;
+          const { id, properties: propertyData } = p;
 
-          const imgUrl = getPropertyValue(サムネイル, "file");
-          const title = getPropertyValue(タイトル, "title");
-          const imgLink = getPropertyValue(物件写真, "url");
-          const rent = getPropertyValue(家賃, "number");
-          const inquiryForm = getPropertyValue(お問い合わせフォーム, "url");
+          const imgUrl = getPropertyValue(propertyData.サムネイル, "file");
+          const title = getPropertyValue(propertyData.タイトル, "title");
+          const imgLink = getPropertyValue(propertyData.物件写真, "url");
+          const rent = getPropertyValue(propertyData.家賃, "number");
+          const inquiryForm = getPropertyValue(
+            propertyData.お問い合わせフォーム,
+            "url"
+          );
 
           return (
             <div key={id}>
@@ -43,7 +35,7 @@ const PropertyPage = () => {
                 <div className="w-full md:w-[60%] p-2">
                   <PropertyTitle title={title} rent={rent} />
                   <div>物件詳細情報</div>
-                  <PropertyTabs />
+                  <PropertyTabs propertyData={propertyData} />
                 </div>
                 <div className="w-full md:w-[40%] p-2">
                   <div className="flex flex-col">

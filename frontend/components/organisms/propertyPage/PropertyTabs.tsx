@@ -7,13 +7,31 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { PropertyData } from "@/types/notionTypes";
 import {
   propertyConditionOptions,
   PropertyConditionOptionsType,
   propertyTabsOptions,
 } from "@/utlis/commonOptions";
+import { getPropertyValue } from "@/utlis/getPropertyValue";
+import { FC } from "react";
 
-export function PropertyTabs() {
+type PropertyTabsProps = {
+  propertyData: PropertyData;
+};
+
+export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
+  const newPropertyData = {
+    ...propertyData,
+    対象: getPropertyValue(propertyData.男性限定, "checkbox")
+      ? "男性限定"
+      : getPropertyValue(propertyData.女性限定, "checkbox")
+      ? "女性限定"
+      : "特になし",
+  };
+
+  console.log(newPropertyData);
+
   const {
     家賃,
     デポジット,
@@ -41,6 +59,7 @@ export function PropertyTabs() {
   };
 
   const tabContentMap: TabContentMapType = {
+    //　基本情報
     0: [
       家賃,
       デポジット,
@@ -51,8 +70,11 @@ export function PropertyTabs() {
       最寄り駅,
       ミニマムステイ,
     ],
+    // 部屋設備
     1: [鍵付き, ランドリー無料, Wifi込み],
+    // 共有設備
     2: [ジム, プール, サウナ],
+    // 入居条件
     3: [
       物件のシェア人数,
       対象,
@@ -88,6 +110,11 @@ export function PropertyTabs() {
                     key={idx}
                     icon={condition.icon}
                     label={condition.label}
+                    value={getPropertyValue(
+                      newPropertyData[condition.key],
+                      condition.type,
+                      condition.unitType ? condition.unitType : undefined
+                    )}
                   />
                 ))}
               </div>
@@ -97,4 +124,4 @@ export function PropertyTabs() {
       ))}
     </Tabs>
   );
-}
+};
