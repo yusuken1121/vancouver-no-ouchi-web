@@ -1,5 +1,15 @@
-import { PropertyData } from "@/types/notionTypes";
-import { BadgeDollarSign, BanknoteIcon, CurrencyIcon } from "lucide-react";
+import {
+  BadgeDollarSign,
+  BathIcon,
+  BookHeart,
+  Dumbbell,
+  Heart,
+  Lightbulb,
+  TrainFront,
+  Utensils,
+  WashingMachine,
+  Waves,
+} from "lucide-react";
 import {
   Calendar,
   Image,
@@ -11,11 +21,8 @@ import {
   Map,
   Users,
   Phone,
-  Key,
   Wifi,
-  Sun,
   Thermometer,
-  Airplay,
   FileText,
 } from "lucide-react";
 type optionType = {
@@ -89,8 +96,8 @@ export const propertyConditionOptions: {
     label: "ミニマムステイ",
   },
   バスルームのシェア人数: {
-    icon: Users,
-    label: "バスルームのシェア人数",
+    icon: BathIcon,
+    label: "バスルーム人数",
   },
   家賃: {
     icon: DollarSign,
@@ -101,11 +108,11 @@ export const propertyConditionOptions: {
     label: "ステータス",
   },
   カップル可: {
-    icon: User,
+    icon: Heart,
     label: "カップル可",
   },
   デポジット: {
-    icon: DollarSign,
+    icon: BadgeDollarSign,
     label: "デポジット",
   },
   お問い合わせフォーム: {
@@ -145,7 +152,7 @@ export const propertyConditionOptions: {
     label: "スタッフからのコメント",
   },
   プール: {
-    icon: Sun,
+    icon: Waves,
     label: "プール",
   },
   退去予定日: {
@@ -157,7 +164,7 @@ export const propertyConditionOptions: {
     label: "Wifi込み",
   },
   光熱費込み: {
-    icon: Airplay,
+    icon: Lightbulb,
     label: "光熱費込み",
   },
   最寄り駅まで: {
@@ -165,19 +172,19 @@ export const propertyConditionOptions: {
     label: "最寄り駅まで",
   },
   キッチンのシェア人数: {
-    icon: Users,
-    label: "キッチンのシェア人数",
+    icon: Utensils,
+    label: "キッチン人数",
   },
   顧客データ: {
     icon: Users,
     label: "顧客データ",
   },
   ランドリー無料: {
-    icon: CheckSquare,
+    icon: WashingMachine,
     label: "ランドリー無料",
   },
   ジム: {
-    icon: Sun,
+    icon: Dumbbell,
     label: "ジム",
   },
   住所: {
@@ -189,12 +196,12 @@ export const propertyConditionOptions: {
     label: "サムネイル",
   },
   ゾーン: {
-    icon: Map,
+    icon: TrainFront,
     label: "ゾーン",
   },
   物件のシェア人数: {
     icon: Users,
-    label: "物件のシェア人数",
+    label: "シェア人数",
   },
   タイトル: {
     icon: FileText,

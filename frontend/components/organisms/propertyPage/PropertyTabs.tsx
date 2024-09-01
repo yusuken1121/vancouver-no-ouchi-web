@@ -23,6 +23,17 @@ export function PropertyTabs() {
     エリア,
     最寄り駅,
     ミニマムステイ,
+    鍵付き,
+    ランドリー無料,
+    Wifi込み,
+    ジム,
+    プール,
+    サウナ,
+    カップル可,
+    対象,
+    物件のシェア人数,
+    バスルームのシェア人数,
+    キッチンのシェア人数,
   } = propertyConditionOptions;
 
   type TabContentMapType = {
@@ -40,9 +51,15 @@ export function PropertyTabs() {
       最寄り駅,
       ミニマムステイ,
     ],
-    1: [],
-    2: [],
-    3: [],
+    1: [鍵付き, ランドリー無料, Wifi込み],
+    2: [ジム, プール, サウナ],
+    3: [
+      物件のシェア人数,
+      対象,
+      カップル可,
+      バスルームのシェア人数,
+      キッチンのシェア人数,
+    ],
   };
   return (
     <Tabs defaultValue={propertyTabsOptions[0].value} className="w-full">
