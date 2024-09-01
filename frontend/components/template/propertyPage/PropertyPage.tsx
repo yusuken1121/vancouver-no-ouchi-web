@@ -6,7 +6,7 @@ import React from "react";
 import { useSearchParams, usePathname, useParams } from "next/navigation";
 import PropertyTitle from "@/components/atoms/propertyPage/PropertyTitle";
 import CommentAndInquirySection from "@/components/molecules/propertyPage/CommentAndInquirySection";
-import { PropertyTabs } from "@/components/organisms/propertyPage/PropertyInfo";
+import { PropertyTabs } from "@/components/organisms/propertyPage/PropertyTabs";
 const PropertyPage = () => {
   const { properties } = useFetchPropertyData();
   const searchParams = useSearchParams();

@@ -133,7 +133,7 @@ type TitleProperty = {
 };
 
 // プロパティデータに関する型定義
-type PropertyData = {
+export type PropertyData = {
   入居可能日: DateProperty;
   物件写真: URLProperty;
   サウナ: CheckboxProperty;
