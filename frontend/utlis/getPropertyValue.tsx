@@ -1,11 +1,11 @@
 import { DateProperty } from "@/types/notionTypes";
-
+import { BadgeCheck, Ban, Circle, X } from "lucide-react";
 export const getPropertyValue = (
   property: any,
   type: string,
   unitType?: "people" | "dollar"
 ): any => {
-  let value = null;
+  let value: string | JSX.Element | null = null;
 
   // 例外
   // 男性・女性限定
@@ -40,7 +40,11 @@ export const getPropertyValue = (
       value = property?.url;
       break;
     case "checkbox":
-      value = property?.checkbox ? "○" : "×";
+      value = property?.checkbox ? (
+        <Circle className="w-4 h-4 mt-1" />
+      ) : (
+        <X className="w-4 h-4 mt-1" />
+      );
       break;
     case "rich_text":
       value = property?.rich_text?.[0]?.plain_text || null;
@@ -75,8 +79,22 @@ export const getStartDate = (
   switch (status) {
     case "入居中":
     case "成約済み":
-      return `${getPropertyValue(MoveOutDay, "date")} (退去予定日)` || null;
+      return (
+        (
+          <>
+            {getPropertyValue(MoveOutDay, "date")} <br />
+            (退去予定日)
+          </>
+        ) || null
+      );
     default:
-      return `${getPropertyValue(MoveInDay, "date")} (入居可能日)` || null;
+      return (
+        (
+          <>
+            {getPropertyValue(MoveInDay, "date")} <br />
+            (入居可能日)
+          </>
+        ) || null
+      );
   }
 };

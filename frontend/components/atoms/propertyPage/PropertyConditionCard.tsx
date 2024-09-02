@@ -12,10 +12,10 @@ const PropertyConditionCard: FC<PropertyConditionCardProps> = ({
   value,
 }) => {
   return (
-    <div className="flex items-center gap-2 px-3 py-2 border border-slate-200 rounded-md">
+    <div className="flex items-center gap-2 px-3 py-2 min-h-24 border border-slate-200 rounded-md">
       <Icon className="flex items-center justify-center" />
       <div className="flex flex-col items-center justify-center w-full">
-        <p>{label}</p>
+        <p className="font-bold text-slate-500">{label}</p>
         <p>{value}</p>
       </div>
     </div>

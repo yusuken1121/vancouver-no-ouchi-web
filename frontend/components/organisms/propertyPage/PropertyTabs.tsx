@@ -41,7 +41,6 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
     家賃,
     デポジット,
     光熱費込み,
-    入居可能日,
     入居日,
     ゾーン,
     エリア,
@@ -102,14 +101,14 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
       </TabsList>
       {propertyTabsOptions.map((o, index) => (
         <TabsContent key={index} value={o.value}>
-          <Card>
-            <CardHeader>
+          <Card className="border-none shadow-none p-0">
+            {/* <CardHeader>
               <CardTitle>{o.label}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <CardDescription>
+            </CardHeader> */}
+            <CardContent className="space-y-2 mt-2 p-0">
+              {/* <CardDescription>
                 Here is the content for {o.label}
-              </CardDescription>
+              </CardDescription> */}
               <div className="grid grid-cols-2 xl:grid-cols-3 gap-2">
                 {tabContentMap[index]?.map((condition, idx) => (
                   <PropertyConditionCard

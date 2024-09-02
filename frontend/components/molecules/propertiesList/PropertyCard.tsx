@@ -15,7 +15,7 @@ type PropertyCardProps = {
   id: string | null;
   title: string | null;
   status: string | null;
-  startDate: string | null;
+  startDate: string | JSX.Element | null;
   rent: number | string;
   imgUrl: string | null;
   area: string | null;
