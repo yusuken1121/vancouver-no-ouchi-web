@@ -11,7 +11,7 @@ type NotionParent = {
 };
 
 // 日付プロパティに関する型定義
-type DateProperty = {
+export type DateProperty = {
   id: string;
   type: "date";
   date: {

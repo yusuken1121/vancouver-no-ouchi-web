@@ -282,5 +282,11 @@ export const propertyConditionOptions: {
     label: "対象",
     type: "対象",
   },
+  入居日: {
+    key: "入居日",
+    icon: Calendar,
+    label: "入居日",
+    type: "入居日",
+  },
 };
 // export const zoneAreaOptions = [{ zone1: ["ダウンタウン"] }];

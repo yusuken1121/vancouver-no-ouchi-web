@@ -13,7 +13,7 @@ import {
   PropertyConditionOptionsType,
   propertyTabsOptions,
 } from "@/utlis/commonOptions";
-import { getPropertyValue } from "@/utlis/getPropertyValue";
+import { getPropertyValue, getStartDate } from "@/utlis/getPropertyValue";
 import { FC } from "react";
 
 type PropertyTabsProps = {
@@ -28,6 +28,11 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
       : getPropertyValue(propertyData.女性限定, "checkbox")
       ? "女性限定"
       : "特になし",
+    入居日: getStartDate(
+      getPropertyValue(propertyData.ステータス, "status"),
+      propertyData.退去予定日,
+      propertyData.入居可能日
+    ),
   };
 
   console.log(newPropertyData);
@@ -37,6 +42,7 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
     デポジット,
     光熱費込み,
     入居可能日,
+    入居日,
     ゾーン,
     エリア,
     最寄り駅,
@@ -64,7 +70,7 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
       家賃,
       デポジット,
       光熱費込み,
-      入居可能日,
+      入居日,
       ゾーン,
       エリア,
       最寄り駅,

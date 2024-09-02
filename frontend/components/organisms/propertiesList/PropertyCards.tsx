@@ -3,7 +3,7 @@ import PropertyCard from "@/components/molecules/propertiesList/PropertyCard";
 import { SkeletonPropertyCard } from "@/components/molecules/propertiesList/SkeletonCard";
 import { FC } from "react";
 import { NotionPage } from "@/types/notionTypes";
-import { getPropertyValue } from "@/utlis/getPropertyValue";
+import { getPropertyValue, getStartDate } from "@/utlis/getPropertyValue";
 
 type PropertyCardsProps = {
   error: string | null;
@@ -53,21 +53,7 @@ const PropertyCards: FC<PropertyCardsProps> = ({
 
             const title = getPropertyValue(タイトル, "title");
             const status = getPropertyValue(ステータス, "status");
-            const startDate = (() => {
-              switch (status) {
-                case "入居中":
-                case "成約済み":
-                  return (
-                    `${getPropertyValue(退去予定日, "date")} (退去予定日)` ||
-                    null
-                  );
-                default:
-                  return (
-                    `${getPropertyValue(入居可能日, "date")} (入居可能日)` ||
-                    null
-                  );
-              }
-            })();
+            const startDate = getStartDate(status, 退去予定日, 入居可能日);
             const zone = getPropertyValue(ゾーン, "select");
             const rent = getPropertyValue(家賃, "number");
             const imgUrl = getPropertyValue(サムネイル, "file");

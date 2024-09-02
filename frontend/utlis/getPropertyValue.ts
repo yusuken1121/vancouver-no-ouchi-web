@@ -1,3 +1,5 @@
+import { DateProperty } from "@/types/notionTypes";
+
 export const getPropertyValue = (
   property: any,
   type: string,
@@ -8,6 +10,9 @@ export const getPropertyValue = (
   // 例外
   // 男性・女性限定
   if (type === "対象") {
+    value = property;
+  }
+  if (type === "入居日") {
     value = property;
   }
 
@@ -60,4 +65,18 @@ export const getPropertyValue = (
   }
 
   return value;
+};
+
+export const getStartDate = (
+  status: string,
+  MoveOutDay: DateProperty,
+  MoveInDay: DateProperty
+) => {
+  switch (status) {
+    case "入居中":
+    case "成約済み":
+      return `${getPropertyValue(MoveOutDay, "date")} (退去予定日)` || null;
+    default:
+      return `${getPropertyValue(MoveInDay, "date")} (入居可能日)` || null;
+  }
 };
