@@ -27,17 +27,6 @@ export function FilterDialog() {
   const [zone, setZone] = useState("");
   const [area, setArea] = useState("");
 
-  console.log(
-    "minPrice:",
-    minPrice,
-    "maxPrice:",
-    maxPrice,
-    "zone:",
-    zone,
-    "area:",
-    area
-  );
-
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setMinPrice(newValue);
@@ -57,7 +46,6 @@ export function FilterDialog() {
     if (maxPrice) newSearchParams.set("maxPrice", maxPrice);
     if (zone) {
       newSearchParams.set("zone", zone);
-      console.log("zone発動⭐️ ", zone);
     }
     if (area) newSearchParams.set("area", area);
 

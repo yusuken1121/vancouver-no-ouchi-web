@@ -60,7 +60,7 @@ const PropertyCard: FC<PropertyCardProps> = ({
       <div className="flex flex-col gap-1 w-full p-2 pb-5">
         <div className="flex items-center">
           <HouseIcon className="iconLabelItem" />
-          <span>{title}</span>
+          <span className="text-balance flex-1">{title}</span>
         </div>
         <div className="flex items-center">
           <BadgeCheck className="iconLabelItem" />
@@ -78,15 +78,15 @@ const PropertyCard: FC<PropertyCardProps> = ({
           </span>
         </div>
         <div className="flex items-center">
-          <CalendarIcon className="iconLabelItem" />
+          <CalendarIcon className="iconLabelItem text-balance " />
           <span>{startDate}</span>
         </div>
         <div className="flex items-center">
-          <MapIcon className="iconLabelItem" />
+          <MapIcon className="iconLabelItem text-balance" />
           <span>{area}</span>
         </div>
         <div className="flex items-center">
-          <TrainIcon className="iconLabelItem" />
+          <TrainIcon className="iconLabelItem text-balance" />
           <span>{zone}</span>
         </div>
       </div>
