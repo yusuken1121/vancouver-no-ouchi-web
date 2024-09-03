@@ -45,9 +45,9 @@ export function HamburgerMenu() {
             <CommandGroup heading="サービス案内">
               {headerOptions
                 .filter((h) => h.category === "サービス案内")
-                .map((h) => {
+                .map((h, index) => {
                   return (
-                    <CommandItem className="cursor-pointer">
+                    <CommandItem key={index} className="cursor-pointer">
                       <Link
                         key={h.id}
                         href={h.href}
@@ -59,22 +59,14 @@ export function HamburgerMenu() {
                     </CommandItem>
                   );
                 })}
-              {/* <CommandItem>
-                <FaceIcon className="iconLabelItem" />
-                <span>Search Emoji</span>
-              </CommandItem> */}
-              {/* <CommandItem disabled>
-                <RocketIcon className="iconLabelItem" />
-                <span>Launch</span>
-              </CommandItem> */}
             </CommandGroup>
             <CommandSeparator />
             <CommandGroup heading="お問い合わせ">
               {headerOptions
                 .filter((h) => h.category === "お問い合わせ")
-                .map((h) => {
+                .map((h, index) => {
                   return (
-                    <CommandItem className="cursor-pointer">
+                    <CommandItem key={index} className="cursor-pointer">
                       <Link href={h.href} className="flex items-center w-full">
                         <h.icon className="iconLabelItem" />
                         <span>{h.name}</span>
