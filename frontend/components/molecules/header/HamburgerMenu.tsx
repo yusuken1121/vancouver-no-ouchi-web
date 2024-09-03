@@ -31,9 +31,9 @@ export function HamburgerMenu() {
     <div className="flex items-center justify-center">
       <button className="" onClick={toggleMenu}>
         {isOpen ? (
-          <X className="iconLabelItem" />
+          <X className="iconLabelItem h-6 w-6 hover:scale-110" />
         ) : (
-          <HamburgerMenuIcon className="iconLabelItem" />
+          <HamburgerMenuIcon className="iconLabelItem h-6 w-6 hover:scale-110" />
         )}
       </button>
 
