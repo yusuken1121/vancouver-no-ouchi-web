@@ -6,9 +6,7 @@ const PropertyDetailPage = ({ params }: { params: { propertyId: string } }) => {
 
   return (
     <div>
-      <Suspense>
-        <PropertyPage />
-      </Suspense>
+      <PropertyPage />
     </div>
   );
 };
