@@ -38,7 +38,7 @@ const PropertyCard: FC<PropertyCardProps> = ({
       className="relative shadow-md border border-gray-200 rounded-lg sm:hover:scale-105"
     >
       {/* image */}
-      <div className="z-0 min-w-full h-64 sm:h-48 xl:h-56 bg-slate-300 relative">
+      <div className="relative z-0 min-w-full h-64 sm:h-48 xl:h-56 bg-slate-300 rounded-lg">
         {imgUrl ? (
           <Image
             src={imgUrl}
@@ -50,7 +50,7 @@ const PropertyCard: FC<PropertyCardProps> = ({
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-500">
+          <div className="flex items-center justify-center h-full text-gray-500 rounded-lg">
             画像がありません
           </div>
         )}
