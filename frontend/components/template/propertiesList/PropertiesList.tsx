@@ -8,7 +8,7 @@ import { sortOptions } from "@/utlis/commonOptions";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { SetStateAction, useCallback, useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 const PropertiesList = () => {
   const router = useRouter();
