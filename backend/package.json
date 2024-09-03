@@ -19,6 +19,7 @@
   "description": "An Express MVC setup tool",
   "dependencies": {
     "@notionhq/client": "^2.2.15",
+    "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2"
