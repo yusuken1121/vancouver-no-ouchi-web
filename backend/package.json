@@ -11,7 +11,7 @@
     "setup": "npm i",
     "server": "NODE_ENV=development tsnd --inspect -- src/index.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
