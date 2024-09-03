@@ -13,5 +13,8 @@ RUN npm install
 # Copy the rest of the application files into the working directory
 COPY . .
 
+# Build the TypeScript code to generate the dist folder
+RUN npm run build
+
 # Define the entry point for the container
-CMD ["npm", "run", "server"]
+CMD ["npm", "run", "start"]
