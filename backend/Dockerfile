@@ -5,10 +5,13 @@ FROM node:22.4.0
 WORKDIR /src
 
 # Copy the application files into the working directory
-COPY . /src
+COPY package*.json ./
 
 # Install the application dependencies
 RUN npm install
+
+# Copy the rest of the application files into the working directory
+COPY . .
 
 # Define the entry point for the container
 CMD ["npm", "run", "server"]
