@@ -55,7 +55,7 @@ const PropertyPage = () => {
           <PropertyTabs propertyData={propertyData} />
         </div>
         <div className="w-full lg:w-[40%] py-8 lg:pl-2">
-          <div className="flex flex-col justify-between items-center bg-slate-300 rounded-lg p-2 lg:h-full h-[50lvh]">
+          <div className="flex flex-col justify-between items-center bg-slate-200 rounded-lg p-2 lg:h-full h-[50lvh]">
             <div className="overflow-y-auto">スタッフからの一言</div>
             <CommentAndInquirySection inquiryForm={inquiryForm} />
           </div>

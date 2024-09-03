@@ -9,7 +9,7 @@ type PropertyImageProps = {
 };
 const PropertyImage: FC<PropertyImageProps> = ({ imgUrl, title, imgLink }) => {
   return (
-    <div className="propertyPageImage mt-2 flex flex-col">
+    <div className="propertyPageImage mt-2 flex flex-col rounded-lg">
       {imgUrl ? (
         <div>
           <Image
