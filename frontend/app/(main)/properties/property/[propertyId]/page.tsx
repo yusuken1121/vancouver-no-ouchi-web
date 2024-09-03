@@ -5,7 +5,6 @@ const PropertyDetailPage = ({ params }: { params: { propertyId: string } }) => {
 
   return (
     <div>
-      {`${propertyId} detail page`}
       <PropertyPage />
     </div>
   );

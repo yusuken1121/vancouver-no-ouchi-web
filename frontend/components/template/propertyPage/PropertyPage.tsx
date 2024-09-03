@@ -34,7 +34,7 @@ const PropertyPage = () => {
               <div className="max-w-[1200px] flex flex-col md:flex-row mx-auto">
                 <div className="w-full md:w-[60%] p-2">
                   <PropertyTitle title={title} rent={rent} />
-                  <div>物件詳細情報</div>
+                  {/* <div>物件詳細情報</div> */}
                   <PropertyTabs propertyData={propertyData} />
                 </div>
                 <div className="w-full md:w-[40%] p-2">
