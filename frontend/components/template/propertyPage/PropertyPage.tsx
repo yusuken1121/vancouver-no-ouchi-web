@@ -31,17 +31,14 @@ const PropertyPage = () => {
           return (
             <div key={id}>
               <PropertyImage imgUrl={imgUrl} title={title} imgLink={imgLink} />
-              <div className="max-w-[1200px] flex flex-col md:flex-row mx-auto">
-                <div className="w-full md:w-[60%] p-2">
+              <div className="max-w-[1200px] lg:h-[60lvh] flex flex-col lg:flex-row mx-auto">
+                <div className="w-full lg:w-[60%] py-8 lg:pr-2">
                   <PropertyTitle title={title} rent={rent} />
-                  {/* <div>物件詳細情報</div> */}
                   <PropertyTabs propertyData={propertyData} />
                 </div>
-                <div className="w-full md:w-[40%] p-2">
-                  <div className="flex flex-col">
-                    <div className="h-80 overflow-y-auto">
-                      スタッフからの一言
-                    </div>
+                <div className="w-full lg:w-[40%] py-8 lg:pl-2">
+                  <div className="flex flex-col justify-between items-center bg-slate-300 rounded-lg p-2 lg:h-full h-[50lvh]">
+                    <div className="overflow-y-auto">スタッフからの一言</div>
                     <CommentAndInquirySection inquiryForm={inquiryForm} />
                   </div>
                 </div>

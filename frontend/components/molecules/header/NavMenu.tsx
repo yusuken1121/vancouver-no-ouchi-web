@@ -10,7 +10,7 @@ const NavMenu = () => {
           <HomeNav
             key={h.id}
             href={h.href}
-            className="flex items-center justify-center w-32 p-2 text-center border border-slate-200 rounded-md transition-all duration-300 ease-in-out hover:border-white hover:bg-black hover:text-white"
+            className="flex items-center justify-center w-32 p-2 text-center rounded-md transition-all duration-300 ease-in-out  hover:bg-slate-500"
           >
             <div className="flex items-center">
               <h.icon className="iconLabelItem" />

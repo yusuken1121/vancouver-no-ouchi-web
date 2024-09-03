@@ -1,11 +1,5 @@
 import PropertyConditionCard from "@/components/atoms/propertyPage/PropertyConditionCard";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PropertyData } from "@/types/notionTypes";
 import {
@@ -109,7 +103,7 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
               {/* <CardDescription>
                 Here is the content for {o.label}
               </CardDescription> */}
-              <div className="grid grid-cols-2 xl:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {tabContentMap[index]?.map((condition, idx) => (
                   <PropertyConditionCard
                     key={idx}
