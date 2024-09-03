@@ -3,13 +3,13 @@ import PropertyImage from "@/components/atoms/propertyPage/PropertyImage";
 import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
 import { getPropertyValue } from "@/utlis/getPropertyValue";
 import React from "react";
-import { useSearchParams, usePathname, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import PropertyTitle from "@/components/atoms/propertyPage/PropertyTitle";
 import CommentAndInquirySection from "@/components/molecules/propertyPage/CommentAndInquirySection";
 import { PropertyTabs } from "@/components/organisms/propertyPage/PropertyTabs";
 const PropertyPage = () => {
   const { properties } = useFetchPropertyData();
-  const searchParams = useSearchParams();
+
   const params = useParams();
 
   return (
