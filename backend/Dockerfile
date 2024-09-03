@@ -16,5 +16,8 @@ COPY . .
 # Build the TypeScript code to generate the dist folder
 RUN npm run build
 
+# Expose the port the app runs on (replace 3000 with your app's port if different)
+EXPOSE 5050
+
 # Define the entry point for the container
 CMD ["npm", "run", "start"]
