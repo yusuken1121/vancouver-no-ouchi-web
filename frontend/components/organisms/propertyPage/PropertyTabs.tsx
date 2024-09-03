@@ -13,9 +13,13 @@ import { FC } from "react";
 type PropertyTabsProps = {
   propertyData: PropertyData;
 };
+type NewPropertyDataType = PropertyData & {
+  対象: string;
+  入居日: string | JSX.Element | null;
+};
 
 export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
-  const newPropertyData = {
+  const newPropertyData: NewPropertyDataType = {
     ...propertyData,
     対象: getPropertyValue(propertyData.男性限定, "checkbox")
       ? "男性限定"
@@ -110,7 +114,9 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
                     icon={condition.icon}
                     label={condition.label}
                     value={getPropertyValue(
-                      newPropertyData[condition.key],
+                      newPropertyData[
+                        condition.key as keyof NewPropertyDataType
+                      ],
                       condition.type,
                       condition.unitType ? condition.unitType : undefined
                     )}
