@@ -48,7 +48,7 @@ const PropertyCard: FC<PropertyCardProps> = ({
             className="rounded-t-lg"
             loading="lazy"
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            unoptimized
+            unoptimized={true}
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500 rounded-lg">
