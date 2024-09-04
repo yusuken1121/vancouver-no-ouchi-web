@@ -5,6 +5,7 @@ import PropertyCards from "@/components/organisms/propertiesList/PropertyCards";
 import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
 import { NotionPage } from "@/types/notionTypes";
 import { sortOptions } from "@/utlis/commonOptions";
+import { getPropertyValue } from "@/utlis/getPropertyValue";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -22,14 +23,14 @@ const PropertiesList = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   // Query
-  const sort = searchParams.get("sort");
-  const minPrice = searchParams.get("minPrice");
-  const maxPrice = searchParams.get("maxPrice");
-  const zone = searchParams.get("zone");
-  const area = searchParams.get("area");
+  const querySort = searchParams.get("sort");
+  const queryMinPrice = searchParams.get("minPrice");
+  const queryMaxPrice = searchParams.get("maxPrice");
+  const queryZone = searchParams.get("zone");
+  const queryArea = searchParams.get("area");
 
   useEffect(() => {
-    switch (sort) {
+    switch (querySort) {
       case "price-asc":
         setSelectedOption(sortOptions[0].value);
         break;
@@ -39,20 +40,24 @@ const PropertiesList = () => {
       default:
         setSelectedOption(sortOptions[0].value);
     }
-  }, [sort]);
+  }, [querySort]);
 
   useEffect(() => {
     // filter
     if (!loading) {
       let filteredData = properties.filter((p) => {
-        const matchesZone = zone
-          ? p.properties.ゾーン.select?.name === `${zone}`
+        const matchesZone = queryZone
+          ? p.properties.ゾーン.select?.name === `${queryZone}`
           : true;
         const rent = p.properties.家賃.number || 0;
-        const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
-        const matchedMaxPrice = maxPrice ? rent <= parseFloat(maxPrice) : true;
-        const matchedArea = area
-          ? p.properties.エリア.select?.name === area
+        const matchedMinPrice = queryMinPrice
+          ? rent >= parseFloat(queryMinPrice)
+          : true;
+        const matchedMaxPrice = queryMaxPrice
+          ? rent <= parseFloat(queryMaxPrice)
+          : true;
+        const matchedArea = queryArea
+          ? p.properties.エリア.select?.name === queryArea
           : true;
         return matchesZone && matchedMinPrice && matchedMaxPrice && matchedArea;
       });
@@ -77,7 +82,14 @@ const PropertiesList = () => {
     } else {
       setFilteredProperties(properties);
     }
-  }, [properties, selectedOption, zone, area, minPrice, maxPrice]);
+  }, [
+    properties,
+    selectedOption,
+    queryZone,
+    queryArea,
+    queryMinPrice,
+    queryMaxPrice,
+  ]);
 
   const handleChangeSort = (e: SetStateAction<string>) => {
     switch (e) {

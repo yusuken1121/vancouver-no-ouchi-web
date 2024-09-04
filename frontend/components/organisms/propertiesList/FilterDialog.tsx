@@ -42,15 +42,35 @@ export function FilterDialog() {
     router.push(pathname);
     console.log("pathname: ", pathname);
 
-    if (minPrice) newSearchParams.set("minPrice", minPrice);
-    if (maxPrice) newSearchParams.set("maxPrice", maxPrice);
-    if (zone) {
-      newSearchParams.set("zone", zone);
+    if (minPrice) {
+      newSearchParams.set("minPrice", minPrice);
+    } else {
+      newSearchParams.delete("minPrice");
     }
-    if (area) newSearchParams.set("area", area);
+    if (maxPrice) {
+      newSearchParams.set("maxPrice", maxPrice);
+    } else {
+      newSearchParams.delete("maxPrice");
+    }
+    if (zone) {
+      console.log("zone::", zone);
+      newSearchParams.set("zone", zone);
+    } else {
+      newSearchParams.delete("zone");
+    }
+    if (area) {
+      console.log("area", area);
+      newSearchParams.set("area", area);
+    } else {
+      newSearchParams.delete("area");
+    }
 
     router.push(pathname + "?" + newSearchParams.toString());
 
+    setMinPrice("");
+    setMaxPrice("");
+    setZone("");
+    setArea("");
     setOpen(false);
   };
 
