@@ -26,6 +26,7 @@ export function FilterDialog() {
   const [maxPrice, setMaxPrice] = useState("");
   const [zone, setZone] = useState("");
   const [area, setArea] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -36,11 +37,32 @@ export function FilterDialog() {
     setMaxPrice(newValue);
   };
 
+  const validatePrice = (price: string) => {
+    if (price === "") return true;
+    const valuePrice: number = parseInt(price);
+    return !isNaN(valuePrice) && valuePrice >= 0 && valuePrice < 10000;
+  };
+
   const handleSubmit = () => {
+    //validation for 家賃
+    if (!validatePrice(minPrice)) {
+      setErrorMessage("最小価格は0以上9999未満でなければなりません。");
+      return;
+    }
+    if (!validatePrice(maxPrice)) {
+      setErrorMessage("最大価格は0以上9999未満でなければなりません。");
+      return;
+    }
+
+    if (minPrice && maxPrice && parseInt(minPrice) > parseInt(maxPrice)) {
+      setErrorMessage("最大金額は最小金額以下でなければいけません。");
+      return;
+    }
+
+    // Query
     const newSearchParams = new URLSearchParams(searchParams.toString());
     // reset the previous query string
     router.push(pathname);
-    console.log("pathname: ", pathname);
 
     if (minPrice) {
       newSearchParams.set("minPrice", minPrice);
@@ -53,13 +75,11 @@ export function FilterDialog() {
       newSearchParams.delete("maxPrice");
     }
     if (zone) {
-      console.log("zone::", zone);
       newSearchParams.set("zone", zone);
     } else {
       newSearchParams.delete("zone");
     }
     if (area) {
-      console.log("area", area);
       newSearchParams.set("area", area);
     } else {
       newSearchParams.delete("area");
@@ -72,6 +92,7 @@ export function FilterDialog() {
     setZone("");
     setArea("");
     setOpen(false);
+    setErrorMessage("");
   };
 
   return (
@@ -94,22 +115,29 @@ export function FilterDialog() {
             <Label htmlFor="rent" className="text-right">
               家賃
             </Label>
-            <div className="flex items-center gap-2">
-              <Input
-                id="minPrice"
-                value={minPrice}
-                onChange={handleMinPriceChange}
-                placeholder="最小金額"
-                className="min-w-24"
-              />
-              <p> 〜 </p>
-              <Input
-                id="maxPrice"
-                value={maxPrice}
-                onChange={handleMaxPriceChange}
-                placeholder="最高金額"
-                className="min-w-24"
-              />
+            <div className="flex flex-col">
+              {errorMessage && (
+                <p className="text-red-500 text-sm">{errorMessage}</p>
+              )}
+              <div className="flex items-center gap-2">
+                <Input
+                  id="minPrice"
+                  type="number"
+                  value={minPrice}
+                  onChange={handleMinPriceChange}
+                  placeholder="最小金額"
+                  className="min-w-24"
+                />
+                <p> 〜 </p>
+                <Input
+                  id="maxPrice"
+                  type="number"
+                  value={maxPrice}
+                  onChange={handleMaxPriceChange}
+                  placeholder="最高金額"
+                  className="min-w-24"
+                />
+              </div>
             </div>
           </div>
           <div className="">
