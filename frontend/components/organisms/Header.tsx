@@ -13,6 +13,7 @@ const Header = () => {
           height={70}
           style={{ objectFit: "cover" }}
           alt="VancouverNoOuchi Image"
+          unoptimized={true}
         />
         <div className="hidden md:block">
           <NavMenu />
