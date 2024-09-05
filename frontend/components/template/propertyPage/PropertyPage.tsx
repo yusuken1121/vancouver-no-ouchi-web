@@ -9,6 +9,7 @@ import CommentAndInquirySection from "@/components/molecules/propertyPage/Commen
 import { PropertyTabs } from "@/components/organisms/propertyPage/PropertyTabs";
 import { NotionPage } from "@/types/notionTypes";
 import PropertyPageSkeleton from "@/components/molecules/propertyPage/SkeltonPropertyPage";
+
 const PropertyPage = () => {
   const { properties } = useFetchPropertyData();
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,10 @@ const PropertyPage = () => {
   const title = getPropertyValue(propertyData.タイトル, "title");
   const imgLink = getPropertyValue(propertyData.物件写真, "url");
   const rent = getPropertyValue(propertyData.家賃, "number");
+  const comment = getPropertyValue(
+    propertyData.スタッフからのコメント,
+    "rich_text"
+  );
   const inquiryForm = getPropertyValue(
     propertyData.お問い合わせフォーム,
     "url"
@@ -55,9 +60,12 @@ const PropertyPage = () => {
           <PropertyTabs propertyData={propertyData} />
         </div>
         <div className="w-full lg:w-[40%] py-8 lg:pl-2">
-          <div className="flex flex-col justify-between items-center bg-slate-200 rounded-lg p-2 lg:h-full h-[50lvh]">
-            <div className="overflow-y-auto">スタッフからの一言</div>
-            <CommentAndInquirySection inquiryForm={inquiryForm} />
+          <div className="flex flex-col justify-around items-center bg-slate-200 rounded-lg p-2 lg:h-full h-[50lvh]">
+            <div className="font-bold">スタッフからのコメント</div>
+            <CommentAndInquirySection
+              comment={comment}
+              inquiryForm={inquiryForm}
+            />
           </div>
         </div>
       </div>
