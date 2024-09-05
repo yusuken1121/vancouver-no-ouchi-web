@@ -8,7 +8,7 @@ const Header = () => {
     <header className="flex h-14 justify-center shadow-md bg-richBlue text-white">
       <div className="base-px relative z-50 w-screen flex items-center justify-between">
         <Image
-          src="/VancouverNoOuchi.png"
+          src="https://i.imgur.com/XIU12AP.png"
           width={80}
           height={70}
           style={{ objectFit: "cover" }}
