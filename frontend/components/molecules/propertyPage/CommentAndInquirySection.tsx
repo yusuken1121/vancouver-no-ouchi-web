@@ -11,7 +11,8 @@ const CommentAndInquirySection: FC<CommentAndInquirySectionProps> = ({
   inquiryForm,
 }) => {
   return (
-    <div className="p-5 h-full">
+    // <div className="p-5 h-full">
+    <>
       <div className="relative h-[80%] overflow-y-hidden flex justify-center">
         <p className="whitespace-pre-wrap">{comment}</p>
 
@@ -26,7 +27,8 @@ const CommentAndInquirySection: FC<CommentAndInquirySectionProps> = ({
           </a>
         </Button>
       </div>
-    </div>
+    </>
+    // </div>
   );
 };
 
