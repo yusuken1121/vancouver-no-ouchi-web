@@ -60,7 +60,7 @@ const PropertyPage = () => {
           <PropertyTabs propertyData={propertyData} />
         </div>
         <div className="w-full lg:w-[40%] py-8 lg:pl-2">
-          <div className="flex flex-col justify-around items-center bg-slate-200 rounded-lg p-2 lg:h-full h-[50lvh]">
+          <div className="flex flex-col justify-around items-center bg-slate-200 rounded-lg p-10 lg:h-full h-[500px]">
             <div className="font-bold py-1">スタッフからのコメント</div>
             <CommentAndInquirySection
               comment={comment}
