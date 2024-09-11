@@ -27,7 +27,14 @@ export function PrimarySelect({
       <SelectTrigger className="w-[200px] font-medium flex items-center justify-center gap-2">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent
+        ref={(ref) => {
+          if (!ref) return;
+          ref.ontouchstart = (e) => {
+            e.preventDefault();
+          };
+        }}
+      >
         <SelectGroup>
           {/* <SelectLabel>{labelName}</SelectLabel> */}
           {selectItems.map((item, index) => {
