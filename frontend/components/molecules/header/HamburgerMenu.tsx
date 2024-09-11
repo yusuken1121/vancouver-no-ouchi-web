@@ -1,24 +1,16 @@
 "use client";
-import {
-  EnvelopeClosedIcon,
-  GearIcon,
-  HamburgerMenuIcon,
-  Pencil1Icon,
-  PersonIcon,
-} from "@radix-ui/react-icons";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 import { useState } from "react";
-import { HouseIcon, X } from "lucide-react";
+import { X } from "lucide-react";
 import Link from "next/link";
 import { headerOptions } from "@/utlis/headerOptions";
 
@@ -27,6 +19,11 @@ export function HamburgerMenu() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className="flex items-center justify-center">
       <button className="" onClick={toggleMenu}>
@@ -38,7 +35,7 @@ export function HamburgerMenu() {
       </button>
 
       {isOpen && (
-        <Command className="fixed z-50 top-16 right-0 md:right-2 rounded-lg border shadow-md md:max-w-[300px] max-h-[300px]">
+        <Command className="fixed z-50 top-16 right-0 md:right-2 rounded-lg border shadow-md md:max-w-[300px] max-h-[200px]">
           {/* <CommandInput placeholder="Type a command or search..." /> */}
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
@@ -52,6 +49,7 @@ export function HamburgerMenu() {
                         key={h.id}
                         href={h.href}
                         className="flex items-center w-full"
+                        onClick={closeMenu}
                       >
                         <h.icon className="iconLabelItem" />
                         <span>{h.name}</span>
