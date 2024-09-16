@@ -21,11 +21,12 @@ const CommentAndInquirySection: FC<CommentAndInquirySectionProps> = ({
         </div>
       </div>
       <div className="flex flex-col items-center justify-center mt-2 h-[10%]">
-        <Button vocab="outline">
+        {/* 一時的にコメントアウト */}
+        {/* <Button vocab="outline">
           <a href={inquiryForm} target="_blank">
             お問い合わせ
           </a>
-        </Button>
+        </Button> */}
       </div>
     </>
     // </div>
