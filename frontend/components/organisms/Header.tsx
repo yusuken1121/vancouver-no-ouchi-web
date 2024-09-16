@@ -5,7 +5,7 @@ import NavMenu from "../molecules/header/NavMenu";
 
 const Header = () => {
   return (
-    <header className="flex h-14 justify-center shadow-md bg-richBlue text-white">
+    <header className="flex h-14 justify-center shadow-md bg-themeColor text-white">
       <div className="base-px relative z-50 w-screen flex items-center justify-between">
         <Image
           src="https://i.imgur.com/XIU12AP.png"

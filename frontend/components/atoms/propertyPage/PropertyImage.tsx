@@ -24,7 +24,7 @@ const PropertyImage: FC<PropertyImageProps> = ({ imgUrl, title, imgLink }) => {
           <a
             href={imgLink}
             target="_blank"
-            className="inline-block p-2 shadow-lg text-white absolute bottom-0 left-0 w-full bg-richBlue hover:bg-black bg-opacity-70 hover:bg-opacity-70 text-center"
+            className="inline-block p-2 shadow-lg text-white absolute bottom-0 left-0 w-full bg-themeColor hover:bg-black bg-opacity-70 hover:bg-opacity-70 text-center"
           >
             もっと見る
           </a>
