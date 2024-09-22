@@ -5,6 +5,7 @@ import { router as indexRouter } from "./routes/indexRouter";
 import { router as testRouter } from "./routes/propertyRouter";
 import { router as authRouter } from "./routes/authRouter";
 import compression from "compression";
+import { API_PUBLIC_API_BASEURL } from "./env";
 export const app = express();
 
 app.use(express.json());
