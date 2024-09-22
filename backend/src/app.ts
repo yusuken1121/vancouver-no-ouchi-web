@@ -4,12 +4,13 @@ import cors from "cors";
 import { router as indexRouter } from "./routes/indexRouter";
 import { router as testRouter } from "./routes/propertyRouter";
 import { router as authRouter } from "./routes/authRouter";
-
+import compression from "compression";
 export const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(compression());
 
 const routers = [
   { route: "/", controller: indexRouter },
