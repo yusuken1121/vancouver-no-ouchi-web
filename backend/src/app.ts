@@ -5,7 +5,7 @@ import { router as indexRouter } from "./routes/indexRouter";
 import { router as testRouter } from "./routes/propertyRouter";
 import { router as authRouter } from "./routes/authRouter";
 import compression from "compression";
-import { API_PUBLIC_API_BASEURL } from "./env";
+import { setUpCronJobs } from "./cron/cron";
 export const app = express();
 
 app.use(express.json());
@@ -21,6 +21,8 @@ const routers = [
 routers.forEach((r) => {
   app.use(r.route, r.controller);
 });
+
+setUpCronJobs();
 
 app.all("*", (req: Request, res: Response) => {
   res

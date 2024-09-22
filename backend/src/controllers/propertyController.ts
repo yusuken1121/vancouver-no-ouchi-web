@@ -10,6 +10,7 @@ export const getProperties = async (req: Request, res: Response) => {
     const response = await notion.databases.query({
       database_id: NOTION_DATABASE_ID!,
     });
+    console.log(response);
 
     res.json(response.results);
   } catch (error) {
