@@ -21,9 +21,9 @@ type NewPropertyDataType = PropertyData & {
 export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
   const newPropertyData: NewPropertyDataType = {
     ...propertyData,
-    対象: getPropertyValue(propertyData.男性限定, "checkbox")
+    対象: getPropertyValue(propertyData.男性限定, "対象").checkbox
       ? "男性限定"
-      : getPropertyValue(propertyData.女性限定, "checkbox")
+      : getPropertyValue(propertyData.女性限定, "対象").checkbox
       ? "女性限定"
       : "特になし",
     入居日: getStartDate(
@@ -34,6 +34,7 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
   };
 
   console.log(newPropertyData);
+  // console.log("⭐️", getPropertyValue(propertyData.男性限定, "対象"));
 
   const {
     家賃,
