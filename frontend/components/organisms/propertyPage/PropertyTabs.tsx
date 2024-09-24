@@ -33,9 +33,6 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
     ),
   };
 
-  console.log(newPropertyData);
-  // console.log("⭐️", getPropertyValue(propertyData.男性限定, "対象"));
-
   const {
     家賃,
     デポジット,
