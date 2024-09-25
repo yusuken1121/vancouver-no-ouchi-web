@@ -2,16 +2,58 @@ import { Request, Response } from "express";
 import { notion } from "../config/config";
 import { NOTION_DATABASE_ID } from "../env";
 import { getNotionSchema } from "../services/notionService";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import {
+  PageObjectResponse,
+  QueryDatabaseResponse,
+} from "@notionhq/client/build/src/api-endpoints";
+import { isFullPage } from "@notionhq/client";
+
+// helper function
+// delete the unnecessary properties
+function removeUnnecessaryProperties(page: PageObjectResponse) {
+  const {
+    cover,
+    icon,
+    created_by,
+    last_edited_by,
+    url,
+    public_url,
+    in_trash,
+    archived,
+    parent,
+    created_time,
+    last_edited_time,
+    ...restPage
+  } = page;
+
+  const {
+    顧客データ: _customerData,
+    住所: _address,
+    管理会社: _managementCompany,
+    ...restProperties
+  } = page.properties;
+
+  return {
+    ...restPage,
+    properties: restProperties,
+  };
+}
 
 // Fetching less than 100 data
 export const getProperties = async (req: Request, res: Response) => {
   try {
-    const response = await notion.databases.query({
+    const response: QueryDatabaseResponse = await notion.databases.query({
       database_id: NOTION_DATABASE_ID!,
     });
 
-    res.json(response.results);
+    const data = response.results.map((page) => {
+      if (isFullPage(page)) {
+        return removeUnnecessaryProperties(page);
+      }
+      return page;
+    });
+
+    res.json(data);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -29,7 +71,13 @@ export const getAllProperties = async (req: Request, res: Response) => {
         start_cursor: nextCursor,
         page_size: 100,
       });
-      allResults = allResults.concat(response.results);
+      const filteredResults = response.results.map((page) => {
+        if (isFullPage(page)) {
+          return removeUnnecessaryProperties(page);
+        }
+        return page;
+      });
+      allResults = allResults.concat(filteredResults);
       hasMore = response.has_more;
       nextCursor = response.next_cursor || undefined;
     }
@@ -83,7 +131,12 @@ export const getPropertyPage = async (req: Request, res: Response) => {
         page_size: pageSize,
         start_cursor: nextCursor || undefined,
       });
-      results = response.results;
+      results = response.results.map((page) => {
+        if (isFullPage(page)) {
+          return removeUnnecessaryProperties(page);
+        }
+        return page;
+      });
     }
     res.status(200).json(results);
   } catch (error) {
