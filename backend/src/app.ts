@@ -7,6 +7,7 @@ import { router as authRouter } from "./routes/authRouter";
 import compression from "compression";
 import { setUpCronJobs } from "./cron/cron";
 import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 export const app = express();
 
 app.use(express.json());
@@ -14,6 +15,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(compression()); // For improving performance
 app.use(helmet()); // For security
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use(apiLimiter);
 
 const routers = [
   { route: "/", controller: indexRouter },
