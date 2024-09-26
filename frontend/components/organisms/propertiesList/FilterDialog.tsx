@@ -1,3 +1,4 @@
+"use client";
 import { PrimarySelect } from "@/components/atoms/common/PrimarySelect";
 import { Button } from "@/components/ui/button";
 import {
