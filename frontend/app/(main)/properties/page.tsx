@@ -48,6 +48,11 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         });
         break;
       default:
+        filteredProperties.sort((a: NotionPage, b: NotionPage) => {
+          const rentA = a.properties.家賃.number ?? 0;
+          const rentB = b.properties.家賃.number ?? 0;
+          return rentA - rentB;
+        });
         break;
     }
     if (filteredProperties.length === 0) {
