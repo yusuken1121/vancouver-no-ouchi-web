@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { CustomError } from "./errors/custom-error";
 import cors from "cors";
 import { router as indexRouter } from "./routes/indexRouter";
-import { router as testRouter } from "./routes/propertyRouter";
+import { router as propertyRouter } from "./routes/propertyRouter";
 import { router as authRouter } from "./routes/authRouter";
 import compression from "compression";
 import { setUpCronJobs } from "./cron/cron";
@@ -25,7 +25,7 @@ app.use(apiLimiter);
 
 const routers = [
   { route: "/", controller: indexRouter },
-  { route: "/properties", controller: testRouter },
+  { route: "/properties", controller: propertyRouter },
   { route: "/auth", controller: authRouter },
 ];
 routers.forEach((r) => {
