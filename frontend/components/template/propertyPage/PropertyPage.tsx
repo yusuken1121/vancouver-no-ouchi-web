@@ -1,42 +1,17 @@
-"use client";
 import PropertyImage from "@/components/atoms/propertyPage/PropertyImage";
-import { useFetchPropertyData } from "@/hooks/useFetchPropertyData";
 import { getPropertyValue } from "@/utlis/getPropertyValue";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import React, { FC } from "react";
 import PropertyTitle from "@/components/atoms/propertyPage/PropertyTitle";
 import CommentAndInquirySection from "@/components/molecules/propertyPage/CommentAndInquirySection";
 import { PropertyTabs } from "@/components/organisms/propertyPage/PropertyTabs";
 import { NotionPage } from "@/types/notionTypes";
-import PropertyPageSkeleton from "@/components/molecules/propertyPage/SkeltonPropertyPage";
 
-const PropertyPage = () => {
-  const { properties } = useFetchPropertyData();
-  const [loading, setLoading] = useState(true);
-  const [filteredProperty, setFilteredProperty] = useState<NotionPage | null>(
-    null
-  );
-  const params = useParams();
+interface PropertyPageProps {
+  property: NotionPage;
+}
 
-  useEffect(() => {
-    if (properties.length > 0) {
-      const property = properties.find((p) => p.id === params.propertyId);
-      if (property) {
-        setFilteredProperty(property);
-        setLoading(false);
-      }
-    }
-  }, [properties, params.propertyId]);
-
-  if (loading) {
-    return <PropertyPageSkeleton />;
-  }
-
-  if (!filteredProperty) {
-    return <div>Property not found.</div>;
-  }
-
-  const { id, properties: propertyData } = filteredProperty;
+const PropertyPage: FC<PropertyPageProps> = ({ property }) => {
+  const { id, properties: propertyData } = property;
 
   const imgUrl = getPropertyValue(propertyData.サムネイル, "file");
   const title = getPropertyValue(propertyData.タイトル, "title");

@@ -98,7 +98,10 @@ export const getProperty = async (req: Request, res: Response) => {
       page_id: propertyId,
     });
 
-    const page = response as PageObjectResponse;
+    if (!isFullPage(response)) {
+      return res.status(400).send("Not a full page");
+    }
+    const page = removeUnnecessaryProperties(response);
     // console.log(page.properties["ステータス"]);　// プロパティの取得方法
 
     res.status(200).json(page);

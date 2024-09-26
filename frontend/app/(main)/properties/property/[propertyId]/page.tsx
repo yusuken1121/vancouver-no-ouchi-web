@@ -1,14 +1,27 @@
 import PropertyPage from "@/components/template/propertyPage/PropertyPage";
-import { Suspense } from "react";
+import apiClient from "@/config/apiClient";
 
-const PropertyDetailPage = ({ params }: { params: { propertyId: string } }) => {
+const PropertyDetailPage = async ({
+  params,
+}: {
+  params: { propertyId: string };
+}) => {
   const { propertyId } = params;
-
-  return (
-    <div>
-      <PropertyPage />
-    </div>
-  );
+  try {
+    const { data: property } = await apiClient.get(`/properties/${propertyId}`);
+    return (
+      <div>
+        <PropertyPage property={property} />
+      </div>
+    );
+  } catch (error) {
+    console.error("Failed to fetch properties:", error);
+    return (
+      <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-red-500 text-xl">
+        データの取得中にエラーが発生しました。もう一度お試しください。
+      </div>
+    );
+  }
 };
 
 export default PropertyDetailPage;
