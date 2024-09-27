@@ -18,12 +18,13 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
 
   try {
     // cache for 5 mins
-    const properties = await apiClientFetch("/properties", {
-      method: "GET",
-      next: {
-        revalidate: 300,
-      },
-    });
+    // const properties = await apiClientFetch("/properties", {
+    //   method: "GET",
+    //   next: {
+    //     revalidate: 300,
+    //   },
+    // });
+    const { data: properties } = await apiClient.get("/properties");
 
     //Filter
     let filteredProperties: NotionPage[] = properties.filter(

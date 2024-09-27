@@ -1,5 +1,5 @@
 import PropertyPage from "@/components/template/propertyPage/PropertyPage";
-import { apiClientFetch } from "@/config/apiClient";
+import { apiClient, apiClientFetch } from "@/config/apiClient";
 
 const PropertyDetailPage = async ({
   params,
@@ -8,12 +8,13 @@ const PropertyDetailPage = async ({
 }) => {
   const { propertyId } = params;
   try {
-    const property = await apiClientFetch(`/properties/${propertyId}`, {
-      method: "GET",
-      next: {
-        revalidate: 300,
-      },
-    });
+    // const property = await apiClientFetch(`/properties/${propertyId}`, {
+    //   method: "GET",
+    //   next: {
+    //     revalidate: 300,
+    //   },
+    // });
+    const { data: property } = await apiClient.get(`/properties/${propertyId}`);
     return (
       <div>
         <PropertyPage property={property} />
