@@ -6,21 +6,13 @@ import { NotionPage } from "@/types/notionTypes";
 import { getPropertyValue, getStartDate } from "@/utlis/getPropertyValue";
 
 type PropertyCardsProps = {
-  filteredProperties: NotionPage[];
+  paginatedProperties: NotionPage[];
 };
 
-const PropertyCards: FC<PropertyCardsProps> = ({ filteredProperties }) => {
-  // if (!loading && filteredProperties.length === 0) {
-  //   return (
-  //     <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
-  //       条件に一致する物件が見つかりませんでした。
-  //     </div>
-  //   );
-  // }
-
+const PropertyCards: FC<PropertyCardsProps> = ({ paginatedProperties }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
-      {filteredProperties.map((p: NotionPage) => {
+      {paginatedProperties.map((p: NotionPage) => {
         const {
           id,
           properties: {

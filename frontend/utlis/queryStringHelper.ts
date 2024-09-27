@@ -1,10 +1,14 @@
 export const createQueryString = (
-  searchParams: URLSearchParams,
+  searchParams: URLSearchParams | string,
   name: string,
   value: string
 ): string => {
   const params = new URLSearchParams(searchParams.toString());
-  params.set(name, value);
+  if (value) {
+    params.set(name, value);
+  } else {
+    params.delete(name);
+  }
 
   return params.toString();
 };

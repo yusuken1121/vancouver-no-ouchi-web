@@ -9,29 +9,33 @@ interface PropertiesPageProps {
     maxPrice?: string;
     zone?: string;
     area?: string;
+    page?: string;
   };
 }
 
 const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
-  const { sort, minPrice, maxPrice, zone, area } = searchParams;
+  const { sort, minPrice, maxPrice, zone, area, page } = searchParams;
 
   try {
     const { data: properties } = await apiClient.get("/properties");
 
-    let filteredProperties = properties.filter((p: NotionPage) => {
-      const matchesZone = zone
-        ? p.properties.ゾーン.select?.name === zone
-        : true;
-      const rent = p.properties.家賃.number || 0;
-      const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
-      const matchedMaxPrice = maxPrice ? rent <= parseFloat(maxPrice) : true;
-      const matchedArea = area
-        ? p.properties.エリア.select?.name === area
-        : true;
-      return matchesZone && matchedMinPrice && matchedMaxPrice && matchedArea;
-    });
+    //Filter
+    let filteredProperties: NotionPage[] = properties.filter(
+      (p: NotionPage) => {
+        const matchesZone = zone
+          ? p.properties.ゾーン.select?.name === zone
+          : true;
+        const rent = p.properties.家賃.number || 0;
+        const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
+        const matchedMaxPrice = maxPrice ? rent <= parseFloat(maxPrice) : true;
+        const matchedArea = area
+          ? p.properties.エリア.select?.name === area
+          : true;
+        return matchesZone && matchedMinPrice && matchedMaxPrice && matchedArea;
+      }
+    );
 
-    // ソート
+    // Sort
     switch (sort) {
       case "price-dec":
         filteredProperties.sort((a: NotionPage, b: NotionPage) => {
@@ -55,6 +59,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         });
         break;
     }
+
     if (filteredProperties.length === 0) {
       return (
         <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
@@ -63,10 +68,25 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
       );
     }
 
+    // pagination
+    const itemsPerPage: number = 20; // The number of items per page can be adjusted
+    const currentPage: number = page ? parseInt(page) : 1;
+    const totalPage: number = Math.ceil(filteredProperties.length / 20);
+    const paginatedProperties: NotionPage[] = filteredProperties.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    );
+
+    // the total number of the properties
+    const filteredPropertiesNumber: number = filteredProperties.length;
+
     return (
       <PropertiesList
-        properties={properties}
-        filteredProperties={filteredProperties}
+        filteredPropertiesNumber={filteredPropertiesNumber}
+        paginatedProperties={paginatedProperties}
+        currentPage={currentPage}
+        totalPage={totalPage}
+        itemsPerPage={itemsPerPage}
       />
     );
   } catch (error) {

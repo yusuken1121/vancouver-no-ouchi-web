@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { areaOptions, zoneOptions } from "@/utlis/commonOptions";
+import { createQueryString } from "@/utlis/queryStringHelper";
 import { LucideListFilter } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -61,32 +62,30 @@ export function FilterDialog() {
     }
 
     // Query
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    // reset the previous query string
-    router.push(pathname);
+    let updatedSearchParams = createQueryString(
+      searchParams,
+      "minPrice",
+      minPrice || ""
+    );
+    updatedSearchParams = createQueryString(
+      updatedSearchParams,
+      "maxPrice",
+      maxPrice || ""
+    );
+    updatedSearchParams = createQueryString(
+      updatedSearchParams,
+      "zone",
+      zone || ""
+    );
+    updatedSearchParams = createQueryString(
+      updatedSearchParams,
+      "area",
+      area || ""
+    );
+    // reset the page query to 1
+    updatedSearchParams = createQueryString(updatedSearchParams, "page", "1");
 
-    if (minPrice) {
-      newSearchParams.set("minPrice", minPrice);
-    } else {
-      newSearchParams.delete("minPrice");
-    }
-    if (maxPrice) {
-      newSearchParams.set("maxPrice", maxPrice);
-    } else {
-      newSearchParams.delete("maxPrice");
-    }
-    if (zone) {
-      newSearchParams.set("zone", zone);
-    } else {
-      newSearchParams.delete("zone");
-    }
-    if (area) {
-      newSearchParams.set("area", area);
-    } else {
-      newSearchParams.delete("area");
-    }
-
-    router.push(pathname + "?" + newSearchParams.toString());
+    router.push(pathname + "?" + updatedSearchParams);
 
     setMinPrice("");
     setMaxPrice("");
