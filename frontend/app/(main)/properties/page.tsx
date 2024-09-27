@@ -1,5 +1,5 @@
 import { NotionPage } from "@/types/notionTypes";
-import apiClient from "@/config/apiClient";
+import { apiClient, apiClientFetch } from "@/config/apiClient";
 import PropertiesList from "@/components/template/propertiesList/PropertiesList"; // 修正ポイント
 
 interface PropertiesPageProps {
@@ -17,7 +17,13 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
   const { sort, minPrice, maxPrice, zone, area, page } = searchParams;
 
   try {
-    const { data: properties } = await apiClient.get("/properties");
+    // cache for 5 mins
+    const properties = await apiClientFetch("/properties", {
+      method: "GET",
+      next: {
+        revalidate: 300,
+      },
+    });
 
     //Filter
     let filteredProperties: NotionPage[] = properties.filter(
