@@ -111,13 +111,13 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         break;
     }
 
-    if (filteredProperties.length === 0) {
-      return (
-        <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
-          条件に一致する物件が見つかりませんでした。
-        </div>
-      );
-    }
+    // if (filteredProperties.length === 0) {
+    //   return (
+    //     <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
+    //       条件に一致する物件が見つかりませんでした。
+    //     </div>
+    //   );
+    // }
 
     // pagination
     const itemsPerPage: number = 20; // The number of items per page can be adjusted

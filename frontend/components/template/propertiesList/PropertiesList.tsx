@@ -36,10 +36,19 @@ const PropertiesList: FC<PropertiesPageProps> = ({
           <FilterDialog />
         </div>
       </div>
-      <div className="flex flex-col gap-8 mb-2">
-        <PropertyCards paginatedProperties={paginatedProperties} />
-        <PaginationList currentPage={currentPage} totalPage={totalPage} />
-      </div>
+
+      <>
+        {filteredPropertiesNumber <= 0 ? (
+          <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
+            条件に一致する物件が見つかりませんでした。
+          </div>
+        ) : (
+          <div className="flex flex-col gap-8 mb-2">
+            <PropertyCards paginatedProperties={paginatedProperties} />
+            <PaginationList currentPage={currentPage} totalPage={totalPage} />
+          </div>
+        )}
+      </>
     </>
   );
 };
