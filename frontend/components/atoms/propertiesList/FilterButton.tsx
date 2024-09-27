@@ -5,13 +5,13 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import React, { FC, ReactNode, useEffect, useState } from "react";
 
-type FilterTagProps = {
+type FilterButtonProps = {
   queryKey: string;
   queryValue: string;
   children: ReactNode;
   className?: string;
 };
-const FilterButton: FC<FilterTagProps> = ({
+const FilterButton: FC<FilterButtonProps> = ({
   children,
   className,
   queryKey,

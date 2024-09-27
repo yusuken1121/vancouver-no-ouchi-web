@@ -1,5 +1,7 @@
 "use client";
 import { PrimarySelect } from "@/components/atoms/common/PrimarySelect";
+import FilterButton from "@/components/atoms/propertiesList/FilterButton";
+import FilterButtons from "@/components/molecules/propertiesList/FilterButtons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,7 +14,16 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { areaOptions, zoneOptions } from "@/utlis/commonOptions";
+import {
+  areaOptions,
+  genderOptions,
+  kitchenPeopleOptions,
+  monthOptions,
+  sharePeopleOptions,
+  statusOptions,
+  timeOptions,
+  zoneOptions,
+} from "@/utlis/commonOptions";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { LucideListFilter } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -103,7 +114,7 @@ export function FilterDialog() {
           フィルター
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>フィルター</DialogTitle>
           <DialogDescription>
@@ -140,38 +151,56 @@ export function FilterDialog() {
               </div>
             </div>
           </div>
-          <div className="">
-            <Label htmlFor="zone" className="text-right">
-              ゾーン
-            </Label>
-            <PrimarySelect
-              placeholder="選択してください"
-              handleChange={(value) => {
-                if (value === "未選択") {
-                  setZone("");
-                } else {
-                  setZone(value);
-                }
-              }}
-              selectItems={zoneOptions}
-              labelName="選択してください"
+
+          {/* Filter */}
+          <div className="flex flex-col gap-2">
+            <p>ゾーン</p>
+            <FilterButtons options={zoneOptions} queryKey="zone" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>エリア</p>
+            <FilterButtons options={areaOptions} queryKey="area" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>住居状況</p>
+            <FilterButtons options={statusOptions} queryKey="status" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>住居人の性別</p>
+            <FilterButtons options={genderOptions} queryKey="gender" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>最寄駅からの時間</p>
+            <FilterButtons options={timeOptions} queryKey="time" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>ミニマムステイ</p>
+            <FilterButtons options={monthOptions} queryKey="month" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>物件のシェア人数</p>
+            <FilterButtons
+              options={sharePeopleOptions}
+              queryKey="sharepeople"
             />
           </div>
-          <div>
-            <Label htmlFor="area" className="text-right">
-              エリア
-            </Label>
-            <PrimarySelect
-              placeholder="選択してください"
-              handleChange={(value) => {
-                if (value === "未選択") {
-                  setArea("");
-                } else {
-                  setArea(value);
-                }
-              }}
-              selectItems={areaOptions}
-              labelName=""
+
+          <div className="flex flex-col gap-2">
+            <p>バスルームのシェア人数</p>
+            <FilterButtons options={sharePeopleOptions} queryKey="bathpeople" />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>キッチンのシェア人数</p>
+            <FilterButtons
+              options={kitchenPeopleOptions}
+              queryKey="kitchenpeople"
             />
           </div>
         </div>
