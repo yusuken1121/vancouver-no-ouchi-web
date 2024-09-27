@@ -168,39 +168,39 @@ export function FilterDialog() {
             <FilterButtons options={statusOptions} queryKey="status" />
           </div>
 
-          <div className="flex flex-col gap-2">
+          {/* <div className="flex flex-col gap-2">
             <p>住居人の性別</p>
             <FilterButtons options={genderOptions} queryKey="gender" />
-          </div>
+          </div> */}
 
-          <div className="flex flex-col gap-2">
+          {/* <div className="flex flex-col gap-2">
             <p>最寄駅からの時間</p>
-            <FilterButtons options={timeOptions} queryKey="time" />
-          </div>
+            <FilterButtons options={timeOptions} queryKey="stationTime" />
+          </div> */}
 
           <div className="flex flex-col gap-2">
             <p>ミニマムステイ</p>
-            <FilterButtons options={monthOptions} queryKey="month" />
+            <FilterButtons options={monthOptions} queryKey="minMonth" />
           </div>
 
           <div className="flex flex-col gap-2">
             <p>物件のシェア人数</p>
             <FilterButtons
               options={sharePeopleOptions}
-              queryKey="sharepeople"
+              queryKey="sharePeople"
             />
           </div>
 
           <div className="flex flex-col gap-2">
             <p>バスルームのシェア人数</p>
-            <FilterButtons options={sharePeopleOptions} queryKey="bathpeople" />
+            <FilterButtons options={sharePeopleOptions} queryKey="bathPeople" />
           </div>
 
           <div className="flex flex-col gap-2">
             <p>キッチンのシェア人数</p>
             <FilterButtons
               options={kitchenPeopleOptions}
-              queryKey="kitchenpeople"
+              queryKey="kitchenPeople"
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { DateProperty } from "@/types/notionTypes";
 import { BadgeCheck, Ban, Circle, X } from "lucide-react";
 export const getPropertyValue = (
-  property: any,
+  property: any, // ex) p.properties.エリア
   type: string,
   unitType?: "people" | "dollar"
 ): any => {
@@ -97,4 +97,15 @@ export const getStartDate = (
         ) || null
       );
   }
+};
+
+export const matchParams = (
+  params: string | undefined,
+  property: any, // p.properties.エリア
+  type: string
+) => {
+  const paramsArray = params ? params.split("%") : [];
+  return paramsArray.length > 0
+    ? paramsArray.includes(getPropertyValue(property, type))
+    : true;
 };

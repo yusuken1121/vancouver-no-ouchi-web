@@ -109,18 +109,18 @@ export const timeOptions: optionType[] = [
 ];
 
 export const monthOptions: optionType[] = [
-  { label: "1ヶ月", value: "1ヶ月" },
-  { label: "2ヶ月", value: "2ヶ月" },
-  { label: "3ヶ月", value: "3ヶ月" },
-  { label: "4ヶ月", value: "4ヶ月" },
-  { label: "5ヶ月", value: "5ヶ月" },
-  { label: "6ヶ月", value: "6ヶ月" },
-  { label: "7ヶ月", value: "7ヶ月" },
-  { label: "8ヶ月", value: "8ヶ月" },
-  { label: "9ヶ月", value: "9ヶ月" },
-  { label: "10ヶ月", value: "10ヶ月" },
-  { label: "11ヶ月", value: "11ヶ月" },
-  { label: "12ヶ月", value: "12ヶ月" },
+  { label: "1ヶ月", value: "１ヶ月" },
+  { label: "2ヶ月", value: "２ヶ月" },
+  { label: "3ヶ月", value: "３ヶ月" },
+  { label: "4ヶ月", value: "４ヶ月" },
+  { label: "5ヶ月", value: "５ヶ月" },
+  { label: "6ヶ月", value: "６ヶ月" },
+  { label: "7ヶ月", value: "７ヶ月" },
+  { label: "8ヶ月", value: "８ヶ月" },
+  { label: "9ヶ月", value: "９ヶ月" },
+  { label: "10ヶ月", value: "１０ヶ月" },
+  { label: "11ヶ月", value: "１１ヶ月" },
+  { label: "12ヶ月", value: "１２ヶ月" },
 ];
 
 export const sharePeopleOptions: optionType[] = [
