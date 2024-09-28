@@ -205,15 +205,26 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             />
           </div>
         </div>
-        <DialogFooter>
+        <DialogFooter className="sticky bottom-0 flex items-center justify-center w-full py-2 bg-opacity-90 bg-white">
           <div className="flex gap-2 mt-2">
             <Button variant="destructive" type="button" onClick={handleDiscard}>
               変更を破棄
             </Button>
 
-            <Button variant="secondary" type="button" onClick={handleSubmit}>
-              {filteredPropertiesNumbers} 件表示
-            </Button>
+            {filteredPropertiesNumbers === 0 ? (
+              <Button
+                variant="default"
+                disabled
+                type="button"
+                onClick={handleSubmit}
+              >
+                {filteredPropertiesNumbers} 件表示
+              </Button>
+            ) : (
+              <Button variant="default" type="button" onClick={handleSubmit}>
+                {filteredPropertiesNumbers} 件表示
+              </Button>
+            )}
           </div>
         </DialogFooter>
       </DialogContent>
