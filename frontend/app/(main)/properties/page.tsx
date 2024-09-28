@@ -46,8 +46,6 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     //Filter
     let filteredProperties: NotionPage[] = properties.filter(
       (p: NotionPage) => {
-        console.log(getPropertyValue(p.properties.プール, "checkbox"));
-
         const rent = p.properties.家賃.number || 0;
         const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
         const matchedMaxPrice = maxPrice ? rent <= parseFloat(maxPrice) : true;
@@ -70,7 +68,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         );
         const matchedBathPeople = matchParams(
           bathPeople,
-          p.properties.物件のシェア人数,
+          p.properties.バスルームのシェア人数,
           "select"
         );
         const matchedKitchenPeople = matchParams(
