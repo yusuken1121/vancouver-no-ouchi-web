@@ -25,7 +25,7 @@ import {
   Thermometer,
   FileText,
 } from "lucide-react";
-type optionType = {
+export type optionType = {
   label: string;
   value: string;
 };
@@ -35,14 +35,13 @@ export const sortOptions: optionType[] = [
   { label: "金額：低い順", value: "金額：低い順" },
 ];
 
+// filter
 export const zoneOptions: optionType[] = [
-  { label: "未選択", value: "未選択" },
   { label: "ゾーン1", value: "Zone1" },
   { label: "ゾーン2", value: "Zone2" },
   { label: "ゾーン3", value: "Zone3" },
 ];
 export const areaOptions: optionType[] = [
-  { label: "未選択", value: "未選択" },
   { label: "ダウンタウン", value: "ダウンタウン" },
   { label: "イーストバンクーバー", value: "イーストバンクーバー" },
   { label: "ウェストバンクーバー", value: "ウェストバンクーバー" },
@@ -52,6 +51,118 @@ export const areaOptions: optionType[] = [
   { label: "バーナビー", value: "バーナビー" },
 ];
 
+export const statusOptions: optionType[] = [
+  {
+    label: "入居中",
+    value: "入居中",
+  },
+  {
+    label: "即入居可能",
+    value: "即入居可能",
+  },
+  {
+    label: "入居者募集中",
+    value: "入居者募集中",
+  },
+  // {
+  //   label: "成約済み",
+  //   value: "成約済み",
+  // },
+  // {
+  //   label: "休止中",
+  //   value: "休止中",
+  // },
+];
+
+export const genderOptions: optionType[] = [
+  {
+    label: "男性",
+    value: "男性",
+  },
+  {
+    label: "女性",
+    value: "女性",
+  },
+  // {
+  //   label: "不明",
+  //   value: "不明",
+  // },
+  {
+    label: "カップル",
+    value: "カップル",
+  },
+];
+
+export const timeOptions: optionType[] = [
+  { label: "5分", value: "5分" },
+  { label: "10分", value: "10分" },
+  { label: "15分", value: "15分" },
+  { label: "20分", value: "20分" },
+  { label: "25分", value: "25分" },
+  { label: "30分", value: "30分" },
+  { label: "35分", value: "35分" },
+  { label: "40分", value: "40分" },
+  { label: "45分", value: "45分" },
+  { label: "50分", value: "50分" },
+  { label: "55分", value: "55分" },
+  { label: "60分", value: "60分" },
+];
+
+export const monthOptions: optionType[] = [
+  { label: "1ヶ月", value: "１ヶ月" },
+  { label: "2ヶ月", value: "２ヶ月" },
+  { label: "3ヶ月", value: "３ヶ月" },
+  { label: "4ヶ月", value: "４ヶ月" },
+  { label: "5ヶ月", value: "５ヶ月" },
+  { label: "6ヶ月", value: "６ヶ月" },
+  { label: "7ヶ月", value: "７ヶ月" },
+  { label: "8ヶ月", value: "８ヶ月" },
+  { label: "9ヶ月", value: "９ヶ月" },
+  { label: "10ヶ月", value: "１０ヶ月" },
+  { label: "11ヶ月", value: "１１ヶ月" },
+  { label: "12ヶ月", value: "１２ヶ月" },
+];
+
+export const sharePeopleOptions: optionType[] = [
+  { label: "1", value: "1" },
+  { label: "2", value: "2" },
+  { label: "3", value: "3" },
+  { label: "4", value: "4" },
+  { label: "5", value: "5" },
+  { label: "6", value: "6" },
+  { label: "7", value: "7" },
+  { label: "8", value: "8" },
+  { label: "9", value: "9" },
+  { label: "10", value: "10" },
+];
+
+export const bathPeopleOptions: optionType[] = [
+  { label: "1", value: "1" },
+  { label: "2", value: "2" },
+  { label: "3", value: "3" },
+  { label: "4", value: "4" },
+  { label: "5", value: "5" },
+  { label: "6", value: "6" },
+  { label: "7", value: "7" },
+  { label: "8", value: "8" },
+  { label: "9", value: "9" },
+  { label: "10", value: "10" },
+];
+
+export const kitchenPeopleOptions: optionType[] = [
+  { label: "1", value: "1" },
+  { label: "2", value: "2" },
+  { label: "3", value: "3" },
+  { label: "4", value: "4" },
+  { label: "5", value: "5" },
+  { label: "6", value: "6" },
+  { label: "7", value: "7" },
+  { label: "8", value: "8" },
+  { label: "9", value: "9" },
+  { label: "10", value: "10" },
+];
+
+// PropertyPage tabs
 export const propertyTabsOptions: optionType[] = [
   {
     value: "basic",

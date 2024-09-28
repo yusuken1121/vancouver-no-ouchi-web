@@ -1,6 +1,7 @@
 import { NotionPage } from "@/types/notionTypes";
 import { apiClient, apiClientFetch } from "@/config/apiClient";
 import PropertiesList from "@/components/template/propertiesList/PropertiesList"; // 修正ポイント
+import { getPropertyValue, matchParams } from "@/utlis/getPropertyValue";
 
 interface PropertiesPageProps {
   searchParams: {
@@ -9,12 +10,26 @@ interface PropertiesPageProps {
     maxPrice?: string;
     zone?: string;
     area?: string;
+    status?: string;
+    minMonth?: string;
+    sharePeople: string;
+    kitchenPeople: string;
     page?: string;
   };
 }
 
 const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
-  const { sort, minPrice, maxPrice, zone, area, page } = searchParams;
+  const {
+    sort,
+    minPrice,
+    maxPrice,
+    zone,
+    area,
+    status,
+    minMonth,
+    sharePeople,
+    page,
+  } = searchParams;
 
   try {
     // cache for 5 mins
@@ -24,21 +39,48 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         revalidate: 300,
       },
     });
-    // const { data: properties } = await apiClient.get("/properties");
+
 
     //Filter
     let filteredProperties: NotionPage[] = properties.filter(
       (p: NotionPage) => {
-        const matchesZone = zone
-          ? p.properties.ゾーン.select?.name === zone
-          : true;
+        console.log(getPropertyValue(p.properties.プール, "checkbox"));
+
         const rent = p.properties.家賃.number || 0;
         const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
         const matchedMaxPrice = maxPrice ? rent <= parseFloat(maxPrice) : true;
-        const matchedArea = area
-          ? p.properties.エリア.select?.name === area
-          : true;
-        return matchesZone && matchedMinPrice && matchedMaxPrice && matchedArea;
+        const matchedZone = matchParams(zone, p.properties.ゾーン, "select");
+        const matchedArea = matchParams(area, p.properties.エリア, "select");
+        const matchedStatus = matchParams(
+          status,
+          p.properties.ステータス,
+          "status"
+        );
+        const matchedMinMonth = matchParams(
+          minMonth,
+          p.properties.ミニマムステイ,
+          "select"
+        );
+        const matchedSharePeople = matchParams(
+          sharePeople,
+          p.properties.物件のシェア人数,
+          "select"
+        );
+        const matchedKitchenPeople = matchParams(
+          sharePeople,
+          p.properties.キッチンのシェア人数,
+          "select"
+        );
+        return (
+          matchedZone &&
+          matchedMinPrice &&
+          matchedMaxPrice &&
+          matchedArea &&
+          matchedStatus &&
+          matchedMinMonth &&
+          matchedSharePeople &&
+          matchedKitchenPeople
+        );
       }
     );
 
@@ -65,14 +107,6 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           return rentA - rentB;
         });
         break;
-    }
-
-    if (filteredProperties.length === 0) {
-      return (
-        <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
-          条件に一致する物件が見つかりませんでした。
-        </div>
-      );
     }
 
     // pagination
