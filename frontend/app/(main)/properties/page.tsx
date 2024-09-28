@@ -12,8 +12,9 @@ interface PropertiesPageProps {
     area?: string;
     status?: string;
     minMonth?: string;
-    sharePeople: string;
-    kitchenPeople: string;
+    sharePeople?: string;
+    bathPeople?: string;
+    kitchenPeople?: string;
     page?: string;
   };
 }
@@ -28,6 +29,8 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     status,
     minMonth,
     sharePeople,
+    bathPeople,
+    kitchenPeople,
     page,
   } = searchParams;
 
@@ -39,7 +42,6 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         revalidate: 300,
       },
     });
-
 
     //Filter
     let filteredProperties: NotionPage[] = properties.filter(
@@ -66,8 +68,13 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           p.properties.物件のシェア人数,
           "select"
         );
+        const matchedBathPeople = matchParams(
+          bathPeople,
+          p.properties.物件のシェア人数,
+          "select"
+        );
         const matchedKitchenPeople = matchParams(
-          sharePeople,
+          kitchenPeople,
           p.properties.キッチンのシェア人数,
           "select"
         );
@@ -79,6 +86,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           matchedStatus &&
           matchedMinMonth &&
           matchedSharePeople &&
+          matchedBathPeople &&
           matchedKitchenPeople
         );
       }
