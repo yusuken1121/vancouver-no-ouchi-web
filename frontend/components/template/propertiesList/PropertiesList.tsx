@@ -33,7 +33,7 @@ const PropertiesList: FC<PropertiesPageProps> = ({
         </p>
         <div className="flex flex-col sm:flex-row gap-2 ">
           <SortSelect />
-          <FilterDialog />
+          <FilterDialog filteredPropertiesNumbers={filteredPropertiesNumber} />
         </div>
       </div>
 
