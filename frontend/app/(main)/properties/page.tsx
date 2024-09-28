@@ -40,6 +40,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
       },
     });
 
+
     //Filter
     let filteredProperties: NotionPage[] = properties.filter(
       (p: NotionPage) => {
