@@ -41,9 +41,17 @@ function removeUnnecessaryProperties(page: PageObjectResponse) {
 
 // Fetching less than 100 data
 export const getProperties = async (req: Request, res: Response) => {
+  // const today = new Date().toISOString().split("T")[0];　// get the today's date
+
   try {
     const response: QueryDatabaseResponse = await notion.databases.query({
       database_id: NOTION_DATABASE_ID!,
+      filter: {
+        property: "ステータス",
+        status: {
+          does_not_equal: "休止中",
+        },
+      },
     });
 
     const data = response.results.map((page) => {
@@ -68,6 +76,12 @@ export const getAllProperties = async (req: Request, res: Response) => {
     while (hasMore) {
       const response = await notion.databases.query({
         database_id: NOTION_DATABASE_ID!,
+        filter: {
+          property: "ステータス",
+          status: {
+            does_not_equal: "休止中",
+          },
+        },
         start_cursor: nextCursor,
         page_size: 100,
       });
