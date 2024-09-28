@@ -26,11 +26,11 @@ export function CommentDialog({ comment }: CommentDialogType) {
           もっと読む
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[70%] h-3/4">
+      <DialogContent className="sm:max-w-[70%] h-3/4 bg-grayThemeColor">
         <DialogHeader>
           <DialogTitle>スタッフからのコメント</DialogTitle>
         </DialogHeader>
-        <div className="overflow-y-scroll flex justify-center p-2">
+        <div className="overflow-y-scroll flex justify-center p-2 ">
           <p className="whitespace-pre-wrap">{comment}</p>
         </div>
       </DialogContent>

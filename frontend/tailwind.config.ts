@@ -21,6 +21,7 @@ const config = {
       colors: {
         themeColor: "#00540a", // green
         lightThemeColor: "#008710", // green
+        grayThemeColor: "#E6EBE6", // gray-green
         // themeColor: "#364D7A",  // blue
         // lightThemeColor: "#E6F0FF", //blue
         border: "hsl(var(--border))",
