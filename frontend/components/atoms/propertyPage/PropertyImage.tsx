@@ -19,7 +19,7 @@ const PropertyImage: FC<PropertyImageProps> = ({ imgUrl, title, imgLink }) => {
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             unoptimized={true}
-            priority={true}
+            // priority={true}
           />
 
           <a

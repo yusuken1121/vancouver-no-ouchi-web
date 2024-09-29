@@ -46,10 +46,9 @@ const PropertyCard: FC<PropertyCardProps> = ({
             fill
             style={{ objectFit: "cover" }}
             className="rounded-t-lg"
-            // loading="lazy"
+            loading="lazy"
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             unoptimized={true}
-            priority={true}
           />
         ) : (
           <div className="flex items-center justify-center h-full text-gray-500 rounded-lg">
