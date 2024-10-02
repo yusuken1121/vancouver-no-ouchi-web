@@ -8,7 +8,10 @@ import compression from "compression";
 import { setUpCronJobs } from "./cron/cron";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import apicache from "apicache";
+
 export const app = express();
+const cache = apicache.options({ debug: true }).middleware;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,12 +19,13 @@ app.use(cors());
 app.use(compression()); // For improving performance
 app.use(helmet()); // For security
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  limit: 100,
+  windowMs: 15 * 60 * 1000, // 15mins
+  limit: 100, // ~100 requests
   standardHeaders: true,
   legacyHeaders: false,
 });
 app.use(apiLimiter);
+app.use(cache("5 minutes"));
 
 const routers = [
   { route: "/", controller: indexRouter },
