@@ -104,7 +104,6 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           p.properties.ジム,
           "checkbox-filter"
         );
-        console.log(matchedGym);
         const matchedSauna = matchParams(
           sauna,
           p.properties.サウナ,
