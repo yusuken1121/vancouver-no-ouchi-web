@@ -5,13 +5,13 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import React, { FC, ReactNode, useEffect, useState } from "react";
 
-type FilterButtonProps = {
+type FilterSelectButtonProps = {
   queryKey: string;
   queryValue: string;
   children: ReactNode;
   className?: string;
 };
-const FilterButton: FC<FilterButtonProps> = ({
+const FilterSelectButton: FC<FilterSelectButtonProps> = ({
   children,
   className,
   queryKey,
@@ -65,4 +65,4 @@ const FilterButton: FC<FilterButtonProps> = ({
   );
 };
 
-export default FilterButton;
+export default FilterSelectButton;
