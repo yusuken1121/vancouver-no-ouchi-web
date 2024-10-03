@@ -168,15 +168,20 @@ export type checkboxOptionType = {
   icon: React.ComponentType<{ className?: string }>;
   queryKey: string;
 };
-export const checkboxOptions: checkboxOptionType[] = [
+export const checkboxFacilityOptions: checkboxOptionType[] = [
   { label: "ジム", icon: Dumbbell, queryKey: "gym" },
+  { label: "プール", icon: Waves, queryKey: "pool" },
   { label: "サウナ", icon: Thermometer, queryKey: "sauna" },
-  { label: "カップル可", icon: Heart, queryKey: "couple" },
   { label: "光熱費込み", icon: Lightbulb, queryKey: "utilities" },
   { label: "ランドリー無料", icon: WashingMachine, queryKey: "laundry" },
   { label: "Wifi込み", icon: Wifi, queryKey: "wifi" },
-  { label: "鍵付き", icon: Lock, queryKey: "locked" },
-  { label: "プール", icon: Waves, queryKey: "pool" },
+  { label: "鍵付き", icon: Lock, queryKey: "lock" },
+];
+
+export const checkboxGenderOptions: checkboxOptionType[] = [
+  { label: "カップル可", icon: Heart, queryKey: "couple" },
+  { label: "男性限定", icon: User, queryKey: "man" },
+  { label: "女性限定", icon: User, queryKey: "woman" },
 ];
 
 // PropertyPage tabs

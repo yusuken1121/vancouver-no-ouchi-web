@@ -46,6 +46,9 @@ export const getPropertyValue = (
         <X className="w-4 h-4 mt-1" />
       );
       break;
+    case "checkbox-filter":
+      value = property?.checkbox ? "true" : "false";
+      break;
     case "rich_text":
       value = property?.rich_text?.[0]?.plain_text || null;
       break;

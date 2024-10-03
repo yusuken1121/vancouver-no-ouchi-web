@@ -1,6 +1,7 @@
 "use client";
 
-import FilterButtons from "@/components/molecules/propertiesList/FilterButtons";
+import FilterCheckboxButtons from "@/components/molecules/propertiesList/FilterCheckboxButtons";
+import FilterSelectButtons from "@/components/molecules/propertiesList/FilterSelectButtons";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,6 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   areaOptions,
+  checkboxFacilityOptions,
+  checkboxGenderOptions,
   kitchenPeopleOptions,
   monthOptions,
   sharePeopleOptions,
@@ -156,37 +159,37 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           {/* Filter */}
           <div className="flex flex-col gap-2">
             <p>ゾーン</p>
-            <FilterButtons options={zoneOptions} queryKey="zone" />
+            <FilterSelectButtons options={zoneOptions} queryKey="zone" />
           </div>
 
           <div className="flex flex-col gap-2">
             <p>エリア</p>
-            <FilterButtons options={areaOptions} queryKey="area" />
+            <FilterSelectButtons options={areaOptions} queryKey="area" />
           </div>
 
           <div className="flex flex-col gap-2">
             <p>住居状況</p>
-            <FilterButtons options={statusOptions} queryKey="status" />
+            <FilterSelectButtons options={statusOptions} queryKey="status" />
           </div>
 
           {/* <div className="flex flex-col gap-2">
             <p>住居人の性別</p>
-            <FilterButtons options={genderOptions} queryKey="gender" />
+            <FilterSelectButtons options={genderOptions} queryKey="gender" />
           </div> */}
 
           {/* <div className="flex flex-col gap-2">
             <p>最寄駅からの時間</p>
-            <FilterButtons options={timeOptions} queryKey="stationTime" />
+            <FilterSelectButtons options={timeOptions} queryKey="stationTime" />
           </div> */}
 
           <div className="flex flex-col gap-2">
             <p>ミニマムステイ</p>
-            <FilterButtons options={monthOptions} queryKey="minMonth" />
+            <FilterSelectButtons options={monthOptions} queryKey="minMonth" />
           </div>
 
           <div className="flex flex-col gap-2">
             <p>物件のシェア人数</p>
-            <FilterButtons
+            <FilterSelectButtons
               options={sharePeopleOptions}
               queryKey="sharePeople"
             />
@@ -194,15 +197,29 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
 
           <div className="flex flex-col gap-2">
             <p>バスルームのシェア人数</p>
-            <FilterButtons options={sharePeopleOptions} queryKey="bathPeople" />
+            <FilterSelectButtons
+              options={sharePeopleOptions}
+              queryKey="bathPeople"
+            />
           </div>
 
           <div className="flex flex-col gap-2">
             <p>キッチンのシェア人数</p>
-            <FilterButtons
+            <FilterSelectButtons
               options={kitchenPeopleOptions}
               queryKey="kitchenPeople"
             />
+          </div>
+
+          {/* checkbox */}
+          <div className="flex flex-col gap-2">
+            <p>設備条件</p>
+            <FilterCheckboxButtons options={checkboxFacilityOptions} />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <p>入居条件</p>
+            <FilterCheckboxButtons options={checkboxGenderOptions} />
           </div>
         </div>
         <DialogFooter className="sticky bottom-0 flex items-center justify-center w-full py-2 bg-opacity-90 bg-white">

@@ -1,7 +1,7 @@
 import { NotionPage } from "@/types/notionTypes";
 import { apiClient, apiClientFetch } from "@/config/apiClient";
 import PropertiesList from "@/components/template/propertiesList/PropertiesList"; // 修正ポイント
-import { matchParams } from "@/utlis/getPropertyValue";
+import { getPropertyValue, matchParams } from "@/utlis/getPropertyValue";
 
 interface PropertiesPageProps {
   searchParams: {
@@ -15,6 +15,16 @@ interface PropertiesPageProps {
     sharePeople?: string;
     bathPeople?: string;
     kitchenPeople?: string;
+    gym?: string;
+    sauna?: string;
+    pool?: string;
+    couple?: string;
+    utilities?: string;
+    laundry?: string;
+    wifi?: string;
+    lock?: string;
+    man?: string;
+    woman?: string;
     page?: string;
   };
 }
@@ -31,6 +41,16 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     sharePeople,
     bathPeople,
     kitchenPeople,
+    gym,
+    sauna,
+    pool,
+    couple,
+    utilities,
+    laundry,
+    wifi,
+    lock,
+    man,
+    woman,
     page,
   } = searchParams;
 
@@ -77,6 +97,60 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           p.properties.キッチンのシェア人数,
           "select"
         );
+
+        // checkbox "true" or "false"
+        const matchedGym = matchParams(
+          gym,
+          p.properties.ジム,
+          "checkbox-filter"
+        );
+        console.log(matchedGym);
+        const matchedSauna = matchParams(
+          sauna,
+          p.properties.サウナ,
+          "checkbox-filter"
+        );
+        const matchedPool = matchParams(
+          pool,
+          p.properties.プール,
+          "checkbox-filter"
+        );
+        const matchedCouple = matchParams(
+          couple,
+          p.properties.カップル可,
+          "checkbox-filter"
+        );
+        const matchedUtilities = matchParams(
+          utilities,
+          p.properties.光熱費込み,
+          "checkbox-filter"
+        );
+        const matchedLaundry = matchParams(
+          laundry,
+          p.properties.ランドリー無料,
+          "checkbox-filter"
+        );
+        const matchedWifi = matchParams(
+          wifi,
+          p.properties.Wifi込み,
+          "checkbox-filter"
+        );
+        const matchedLock = matchParams(
+          lock,
+          p.properties.鍵付き,
+          "checkbox-filter"
+        );
+        const matchedMan = matchParams(
+          man,
+          p.properties.男性限定,
+          "checkbox-filter"
+        );
+        const matchedWoman = matchParams(
+          woman,
+          p.properties.女性限定,
+          "checkbox-filter"
+        );
+
         return (
           matchedZone &&
           matchedMinPrice &&
@@ -86,6 +160,16 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           matchedMinMonth &&
           matchedSharePeople &&
           matchedBathPeople &&
+          matchedGym &&
+          matchedSauna &&
+          matchedPool &&
+          matchedCouple &&
+          matchedUtilities &&
+          matchedLaundry &&
+          matchedWifi &&
+          matchedLock &&
+          matchedMan &&
+          matchedWoman &&
           matchedKitchenPeople
         );
       }
