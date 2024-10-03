@@ -162,6 +162,23 @@ export const kitchenPeopleOptions: optionType[] = [
   { label: "10", value: "10" },
 ];
 
+// checkbox filter
+export type checkboxOptionType = {
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  queryKey: string;
+};
+export const checkboxOptions: checkboxOptionType[] = [
+  { label: "ジム", icon: Dumbbell, queryKey: "gym" },
+  { label: "サウナ", icon: Thermometer, queryKey: "sauna" },
+  { label: "カップル可", icon: Heart, queryKey: "couple" },
+  { label: "光熱費込み", icon: Lightbulb, queryKey: "utilities" },
+  { label: "ランドリー無料", icon: WashingMachine, queryKey: "laundry" },
+  { label: "Wifi込み", icon: Wifi, queryKey: "wifi" },
+  { label: "鍵付き", icon: Lock, queryKey: "locked" },
+  { label: "プール", icon: Waves, queryKey: "pool" },
+];
+
 // PropertyPage tabs
 export const propertyTabsOptions: optionType[] = [
   {
