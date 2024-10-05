@@ -1,6 +1,7 @@
 "use client";
 
 import FilterCheckboxButtons from "@/components/molecules/propertiesList/FilterCheckboxButtons";
+import { FilterRangeInput } from "@/components/molecules/propertiesList/FilterInput";
 import FilterSelectButtons from "@/components/molecules/propertiesList/FilterSelectButtons";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,22 +13,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import {
   areaOptions,
   checkboxFacilityOptions,
   checkboxGenderOptions,
-  kitchenPeopleOptions,
   monthOptions,
-  sharePeopleOptions,
   statusOptions,
   zoneOptions,
 } from "@/utlis/commonOptions";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { LucideListFilter } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 
 type FilterDialogProps = {
   filteredPropertiesNumbers: number;
@@ -40,6 +38,13 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   const [open, setOpen] = useState<boolean>(false);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [minSharePeople, setMinSharePeople] = useState<string>("");
+  const [maxSharePeople, setMaxSharePeople] = useState<string>("");
+  const [minKitchenPeople, setMinKitchenPeople] = useState<string>("");
+  const [maxKitchenPeople, setMaxKitchenPeople] = useState<string>("");
+  const [minBathPeople, setMinBathPeople] = useState<string>("");
+  const [maxBathPeople, setMaxBathPeople] = useState<string>("");
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleQueryUpdate = (key: string, value: string) => {
@@ -48,60 +53,26 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
 
     router.push(`${pathname}?${updatedSearchParams}`);
   };
-  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  // レンジが決まっているフィルター向けの関数
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    queryKey: string,
+    setFunc: React.Dispatch<SetStateAction<string>>
+  ) => {
     const newValue = e.target.value;
-    setMinPrice(newValue);
-    handleQueryUpdate("minPrice", newValue);
-  };
-  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setMaxPrice(newValue);
-    handleQueryUpdate("maxPrice", newValue);
+    setFunc(newValue);
+    handleQueryUpdate(queryKey, newValue);
   };
 
-  const validatePrice = (price: string) => {
-    if (price === "") return true;
-    const valuePrice: number = parseInt(price);
-    return !isNaN(valuePrice) && valuePrice >= 0 && valuePrice < 10000;
-  };
+  // const validatePrice = (price: string) => {
+  //   if (price === "") return true;
+  //   const valuePrice: number = parseInt(price);
+  //   return !isNaN(valuePrice) && valuePrice >= 0 && valuePrice < 10000;
+  // };
 
   const handleSubmit = () => {
-    // //validation for 家賃
-    // if (!validatePrice(minPrice)) {
-    //   setErrorMessage("最小価格は0以上9999未満でなければなりません。");
-    //   return;
-    // }
-    // if (!validatePrice(maxPrice)) {
-    //   setErrorMessage("最大価格は0以上9999未満でなければなりません。");
-    //   return;
-    // }
-
-    // if (minPrice && maxPrice && parseInt(minPrice) > parseInt(maxPrice)) {
-    //   setErrorMessage("最大金額は最小金額以下でなければいけません。");
-    //   return;
-    // }
-
-    // // Query
-    // let updatedSearchParams = createQueryString(
-    //   searchParams,
-    //   "minPrice",
-    //   minPrice || ""
-    // );
-    // updatedSearchParams = createQueryString(
-    //   updatedSearchParams,
-    //   "maxPrice",
-    //   maxPrice || ""
-    // );
-
-    // // reset the page query to 1
-    // updatedSearchParams = createQueryString(updatedSearchParams, "page", "1");
-
-    // router.push(pathname + "?" + updatedSearchParams);
-
-    // setMinPrice("");
-    // setMaxPrice("");
     setOpen(false);
-    // setErrorMessage("");
   };
 
   const handleDiscard = () => {
@@ -127,33 +98,17 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
         </DialogHeader>
         <div className="flex flex-col gap-6">
           <div className="">
-            <Label htmlFor="rent" className="text-right">
-              家賃
-            </Label>
-            <div className="flex flex-col">
-              {errorMessage && (
-                <p className="text-red-500 text-sm">{errorMessage}</p>
-              )}
-              <div className="flex items-center gap-2">
-                <Input
-                  id="minPrice"
-                  type="number"
-                  value={minPrice}
-                  onChange={handleMinPriceChange}
-                  placeholder="最小金額"
-                  className="min-w-24"
-                />
-                <p> 〜 </p>
-                <Input
-                  id="maxPrice"
-                  type="number"
-                  value={maxPrice}
-                  onChange={handleMaxPriceChange}
-                  placeholder="最高金額"
-                  className="min-w-24"
-                />
-              </div>
-            </div>
+            <FilterRangeInput
+              minValue={minPrice}
+              maxValue={maxPrice}
+              errorMessage={errorMessage}
+              onMinValueChange={(e) => handleChange(e, "minPrice", setMinPrice)}
+              onMaxValueChange={(e) => handleChange(e, "maxPrice", setMaxPrice)}
+              label="家賃"
+              degree="円"
+              minPlaceholder="最小金額"
+              maxPlaceholder="最大金額"
+            />
           </div>
 
           {/* Filter */}
@@ -187,29 +142,51 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             <FilterSelectButtons options={monthOptions} queryKey="minMonth" />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <p>物件のシェア人数</p>
-            <FilterSelectButtons
-              options={sharePeopleOptions}
-              queryKey="sharePeople"
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <p>バスルームのシェア人数</p>
-            <FilterSelectButtons
-              options={sharePeopleOptions}
-              queryKey="bathPeople"
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <p>キッチンのシェア人数</p>
-            <FilterSelectButtons
-              options={kitchenPeopleOptions}
-              queryKey="kitchenPeople"
-            />
-          </div>
+          <FilterRangeInput
+            minValue={minSharePeople}
+            maxValue={maxSharePeople}
+            errorMessage={errorMessage}
+            onMinValueChange={(e) =>
+              handleChange(e, "minSharePeople", setMinSharePeople)
+            }
+            onMaxValueChange={(e) =>
+              handleChange(e, "maxSharePeople", setMaxSharePeople)
+            }
+            label="物件のシェア人数"
+            degree="人"
+            minPlaceholder="最小人数"
+            maxPlaceholder="最大人数"
+          />
+          <FilterRangeInput
+            minValue={minKitchenPeople}
+            maxValue={maxKitchenPeople}
+            errorMessage={errorMessage}
+            onMinValueChange={(e) =>
+              handleChange(e, "minKitchenPeople", setMinKitchenPeople)
+            }
+            onMaxValueChange={(e) =>
+              handleChange(e, "maxKitchenPeople", setMaxKitchenPeople)
+            }
+            label="キッチンのシェア人数"
+            degree="人"
+            minPlaceholder="最小人数"
+            maxPlaceholder="最大人数"
+          />
+          <FilterRangeInput
+            minValue={minBathPeople}
+            maxValue={maxBathPeople}
+            errorMessage={errorMessage}
+            onMinValueChange={(e) =>
+              handleChange(e, "minBathPeople", setMinBathPeople)
+            }
+            onMaxValueChange={(e) =>
+              handleChange(e, "maxBathPeople", setMaxBathPeople)
+            }
+            label="バスルームのシェア人数"
+            degree="人"
+            minPlaceholder="最小人数"
+            maxPlaceholder="最大人数"
+          />
 
           {/* checkbox */}
           <div className="flex flex-col gap-2">

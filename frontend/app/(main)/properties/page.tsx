@@ -12,8 +12,13 @@ interface PropertiesPageProps {
     area?: string;
     status?: string;
     minMonth?: string;
-    sharePeople?: string;
-    bathPeople?: string;
+    minSharePeople?: string;
+    maxSharePeople?: string;
+    minKitchenPeople?: string;
+    maxKitchenPeople?: string;
+    minBathPeople?: string;
+    maxBathPeople?: string;
+
     kitchenPeople?: string;
     gym?: string;
     sauna?: string;
@@ -38,9 +43,13 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     area,
     status,
     minMonth,
-    sharePeople,
-    bathPeople,
-    kitchenPeople,
+    minSharePeople,
+    maxSharePeople,
+    minKitchenPeople,
+    maxKitchenPeople,
+    minBathPeople,
+    maxBathPeople,
+
     gym,
     sauna,
     pool,
@@ -67,9 +76,41 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     //Filter
     let filteredProperties: NotionPage[] = properties.filter(
       (p: NotionPage) => {
+        // レンジが決まっているもの
         const rent = p.properties.家賃.number || 0;
-        const matchedMinPrice = minPrice ? rent >= parseFloat(minPrice) : true;
-        const matchedMaxPrice = maxPrice ? rent <= parseFloat(maxPrice) : true;
+        const matchedRent = isWithinRange(rent, minPrice, maxPrice);
+
+        const sharePeople = getPropertyValue(
+          p.properties.物件のシェア人数,
+          "select"
+        );
+        const matchedSharePeople = isWithinRange(
+          sharePeople,
+          minSharePeople,
+          maxSharePeople
+        );
+
+        const kitchenPeople = getPropertyValue(
+          p.properties.キッチンのシェア人数,
+          "select"
+        );
+        const matchedKitchenPeople = isWithinRange(
+          kitchenPeople,
+          minKitchenPeople,
+          maxKitchenPeople
+        );
+
+        const bathPeople = getPropertyValue(
+          p.properties.バスルームのシェア人数,
+          "select"
+        );
+        const matchedBathPeople = isWithinRange(
+          bathPeople,
+          minBathPeople,
+          maxBathPeople
+        );
+
+        // 選択制のもの
         const matchedZone = matchParams(zone, p.properties.ゾーン, "select");
         const matchedArea = matchParams(area, p.properties.エリア, "select");
         const matchedStatus = matchParams(
@@ -80,21 +121,6 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         const matchedMinMonth = matchParams(
           minMonth,
           p.properties.ミニマムステイ,
-          "select"
-        );
-        const matchedSharePeople = matchParams(
-          sharePeople,
-          p.properties.物件のシェア人数,
-          "select"
-        );
-        const matchedBathPeople = matchParams(
-          bathPeople,
-          p.properties.バスルームのシェア人数,
-          "select"
-        );
-        const matchedKitchenPeople = matchParams(
-          kitchenPeople,
-          p.properties.キッチンのシェア人数,
           "select"
         );
 
@@ -152,12 +178,12 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
 
         return (
           matchedZone &&
-          matchedMinPrice &&
-          matchedMaxPrice &&
+          matchedRent &&
           matchedArea &&
           matchedStatus &&
           matchedMinMonth &&
           matchedSharePeople &&
+          matchedKitchenPeople &&
           matchedBathPeople &&
           matchedGym &&
           matchedSauna &&
@@ -168,8 +194,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           matchedWifi &&
           matchedLock &&
           matchedMan &&
-          matchedWoman &&
-          matchedKitchenPeople
+          matchedWoman
         );
       }
     );
@@ -231,3 +256,14 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
 };
 
 export default PropertiesPage;
+
+// 共通のフィルタリング関数　（下限と上限が決まっている項目用）
+function isWithinRange(value: number, min?: string, max?: string): boolean {
+  const parsedMin = min ? parseFloat(min) : null;
+  const parsedMax = max ? parseFloat(max) : null;
+
+  const isAboveMin = parsedMin !== null ? value >= parsedMin : true;
+  const isBelowMax = parsedMax !== null ? value <= parsedMax : true;
+
+  return isAboveMin && isBelowMax;
+}
