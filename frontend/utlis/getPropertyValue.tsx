@@ -77,7 +77,8 @@ export const getPropertyValue = (
 export const getStartDate = (
   status: string,
   MoveOutDay: DateProperty,
-  MoveInDay: DateProperty
+  MoveInDay: DateProperty,
+  useBr: boolean
 ) => {
   switch (status) {
     case "入居中":
@@ -85,7 +86,7 @@ export const getStartDate = (
       return (
         (
           <>
-            {getPropertyValue(MoveOutDay, "date")} <br />
+            {getPropertyValue(MoveOutDay, "date")} {useBr && <br />}
             (退去予定日)
           </>
         ) || null
@@ -94,7 +95,7 @@ export const getStartDate = (
       return (
         (
           <>
-            {getPropertyValue(MoveInDay, "date")} <br />
+            {getPropertyValue(MoveInDay, "date")} {useBr && <br />}
             (入居可能日)
           </>
         ) || null

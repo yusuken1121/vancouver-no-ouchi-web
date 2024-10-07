@@ -29,7 +29,8 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
     入居日: getStartDate(
       getPropertyValue(propertyData.ステータス, "status"),
       propertyData.退去予定日,
-      propertyData.入居可能日
+      propertyData.入居可能日,
+      true
     ),
   };
 

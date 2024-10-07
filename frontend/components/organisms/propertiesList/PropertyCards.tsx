@@ -29,7 +29,7 @@ const PropertyCards: FC<PropertyCardsProps> = ({ paginatedProperties }) => {
 
         const title = getPropertyValue(タイトル, "title");
         const status = getPropertyValue(ステータス, "status");
-        const startDate = getStartDate(status, 退去予定日, 入居可能日);
+        const startDate = getStartDate(status, 退去予定日, 入居可能日, false);
         const zone = getPropertyValue(ゾーン, "select");
         const rent = getPropertyValue(家賃, "number");
         const imgUrl = getPropertyValue(サムネイル, "file");
