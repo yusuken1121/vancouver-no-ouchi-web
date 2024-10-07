@@ -86,8 +86,8 @@ export const getStartDate = (
       return (
         (
           <>
-            {getPropertyValue(MoveOutDay, "date")} {useBr && <br />}
-            (退去予定日)
+            {getPropertyValue(MoveOutDay, "date")} {useBr && <br />}(
+            <span className="font-bold">退去</span>予定日)
           </>
         ) || null
       );
@@ -95,8 +95,8 @@ export const getStartDate = (
       return (
         (
           <>
-            {getPropertyValue(MoveInDay, "date")} {useBr && <br />}
-            (入居可能日)
+            {getPropertyValue(MoveInDay, "date")} {useBr && <br />}(
+            <span className="font-bold">入居</span>可能日)
           </>
         ) || null
       );
