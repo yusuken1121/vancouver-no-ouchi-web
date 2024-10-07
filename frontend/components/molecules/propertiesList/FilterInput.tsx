@@ -1,5 +1,4 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { FloatingInput, FloatingLabel } from "@/components/ui/floatingInput";
 
 type FilterRangeInputProps = {
   minValue: string;
@@ -24,6 +23,10 @@ export const FilterRangeInput = ({
   minPlaceholder = "最小値",
   maxPlaceholder = "最大値",
 }: FilterRangeInputProps) => {
+  const disableScroll = (e: React.WheelEvent<HTMLInputElement>) => {
+    e.currentTarget.blur(); // 一時的にフォーカスを外す
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <p>{label}</p>
@@ -31,26 +34,40 @@ export const FilterRangeInput = ({
         {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1">
-            <Input
-              id="minValue"
-              type="number"
-              value={minValue}
-              onChange={onMinValueChange}
-              placeholder={minPlaceholder}
-              className="min-w-24"
-            />
+            <div className="relative">
+              <FloatingInput
+                id={`${label}-1`}
+                type="number"
+                value={minValue}
+                onChange={onMinValueChange}
+                // placeholder={degree}
+                onWheel={disableScroll}
+                autoComplete="off"
+                className="min-w-24"
+              />
+              <FloatingLabel htmlFor={`${label}-1`}>
+                {minPlaceholder}
+              </FloatingLabel>
+            </div>
             <p>{degree}</p>
           </div>
           <p> 〜 </p>
           <div className="flex items-center gap-1">
-            <Input
-              id="maxValue"
-              type="number"
-              value={maxValue}
-              onChange={onMaxValueChange}
-              placeholder={maxPlaceholder}
-              className="min-w-24"
-            />
+            <div className="relative">
+              <FloatingInput
+                id={`${label}-2`}
+                type="number"
+                value={maxValue}
+                onChange={onMaxValueChange}
+                // placeholder={degree}
+                autoComplete="off"
+                onWheel={disableScroll}
+                className="min-w-24"
+              />
+              <FloatingLabel htmlFor={`${label}-2`}>
+                {maxPlaceholder}
+              </FloatingLabel>
+            </div>
             <p>{degree}</p>
           </div>
         </div>
