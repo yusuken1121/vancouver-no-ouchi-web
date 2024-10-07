@@ -199,7 +199,7 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             <FilterCheckboxButtons options={checkboxGenderOptions} />
           </div>
         </div>
-        <DialogFooter className="sticky bottom-0 flex items-center justify-center w-full py-2 bg-opacity-90 bg-white">
+        <DialogFooter className="sticky bottom-0 flex items-center justify-center w-full py-2 bg-opacity-90 bg-white z-50">
           <div className="flex gap-2 mt-2">
             <Button variant="destructive" type="button" onClick={handleDiscard}>
               変更を破棄
