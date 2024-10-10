@@ -103,9 +103,9 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">
-          <LucideListFilter className="iconLabelItem" />
+        <Button variant="outline" className="gap-2">
           フィルター
+          <LucideListFilter className="iconLabelItem" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
