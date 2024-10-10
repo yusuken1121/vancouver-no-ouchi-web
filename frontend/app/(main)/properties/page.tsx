@@ -19,6 +19,8 @@ interface PropertiesPageProps {
     minBathPeople?: string;
     maxBathPeople?: string;
 
+    moveInDate?: string;
+
     kitchenPeople?: string;
     gym?: string;
     sauna?: string;
@@ -49,6 +51,8 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     maxKitchenPeople,
     minBathPeople,
     maxBathPeople,
+
+    moveInDate,
 
     gym,
     sauna,
@@ -90,6 +94,14 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           maxSharePeople
         );
 
+        // カレンダー 入居可能日があればそちらを優先
+        const moveInDay = getPropertyValue(p.properties.入居可能日, "date");
+        const moveOutDay = getPropertyValue(p.properties.退去予定日, "date");
+        const moveDay = moveInDay ? moveInDay : moveOutDay;
+        console.log(moveInDay, moveOutDay);
+        const matchedMoveDay = isAfterMoveInDate(moveDay, moveInDate);
+
+        //
         const kitchenPeople = getPropertyValue(
           p.properties.キッチンのシェア人数,
           "select"
@@ -179,6 +191,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         return (
           matchedZone &&
           matchedRent &&
+          matchedMoveDay &&
           matchedArea &&
           matchedStatus &&
           matchedMinMonth &&
@@ -266,4 +279,17 @@ function isWithinRange(value: number, min?: string, max?: string): boolean {
   const isBelowMax = parsedMax !== null ? value <= parsedMax : true;
 
   return isAboveMin && isBelowMax;
+}
+
+//　カレンダーの関数
+function isAfterMoveInDate(
+  propertyDate: string, // 入居日 || 退去日
+  moveInDate: string | undefined // 入居希望日
+) {
+  if (!propertyDate || !moveInDate) return true;
+
+  const propertyMoveDate = new Date(propertyDate);
+  const moveInDateFilter = new Date(moveInDate);
+
+  return propertyMoveDate <= moveInDateFilter;
 }

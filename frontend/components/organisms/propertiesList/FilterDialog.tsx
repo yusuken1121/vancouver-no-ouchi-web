@@ -4,6 +4,7 @@ import FilterCheckboxButtons from "@/components/molecules/propertiesList/FilterC
 import { FilterRangeInput } from "@/components/molecules/propertiesList/FilterInput";
 import FilterSelectButtons from "@/components/molecules/propertiesList/FilterSelectButtons";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Dialog,
   DialogContent,
@@ -45,6 +46,8 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   const [minBathPeople, setMinBathPeople] = useState<string>("");
   const [maxBathPeople, setMaxBathPeople] = useState<string>("");
 
+  const [date, setDate] = useState<Date | undefined>(undefined);
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleQueryUpdate = (key: string, value: string) => {
@@ -81,6 +84,30 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
     setErrorMessage("");
   };
 
+  // Calendar
+  // 日付を YYYY-MM-DD 形式にフォーマットする関数
+  const formatDateToYMD = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  // 今日の日付を取得して時間をクリア
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // カレンダーの選択を処理する関数
+  const handleOnChangeCalendar = (selectedDate: Date | undefined) => {
+    setDate(selectedDate);
+    if (selectedDate) {
+      const formattedDate = formatDateToYMD(selectedDate);
+      handleQueryUpdate("moveInDate", formattedDate);
+    } else {
+      handleQueryUpdate("moveInDate", ""); // 日付が選択されていない場合、クエリをクリア
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -96,7 +123,7 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             フィルターをしたい項目を入力し、保存ボタンを押してください。
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-10">
           <div className="">
             <FilterRangeInput
               minValue={minPrice}
@@ -140,6 +167,17 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           <div className="flex flex-col gap-2">
             <p>ミニマムステイ</p>
             <FilterSelectButtons options={monthOptions} queryKey="minMonth" />
+          </div>
+
+          {/* Calendar */}
+          <div className="flex flex-col gap-2">
+            <p>入居予定日</p>
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={(date) => handleOnChangeCalendar(date)}
+              disabled={(date) => date < today}
+            />
           </div>
 
           <FilterRangeInput
