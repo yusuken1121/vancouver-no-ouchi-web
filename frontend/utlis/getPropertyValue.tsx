@@ -1,3 +1,4 @@
+import { formatDateToYMD } from "@/components/organisms/propertiesList/FilterDialog";
 import { DateProperty } from "@/types/notionTypes";
 import { BadgeCheck, Ban, Circle, X } from "lucide-react";
 export const getPropertyValue = (
@@ -90,6 +91,12 @@ export const getStartDate = (
             <span className="font-bold">退去</span>予定日)
           </>
         ) || null
+      );
+    case "即入居可能": // 入居日可能日 || 今日の日付
+      return (
+        <>
+          {getPropertyValue(MoveInDay, "date") || formatDateToYMD(new Date())}
+        </>
       );
     default:
       return (
