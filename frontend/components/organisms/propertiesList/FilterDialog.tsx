@@ -124,7 +124,7 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
               onMinValueChange={(e) => handleChange(e, "minPrice", setMinPrice)}
               onMaxValueChange={(e) => handleChange(e, "maxPrice", setMaxPrice)}
               label="家賃"
-              degree="円"
+              degree="$"
               minPlaceholder="最小金額"
               maxPlaceholder="最大金額"
             />
