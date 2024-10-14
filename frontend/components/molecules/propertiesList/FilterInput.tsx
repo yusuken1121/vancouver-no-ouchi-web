@@ -7,7 +7,7 @@ type FilterRangeInputProps = {
   onMinValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onMaxValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label: string; // ラベル（例: "家賃", "人数" など）
-  degree: string; // 単位 (例："円" "人"など)
+  unit: string; // 単位 (例："円" "人"など)
   minPlaceholder?: string; // 最小値入力のプレースホルダー
   maxPlaceholder?: string; // 最大値入力のプレースホルダー
 };
@@ -19,7 +19,7 @@ export const FilterRangeInput = ({
   onMinValueChange,
   onMaxValueChange,
   label,
-  degree,
+  unit,
   minPlaceholder = "最小値",
   maxPlaceholder = "最大値",
 }: FilterRangeInputProps) => {
@@ -40,7 +40,7 @@ export const FilterRangeInput = ({
                 type="number"
                 value={minValue}
                 onChange={onMinValueChange}
-                // placeholder={degree}
+                // placeholder={unit}
                 onWheel={disableScroll}
                 autoComplete="off"
                 className="min-w-24"
@@ -49,7 +49,7 @@ export const FilterRangeInput = ({
                 {minPlaceholder}
               </FloatingLabel>
             </div>
-            <p>{degree}</p>
+            <p>{unit}</p>
           </div>
           <p> 〜 </p>
           <div className="flex items-center gap-1">
@@ -59,7 +59,7 @@ export const FilterRangeInput = ({
                 type="number"
                 value={maxValue}
                 onChange={onMaxValueChange}
-                // placeholder={degree}
+                // placeholder={unit}
                 autoComplete="off"
                 onWheel={disableScroll}
                 className="min-w-24"
@@ -68,7 +68,7 @@ export const FilterRangeInput = ({
                 {maxPlaceholder}
               </FloatingLabel>
             </div>
-            <p>{degree}</p>
+            <p>{unit}</p>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ interface PropertiesPageProps {
     area?: string;
     status?: string;
     minMonth?: string;
+    maxMonth?: string;
     minSharePeople?: string;
     maxSharePeople?: string;
     minKitchenPeople?: string;
@@ -45,6 +46,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     area,
     status,
     minMonth,
+    maxMonth,
     minSharePeople,
     maxSharePeople,
     minKitchenPeople,
@@ -82,13 +84,13 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
       (p: NotionPage) => {
         // レンジが決まっているもの
         const rent = p.properties.家賃.number || 0;
-        const matchedRent = isWithinRange(rent, minPrice, maxPrice);
+        const matchedRent = isNumberWithinRange(rent, minPrice, maxPrice);
 
         const sharePeople = getPropertyValue(
           p.properties.物件のシェア人数,
           "select"
         );
-        const matchedSharePeople = isWithinRange(
+        const matchedSharePeople = isNumberWithinRange(
           sharePeople,
           minSharePeople,
           maxSharePeople
@@ -98,15 +100,26 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
         const moveInDay = getPropertyValue(p.properties.入居可能日, "date");
         const moveOutDay = getPropertyValue(p.properties.退去予定日, "date");
         const moveDay = moveInDay ? moveInDay : moveOutDay;
-        console.log(moveInDay, moveOutDay);
         const matchedMoveDay = isAfterMoveInDate(moveDay, moveInDate);
 
-        //
+        // レンジの決まっているもの
+        const stayMonth = getPropertyValue(
+          p.properties.ミニマムステイ,
+          "select"
+        );
+
+        const matchedStayMonth = isUnitValueWithinRange(
+          "ヶ月",
+          stayMonth.toLowerCase(),
+          minMonth,
+          maxMonth
+        );
+
         const kitchenPeople = getPropertyValue(
           p.properties.キッチンのシェア人数,
           "select"
         );
-        const matchedKitchenPeople = isWithinRange(
+        const matchedKitchenPeople = isNumberWithinRange(
           kitchenPeople,
           minKitchenPeople,
           maxKitchenPeople
@@ -116,7 +129,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           p.properties.バスルームのシェア人数,
           "select"
         );
-        const matchedBathPeople = isWithinRange(
+        const matchedBathPeople = isNumberWithinRange(
           bathPeople,
           minBathPeople,
           maxBathPeople
@@ -129,11 +142,6 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           status,
           p.properties.ステータス,
           "status"
-        );
-        const matchedMinMonth = matchParams(
-          minMonth,
-          p.properties.ミニマムステイ,
-          "select"
         );
 
         // checkbox "true" or "false"
@@ -194,7 +202,7 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           matchedMoveDay &&
           matchedArea &&
           matchedStatus &&
-          matchedMinMonth &&
+          matchedStayMonth &&
           matchedSharePeople &&
           matchedKitchenPeople &&
           matchedBathPeople &&
@@ -271,7 +279,11 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
 export default PropertiesPage;
 
 // 共通のフィルタリング関数　（下限と上限が決まっている項目用）
-function isWithinRange(value: number, min?: string, max?: string): boolean {
+function isNumberWithinRange(
+  value: number,
+  min?: string,
+  max?: string
+): boolean {
   const parsedMin = min ? parseFloat(min) : null;
   const parsedMax = max ? parseFloat(max) : null;
 
@@ -279,6 +291,32 @@ function isWithinRange(value: number, min?: string, max?: string): boolean {
   const isBelowMax = parsedMax !== null ? value <= parsedMax : true;
 
   return isAboveMin && isBelowMax;
+}
+// 共通のフィルタリング関数　（下限と上限が決まっている項目かつ単位がついているもの）
+function isUnitValueWithinRange(
+  unit: string, // ヶ月 etc..
+  value: string,
+  min?: string,
+  max?: string
+): boolean {
+  const extractNumber = (value: string) =>
+    parseInt(toHalfWidth(value.replace(unit, "")));
+  const parsedValue = extractNumber(value);
+  const parsedMin = min ? extractNumber(min) : null;
+  const parsedMax = max ? extractNumber(max) : null;
+
+  const isAboveMin = parsedMin !== null ? parsedValue >= parsedMin : true;
+  const isBelowMax = parsedMax !== null ? parsedValue <= parsedMax : true;
+
+  return isAboveMin && isBelowMax;
+}
+
+function toHalfWidth(str: string): string {
+  // 全角英数字を半角に変換
+  str = str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function (s) {
+    return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+  });
+  return str;
 }
 
 //　カレンダーの関数

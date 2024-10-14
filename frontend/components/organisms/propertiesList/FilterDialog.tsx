@@ -27,6 +27,7 @@ import { createQueryString } from "@/utlis/queryStringHelper";
 import { LucideListFilter } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SetStateAction, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 type FilterDialogProps = {
   filteredPropertiesNumbers: number;
@@ -45,17 +46,30 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   const [maxKitchenPeople, setMaxKitchenPeople] = useState<string>("");
   const [minBathPeople, setMinBathPeople] = useState<string>("");
   const [maxBathPeople, setMaxBathPeople] = useState<string>("");
+  const [minMonth, setMinMonth] = useState<string>("");
+  const [maxMonth, setMaxMonth] = useState<string>("");
 
   const [date, setDate] = useState<Date | undefined>(undefined);
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleQueryUpdate = (key: string, value: string) => {
-    let updatedSearchParams = createQueryString(searchParams, key, value);
-    updatedSearchParams = createQueryString(updatedSearchParams, "page", "1"); // ページをリセット
+  const handleQueryUpdate = useDebouncedCallback(
+    (key: string, value: string) => {
+      switch (
+        key // ミニマムステイのみ例外処理
+      ) {
+        case "minMonth":
+        case "maxMonth":
+          if (value) value = value + "ヶ月";
+      }
 
-    router.push(`${pathname}?${updatedSearchParams}`);
-  };
+      let updatedSearchParams = createQueryString(searchParams, key, value);
+      updatedSearchParams = createQueryString(updatedSearchParams, "page", "1"); // ページをリセット
+
+      router.push(`${pathname}?${updatedSearchParams}`);
+    },
+    300
+  );
 
   // レンジが決まっているフィルター向けの関数
   const handleChange = (
@@ -74,11 +88,28 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   //   return !isNaN(valuePrice) && valuePrice >= 0 && valuePrice < 10000;
   // };
 
+  // Apply for the filter
   const handleSubmit = () => {
     setOpen(false);
   };
 
+  // Discard for the filter
+  const resetFilters = () => {
+    setMinPrice("");
+    setMaxPrice("");
+    setMinSharePeople("");
+    setMaxSharePeople("");
+    setMinKitchenPeople("");
+    setMaxKitchenPeople("");
+    setMinBathPeople("");
+    setMaxBathPeople("");
+    setMinMonth("");
+    setMaxMonth("");
+    setDate(undefined);
+    setErrorMessage("");
+  };
   const handleDiscard = () => {
+    resetFilters();
     router.push(pathname);
     setOpen(false);
     setErrorMessage("");
@@ -117,6 +148,8 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
         </DialogHeader>
         <div className="flex flex-col gap-10">
           <div className="">
+            {/* Filter */}
+            {/* 家賃 */}
             <FilterRangeInput
               minValue={minPrice}
               maxValue={maxPrice}
@@ -124,13 +157,13 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
               onMinValueChange={(e) => handleChange(e, "minPrice", setMinPrice)}
               onMaxValueChange={(e) => handleChange(e, "maxPrice", setMaxPrice)}
               label="家賃"
-              degree="$"
+              unit="$"
               minPlaceholder="最小金額"
               maxPlaceholder="最大金額"
             />
           </div>
 
-          {/* Filter */}
+          {/* button */}
           <div className="flex flex-col gap-2">
             <p>ゾーン</p>
             <FilterSelectButtons options={zoneOptions} queryKey="zone" />
@@ -156,10 +189,23 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             <FilterSelectButtons options={timeOptions} queryKey="stationTime" />
           </div> */}
 
-          <div className="flex flex-col gap-2">
+          {/* Range */}
+          {/* ミニマムステイ */}
+          <FilterRangeInput
+            minValue={minMonth}
+            maxValue={maxMonth}
+            errorMessage={errorMessage}
+            onMinValueChange={(e) => handleChange(e, "minMonth", setMinMonth)}
+            onMaxValueChange={(e) => handleChange(e, "maxMonth", setMaxMonth)}
+            label="ミニマムステイ"
+            unit="ヶ月"
+            minPlaceholder="最短の期間"
+            maxPlaceholder="最長の期間"
+          />
+          {/* <div className="flex flex-col gap-2">
             <p>ミニマムステイ</p>
             <FilterSelectButtons options={monthOptions} queryKey="minMonth" />
-          </div>
+          </div> */}
 
           {/* Calendar */}
           <div className="flex flex-col gap-2">
@@ -183,7 +229,7 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
               handleChange(e, "maxSharePeople", setMaxSharePeople)
             }
             label="物件のシェア人数"
-            degree="人"
+            unit="人"
             minPlaceholder="最小人数"
             maxPlaceholder="最大人数"
           />
@@ -198,7 +244,7 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
               handleChange(e, "maxKitchenPeople", setMaxKitchenPeople)
             }
             label="キッチンのシェア人数"
-            degree="人"
+            unit="人"
             minPlaceholder="最小人数"
             maxPlaceholder="最大人数"
           />
@@ -213,7 +259,7 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
               handleChange(e, "maxBathPeople", setMaxBathPeople)
             }
             label="バスルームのシェア人数"
-            degree="人"
+            unit="人"
             minPlaceholder="最小人数"
             maxPlaceholder="最大人数"
           />
