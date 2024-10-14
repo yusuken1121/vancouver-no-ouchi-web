@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Noto_Sans_JP } from "next/font/google";
+
 import "./globals.css";
 import { headers } from "next/headers";
 import { UAParser } from "ua-parser-js";
 
-const inter = Inter({ subsets: ["latin"] });
+const fontNotoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
 export async function generateMetadata() {
   const headersList = headers();
@@ -37,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={inter.className}>{children}</body>
+      <body className={fontNotoSansJP.className}>{children}</body>
     </html>
   );
 }
