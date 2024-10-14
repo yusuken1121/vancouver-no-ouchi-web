@@ -202,10 +202,6 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             minPlaceholder="最短の期間"
             maxPlaceholder="最長の期間"
           />
-          {/* <div className="flex flex-col gap-2">
-            <p>ミニマムステイ</p>
-            <FilterSelectButtons options={monthOptions} queryKey="minMonth" />
-          </div> */}
 
           {/* Calendar */}
           <div className="flex flex-col gap-2">
