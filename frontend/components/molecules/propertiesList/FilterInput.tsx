@@ -49,7 +49,7 @@ export const FilterRangeInput = ({
                 {minPlaceholder}
               </FloatingLabel>
             </div>
-            <p>{unit}</p>
+            <p className="text-xs">{unit}</p>
           </div>
           <p> 〜 </p>
           <div className="flex items-center gap-1">
@@ -68,7 +68,7 @@ export const FilterRangeInput = ({
                 {maxPlaceholder}
               </FloatingLabel>
             </div>
-            <p>{unit}</p>
+            <p className="text-xs">{unit}</p>
           </div>
         </div>
       </div>
