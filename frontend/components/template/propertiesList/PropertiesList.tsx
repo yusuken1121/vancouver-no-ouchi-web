@@ -28,20 +28,21 @@ const PropertiesList: FC<PropertiesPageProps> = ({
   );
   return (
     <>
-      <div className="flex justify-between items-center my-2">
-        <p className="text-sm sm:text-base">
-          {filteredPropertiesNumber} 件中（{startItem}〜{endItem}件目）
+      <div className="flex flex-col sm:flex-row justify-between items-center my-2 gap-2">
+        <p className="text-sm text-left sm:text-base order-2 sm:order-1">
+          {filteredPropertiesNumber} 件中（
+          {endItem === 0 ? 0 : `${startItem}〜${endItem}`} 件目）
         </p>
-        <div className="flex flex-col sm:flex-row gap-2 ">
+        <div className="flex items-center sm:flex-row gap-2 order-1 sm:order-2">
+          <SearchBar />
           <SortSelect />
           <FilterDialog filteredPropertiesNumbers={filteredPropertiesNumber} />
-          <SearchBar />
         </div>
       </div>
 
       <>
         {filteredPropertiesNumber <= 0 ? (
-          <div className="h-[88vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
+          <div className="h-[70vh] p-2 flex flex-col justify-center items-center text-center text-gray-500 text-xl">
             条件に一致する物件が見つかりませんでした。
           </div>
         ) : (

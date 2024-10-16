@@ -1,4 +1,4 @@
-import { NotionPage, PropertyData } from "@/types/notionTypes";
+import { PropertyData } from "@/types/notionTypes";
 import { getPropertyValue } from "./getPropertyValue";
 
 // 共通のフィルタリング関数　（下限と上限が決まっている項目用）
@@ -59,18 +59,20 @@ export function matchKeyword(property: PropertyData, keyword: string) {
   const title = getPropertyValue(property.タイトル, "title") || "";
   const station = getPropertyValue(property.最寄り駅, "select") || "";
   const zone = getPropertyValue(property.ゾーン, "select") || "";
-  const status = getPropertyValue(property.ステータス, "select") || "";
+  const status = getPropertyValue(property.ステータス, "status") || "";
   const area = getPropertyValue(property.エリア, "select") || "";
 
   let searchAry = [title, station, zone, status, area].map(
     (field) => field.replace(/\s+/g, "") // 文字の中間にある空白の削除
   );
 
-  return searchAry.some((item) =>
+  const isMatch = searchAry.some((item) =>
     item
       .toLowerCase()
       .includes(keyword.trim().toLowerCase().replace(/\s+/g, ""))
   );
+
+  return isMatch;
 }
 
 // function katakanaToHiragana(src: string) {
