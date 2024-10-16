@@ -4,6 +4,7 @@ import { NotionPage } from "@/types/notionTypes";
 import SortSelect from "@/components/organisms/propertiesList/SortSelect";
 import { FC } from "react";
 import PaginationList from "@/components/organisms/propertiesList/PaginationList";
+import SearchBar from "@/components/molecules/propertiesList/SearchBar";
 
 interface PropertiesPageProps {
   paginatedProperties: NotionPage[];
@@ -34,6 +35,7 @@ const PropertiesList: FC<PropertiesPageProps> = ({
         <div className="flex flex-col sm:flex-row gap-2 ">
           <SortSelect />
           <FilterDialog filteredPropertiesNumbers={filteredPropertiesNumber} />
+          <SearchBar />
         </div>
       </div>
 

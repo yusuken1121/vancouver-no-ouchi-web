@@ -1,3 +1,6 @@
+import { NotionPage, PropertyData } from "@/types/notionTypes";
+import { getPropertyValue } from "./getPropertyValue";
+
 // 共通のフィルタリング関数　（下限と上限が決まっている項目用）
 export function isNumberWithinRange(
   value: number,
@@ -51,3 +54,51 @@ export function isAfterMoveInDate(
 
   return propertyMoveDate <= moveInDateFilter;
 }
+
+export function matchKeyword(property: PropertyData, keyword: string) {
+  const title = getPropertyValue(property.タイトル, "title") || "";
+  const station = getPropertyValue(property.最寄り駅, "select") || "";
+  const zone = getPropertyValue(property.ゾーン, "select") || "";
+  const status = getPropertyValue(property.ステータス, "select") || "";
+  const area = getPropertyValue(property.エリア, "select") || "";
+
+  let searchAry = [title, station, zone, status, area].map(
+    (field) => field.replace(/\s+/g, "") // 文字の中間にある空白の削除
+  );
+
+  return searchAry.some((item) =>
+    item
+      .toLowerCase()
+      .includes(keyword.trim().toLowerCase().replace(/\s+/g, ""))
+  );
+}
+
+// function katakanaToHiragana(src: string) {
+//   return src.replace(/[\u30a1-\u30f6]/g, function (match) {
+//     const chr = match.charCodeAt(0) - 0x60;
+//     return String.fromCharCode(chr);
+//   });
+// }
+
+// function hiraganaToKatakana(src: string) {
+//   return src.replace(/[\u3041-\u3096]/g, function (match) {
+//     const chr = match.charCodeAt(0) + 0x60;
+//     return String.fromCharCode(chr);
+//   });
+// }
+
+// function escapeRegExp(string: string) {
+//   return string.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&");
+// }
+
+// function generateFuzzyRegExp(searchWord: string) {
+//   searchWord = escapeRegExp(searchWord);
+//   const chars = searchWord.split("").map((char) => {
+//     const hiragana = katakanaToHiragana(char);
+//     const katakana = this.hiraganaToKatakana(char);
+//     if (hiragana === katakana) return char;
+//     return `(${hiragana}|${katakana})`;
+//   });
+//   const fuzzyRegExp = new RegExp(`(${chars.join("")})`, "ig");
+//   return fuzzyRegExp;
+// }

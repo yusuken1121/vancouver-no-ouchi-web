@@ -3,6 +3,7 @@ import {
   isAfterMoveInDate,
   isNumberWithinRange,
   isUnitValueWithinRange,
+  matchKeyword,
 } from "./filterUtils";
 import { getPropertyValue, matchParams } from "./getPropertyValue";
 import { apiClient } from "@/config/apiClient";
@@ -37,6 +38,8 @@ export interface SearchParams {
   man?: string;
   woman?: string;
   page?: string;
+
+  keyword?: string; // search bar
 }
 
 export async function fetchAndFilterProperties(searchParams: SearchParams) {
@@ -69,6 +72,7 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
     man,
     woman,
     page,
+    keyword,
   } = searchParams;
 
   // cache for 5 mins
@@ -189,6 +193,8 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
       "checkbox-filter"
     );
 
+    const matchedKeyword = keyword ? matchKeyword(p.properties, keyword) : true;
+
     return (
       matchedZone &&
       matchedRent &&
@@ -208,7 +214,8 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
       matchedWifi &&
       matchedLock &&
       matchedMan &&
-      matchedWoman
+      matchedWoman &&
+      matchedKeyword
     );
   });
 
