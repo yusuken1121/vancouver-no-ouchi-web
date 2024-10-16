@@ -1,5 +1,5 @@
 "use client";
-import { PrimarySelect } from "@/components/atoms/common/PrimarySelect";
+import { PrimarySelect } from "@/components/atoms/propertiesList/SortSelect";
 import { sortOptions } from "@/utlis/commonOptions";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -31,7 +31,7 @@ const SortSelect = () => {
       selectItems={sortOptions}
       handleChange={handleChangeSort}
       labelName="表示順"
-      placeholder="表示順"
+      placeholder=""
     />
   );
 };

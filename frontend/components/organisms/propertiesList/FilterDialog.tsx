@@ -24,7 +24,7 @@ import {
   zoneOptions,
 } from "@/utlis/commonOptions";
 import { createQueryString } from "@/utlis/queryStringHelper";
-import { LucideListFilter } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SetStateAction, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
@@ -134,9 +134,11 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="gap-2">
-          フィルター
-          <LucideListFilter className="iconLabelItem" />
+        <Button
+          variant="outline"
+          className="flex items-center justify-center w-12 h-12 rounded-full font-medium hover:bg-grayThemeColor"
+        >
+          <SlidersHorizontal className="w-10 h-10 text-themeColor" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
