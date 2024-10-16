@@ -5,6 +5,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { headers } from "next/headers";
 import { UAParser } from "ua-parser-js";
+import { Toaster } from "sonner";
 
 const fontNotoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
@@ -39,7 +40,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={fontNotoSansJP.className}>{children}</body>
+      <body className={fontNotoSansJP.className}>
+        <Toaster
+          toastOptions={{
+            duration: 5000,
+            classNames: {
+              error: "border-l-4 border-red-500 bg-red-50 border-0",
+              success: "border-l-4 border-green-500 bg-green-50 border-0",
+              warning: "border-l-4 border-yellow-500 bg-yellow-50 border-0",
+              info: "border-l-4 border-blue-500 bg-blue-50 border-0",
+            },
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

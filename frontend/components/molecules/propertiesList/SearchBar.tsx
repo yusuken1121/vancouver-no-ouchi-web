@@ -3,10 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
-import { TextSearch } from "lucide-react";
+import { CircleX, TextSearch } from "lucide-react";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { createQueryString } from "@/utlis/queryStringHelper";
+import { toast } from "sonner";
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState<string>("");
@@ -21,7 +22,9 @@ const SearchBar = () => {
     const trimmedKeyword = keyword.trim();
 
     if (keyword.length > 0 && !trimmedKeyword) {
-      alert("検索キーワードを入力してください"); // 空白のみの場合の処理
+      toast.error("空白のみの入力では検索できません。", {
+        icon: <CircleX className="w-4 h-4 text-red-600" />,
+      });
       return;
     }
     let updatedSearchParams = createQueryString(
@@ -32,18 +35,18 @@ const SearchBar = () => {
     router.push(`${pathname}?${updatedSearchParams}`);
   };
   return (
-    <div className="relative w-full max-w-sm">
+    <div className="relative w-[200px] max-w-sm">
       <Input
         type="search"
         placeholder="検索..."
-        className="w-full pr-12" // 右側にアイコン分の余白を確保
+        className="w-full pr-12 text-xs" // 右側にアイコン分の余白を確保
         value={keyword}
         onChange={(e) => handleKeywordChange(e)}
       />
       <Button
         type="button"
         variant="outline"
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-lightThemeColor flex items-center justify-center rounded-full "
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 bg-themeColor hover:bg-lightThemeColor flex items-center justify-center rounded-full"
         onClick={handleSearch}
       >
         <TextSearch className="w-6 h-6 text-white shrink-0" />
