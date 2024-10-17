@@ -184,6 +184,77 @@ export const checkboxGenderOptions: checkboxOptionType[] = [
   { label: "女性限定", icon: User, queryKey: "woman" },
 ];
 
+export type OptionStationType = {
+  label: string;
+  value: string;
+  railway: "expo" | "millennium" | "canada";
+};
+export const stationOptions: OptionStationType[] = [
+  // Brown Line
+  { label: "Lincoln", value: "lincoln", railway: "millennium" },
+  {
+    label: "Lafarge Lake - Douglas",
+    value: "lafarge-lake-douglas",
+    railway: "millennium",
+  },
+  { label: "VCC - Clark", value: "vcc-clark", railway: "millennium" },
+  { label: "Renfrew", value: "renfrew", railway: "millennium" },
+  { label: "Rupert", value: "rupert", railway: "millennium" },
+  { label: "Gilmore", value: "gilmore", railway: "millennium" },
+  {
+    label: "Brentwood Town Centre",
+    value: "brentwood-town-centre",
+    railway: "millennium",
+  },
+  { label: "Holdom", value: "holdom", railway: "millennium" },
+  {
+    label: "Sperling - Burnaby Lake",
+    value: "sperling-burnaby-lake",
+    railway: "millennium",
+  },
+  { label: "Lake City Way", value: "lake-city-way", railway: "millennium" },
+  { label: "Burquitlam", value: "burquitlam", railway: "millennium" },
+  { label: "Moody Centre", value: "moody-centre", railway: "millennium" },
+  { label: "Inlet Centre", value: "inlet-centre", railway: "millennium" },
+  {
+    label: "Coquitlam Central",
+    value: "coquitlam-central",
+    railway: "millennium",
+  },
+
+  // Green Line
+  {
+    label: "Production Way - University",
+    value: "production-way-university",
+    railway: "expo",
+  },
+  { label: "Waterfront", value: "waterfront", railway: "expo" },
+
+  // Blue Line
+  {
+    label: "Vancouver City Centre",
+    value: "vancouver-city-centre",
+    railway: "canada",
+  },
+  { label: "Yaletown", value: "yaletown", railway: "canada" },
+  { label: "Olympic Village", value: "olympic-village", railway: "canada" },
+  {
+    label: "Broadway City Hall",
+    value: "broadway-city-hall",
+    railway: "canada",
+  },
+  { label: "King Edward", value: "king-edward", railway: "canada" },
+  {
+    label: "Oakridge - 41st Ave",
+    value: "oakridge-41st-ave",
+    railway: "canada",
+  },
+  { label: "Langara - 49th Ave", value: "langara-49th-ave", railway: "canada" },
+  { label: "Marine Drive", value: "marine-drive", railway: "canada" },
+  { label: "Bridgeport", value: "bridgeport", railway: "canada" },
+  { label: "Aberdeen", value: "aberdeen", railway: "canada" },
+];
+
 // PropertyPage tabs
 export const propertyTabsOptions: optionType[] = [
   {
