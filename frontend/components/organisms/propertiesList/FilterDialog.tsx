@@ -2,6 +2,7 @@
 
 import FilterCheckboxButtons from "@/components/molecules/propertiesList/FilterCheckboxButtons";
 import { FilterRangeInput } from "@/components/molecules/propertiesList/FilterInput";
+import { FilterRadioBoxes } from "@/components/molecules/propertiesList/FilterRadioBoxes";
 import FilterSelectButtons from "@/components/molecules/propertiesList/FilterSelectButtons";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -204,6 +205,12 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             minPlaceholder="最短の期間"
             maxPlaceholder="最長の期間"
           />
+
+          {/* station */}
+          <div className="flex flex-col gap-2">
+            <p>最寄駅</p>
+            <FilterRadioBoxes />
+          </div>
 
           {/* Calendar */}
           <div className="flex flex-col gap-2">

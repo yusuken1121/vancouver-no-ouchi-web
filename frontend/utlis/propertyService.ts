@@ -4,6 +4,7 @@ import {
   isNumberWithinRange,
   isUnitValueWithinRange,
   matchKeyword,
+  matchStation,
 } from "./filterUtils";
 import { getPropertyValue, matchParams } from "./getPropertyValue";
 import { apiClient } from "@/config/apiClient";
@@ -37,8 +38,9 @@ export interface SearchParams {
   lock?: string;
   man?: string;
   woman?: string;
-  page?: string;
+  station?: string;
 
+  page?: string;
   keyword?: string; // search bar
 }
 
@@ -71,6 +73,8 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
     lock,
     man,
     woman,
+    station,
+
     page,
     keyword,
   } = searchParams;
@@ -193,6 +197,10 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
       "checkbox-filter"
     );
 
+    // 最寄駅 例外処理
+    const matchedStation = matchStation(station, p.properties);
+
+    // SearchBar検索
     const matchedKeyword = keyword ? matchKeyword(p.properties, keyword) : true;
 
     return (
@@ -215,6 +223,7 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
       matchedLock &&
       matchedMan &&
       matchedWoman &&
+      matchedStation &&
       matchedKeyword
     );
   });
