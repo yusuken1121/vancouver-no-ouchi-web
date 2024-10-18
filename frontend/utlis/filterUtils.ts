@@ -1,5 +1,6 @@
 import { PropertyData } from "@/types/notionTypes";
 import { getPropertyValue } from "./getPropertyValue";
+import { stationOptions } from "./commonOptions";
 
 // 共通のフィルタリング関数　（下限と上限が決まっている項目用）
 export function isNumberWithinRange(
@@ -104,3 +105,27 @@ export function matchKeyword(property: PropertyData, keyword: string) {
 //   const fuzzyRegExp = new RegExp(`(${chars.join("")})`, "ig");
 //   return fuzzyRegExp;
 // }
+
+// 最寄駅フィルター
+export function matchStation(
+  params: string | undefined,
+  property: PropertyData
+) {
+  const paramsArray = params ? params.split("%") : [];
+  if (paramsArray.length === 0) return true; //　クエリがないとき
+
+  // label ➡️ value（stationOptions）　に変換
+  // label (Commercial - broadway) ➡️ value (Commercial-broadway)
+  const stationLabel = getPropertyValue(property.最寄り駅, "select");
+  console.log("length:", stationOptions.length);
+
+  const stationValue = stationOptions.find(
+    (station) =>
+      station.label.toLocaleLowerCase() === stationLabel.toLowerCase()
+  )?.value;
+
+  if (!stationValue) return false;
+
+  return paramsArray.includes(stationValue);
+  // return true;
+}

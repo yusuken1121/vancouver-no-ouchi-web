@@ -10,25 +10,24 @@ import { Label } from "@radix-ui/react-label";
 import { useState } from "react";
 import FilterSelectButtons from "./FilterSelectButtons";
 
-type FilterRadioBoxesProps = {};
 export function FilterRadioBoxes() {
-  const [selectedRailway, setSelectedRailway] = useState<string>("expo");
+  type railwayType = OptionStationType["railway"][number];
+  const railwayArray: railwayType[] = ["expo", "canada", "millennium"];
+  const [selectedRailway, setSelectedRailway] = useState<railwayType>("expo");
 
   const selectedRailwayArray: optionType[] = stationOptions
-    .filter((o) => o.railway === selectedRailway)
+    .filter((o) => o.railway.includes(selectedRailway))
     .map((o) => ({
       label: o.label,
       value: o.value,
     }));
 
-  type railwayType = OptionStationType["railway"];
-  const railwayArray: railwayType[] = ["expo", "canada", "millennium"];
   return (
     <div className="flex flex-col gap-4">
       <RadioGroup
         defaultValue={railwayArray[0]}
         className="flex items-center gap-2 max-w-full"
-        onValueChange={(value) => {
+        onValueChange={(value: railwayType) => {
           setSelectedRailway(value);
         }}
       >
