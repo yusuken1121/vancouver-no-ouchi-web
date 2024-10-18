@@ -117,7 +117,6 @@ export function matchStation(
   // label ➡️ value（stationOptions）　に変換
   // label (Commercial - broadway) ➡️ value (Commercial-broadway)
   const stationLabel = getPropertyValue(property.最寄り駅, "select");
-  console.log("length:", stationOptions.length);
 
   const stationValue = stationOptions.find(
     (station) =>
