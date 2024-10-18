@@ -187,72 +187,118 @@ export const checkboxGenderOptions: checkboxOptionType[] = [
 export type OptionStationType = {
   label: string;
   value: string;
-  railway: "expo" | "millennium" | "canada";
+  railway: ("expo" | "millennium" | "canada")[];
 };
 export const stationOptions: OptionStationType[] = [
-  // Brown Line
-  { label: "Lincoln", value: "lincoln", railway: "millennium" },
-  {
-    label: "Lafarge Lake - Douglas",
-    value: "lafarge-lake-douglas",
-    railway: "millennium",
-  },
-  { label: "VCC - Clark", value: "vcc-clark", railway: "millennium" },
-  { label: "Renfrew", value: "renfrew", railway: "millennium" },
-  { label: "Rupert", value: "rupert", railway: "millennium" },
-  { label: "Gilmore", value: "gilmore", railway: "millennium" },
+  // Millennium Line (Brown)
+  { label: "VCC - Clark", value: "vccClark", railway: ["millennium"] },
+  { label: "Renfrew", value: "renfrew", railway: ["millennium"] },
+  { label: "Rupert", value: "rupert", railway: ["millennium"] },
+  { label: "Gilmore", value: "gilmore", railway: ["millennium"] },
   {
     label: "Brentwood Town Centre",
-    value: "brentwood-town-centre",
-    railway: "millennium",
+    value: "brentwoodTownCentre",
+    railway: ["millennium"],
   },
-  { label: "Holdom", value: "holdom", railway: "millennium" },
+  { label: "Holdom", value: "holdom", railway: ["millennium"] },
   {
     label: "Sperling - Burnaby Lake",
-    value: "sperling-burnaby-lake",
-    railway: "millennium",
+    value: "sperlingBurnabyLake",
+    railway: ["millennium"],
   },
-  { label: "Lake City Way", value: "lake-city-way", railway: "millennium" },
-  { label: "Burquitlam", value: "burquitlam", railway: "millennium" },
-  { label: "Moody Centre", value: "moody-centre", railway: "millennium" },
-  { label: "Inlet Centre", value: "inlet-centre", railway: "millennium" },
+  { label: "Lake City Way", value: "lakeCityWay", railway: ["millennium"] },
+  { label: "Burquitlam", value: "burquitlam", railway: ["millennium"] },
+  { label: "Moody Centre", value: "moodyCentre", railway: ["millennium"] },
+  { label: "Inlet Centre", value: "inletCentre", railway: ["millennium"] },
+  { label: "Lincoln", value: "lincoln", railway: ["millennium"] },
   {
     label: "Coquitlam Central",
-    value: "coquitlam-central",
-    railway: "millennium",
+    value: "coquitlamCentral",
+    railway: ["millennium"],
+  },
+  {
+    label: "Lafarge Lake - Douglas",
+    value: "lafargeLakeDouglas",
+    railway: ["millennium"],
   },
 
-  // Green Line
+  // 複数line
   {
     label: "Production Way - University",
-    value: "production-way-university",
-    railway: "expo",
+    value: "productionWayUniversity",
+    railway: ["expo"],
   },
-  { label: "Waterfront", value: "waterfront", railway: "expo" },
+  { label: "Waterfront", value: "waterfront", railway: ["expo", "canada"] },
 
-  // Blue Line
+  {
+    label: "Commercial - Broadway",
+    value: "commercialBroadway",
+    railway: ["expo", "millennium"],
+  },
+  {
+    label: "Lougheed Town Centre",
+    value: "LougheedTownCentre",
+    railway: ["expo", "millennium"],
+  },
+
+  // Expo Line - Purple
+  { label: "Burrard", value: "burrard", railway: ["expo"] },
+  { label: "Granville", value: "granville", railway: ["expo"] },
+  { label: "Stadium-Chinatown", value: "stadiumChinatown", railway: ["expo"] },
+  {
+    label: "Main Street - Science World",
+    value: "mainStreetScienceWorld",
+    railway: ["expo"],
+  },
+  { label: "Nanaimo", value: "nanaimo", railway: ["expo"] },
+  { label: "29th Avenue", value: "29thAvenue", railway: ["expo"] },
+  { label: "Joyce-Collingwood", value: "joyceCollingwood", railway: ["expo"] },
+  { label: "Patterson", value: "patterson", railway: ["expo"] },
+  { label: "Metrotown", value: "metrotown", railway: ["expo"] },
+  { label: "Royal Oak", value: "royalOak", railway: ["expo"] },
+  { label: "Edmonds", value: "edmonds", railway: ["expo"] },
+  { label: "22nd Street", value: "22ndStreet", railway: ["expo"] },
+  { label: "New Westminster", value: "newWestminster", railway: ["expo"] },
+  { label: "Columbia", value: "columbia", railway: ["expo"] },
+  { label: "Sapperton", value: "sapperton", railway: ["expo"] },
+  { label: "Braid", value: "braid", railway: ["expo"] },
+  { label: "Scott Road", value: "scottRoad", railway: ["expo"] },
+  { label: "Gateway", value: "gateway", railway: ["expo"] },
+  { label: "King George", value: "kingGeorge", railway: ["expo"] },
+  { label: "Surrey Central", value: "surreyCentral", railway: ["expo"] },
+
+  // Canada Line (Blue)
   {
     label: "Vancouver City Centre",
-    value: "vancouver-city-centre",
-    railway: "canada",
+    value: "vancouverCityCentre",
+    railway: ["canada"],
   },
-  { label: "Yaletown", value: "yaletown", railway: "canada" },
-  { label: "Olympic Village", value: "olympic-village", railway: "canada" },
+  { label: "Yaletown", value: "yaletown", railway: ["canada"] },
+  { label: "Olympic Village", value: "olympicVillage", railway: ["canada"] },
   {
     label: "Broadway City Hall",
-    value: "broadway-city-hall",
-    railway: "canada",
+    value: "broadwayCityHall",
+    railway: ["canada"],
   },
-  { label: "King Edward", value: "king-edward", railway: "canada" },
+  { label: "King Edward", value: "kingEdward", railway: ["canada"] },
   {
     label: "Oakridge - 41st Ave",
-    value: "oakridge-41st-ave",
-    railway: "canada",
+    value: "oakridge41stAve",
+    railway: ["canada"],
   },
-  { label: "Langara - 49th Ave", value: "langara-49th-ave", railway: "canada" },
-  { label: "Marine Drive", value: "marine-drive", railway: "canada" },
-  { label: "Bridgeport", value: "bridgeport", railway: "canada" },
-  { label: "Aberdeen", value: "aberdeen", railway: "canada" },
+  { label: "Langara - 49th Ave", value: "langara49thAve", railway: ["canada"] },
+  { label: "Marine Drive", value: "marineDrive", railway: ["canada"] },
+  { label: "Bridgeport", value: "bridgeport", railway: ["canada"] },
+  { label: "Aberdeen", value: "aberdeen", railway: ["canada"] },
+  { label: "Lansdowne", value: "lansdowne", railway: ["canada"] },
+  {
+    label: "Richmond - Bridgehouse",
+    value: "richmondBridgehouse",
+    railway: ["canada"],
+  },
+
+  // Red Line (99 B-Line)
+  // { label: "99 B-Line", value: "99BLine", railway: ["expo"] },
 ];
 
 // PropertyPage tabs
