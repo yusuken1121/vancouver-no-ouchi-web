@@ -251,13 +251,13 @@ export const stationOptions: OptionStationType[] = [
     railway: ["expo"],
   },
   { label: "Nanaimo", value: "nanaimo", railway: ["expo"] },
-  { label: "29th Avenue", value: "29thAvenue", railway: ["expo"] },
+  { label: "29th Avenue", value: "thAvenue", railway: ["expo"] }, //エンコードエラーになるため数字削除
   { label: "Joyce-Collingwood", value: "joyceCollingwood", railway: ["expo"] },
   { label: "Patterson", value: "patterson", railway: ["expo"] },
   { label: "Metrotown", value: "metrotown", railway: ["expo"] },
   { label: "Royal Oak", value: "royalOak", railway: ["expo"] },
   { label: "Edmonds", value: "edmonds", railway: ["expo"] },
-  { label: "22nd Street", value: "22ndStreet", railway: ["expo"] },
+  { label: "22nd Street", value: "ndStreet", railway: ["expo"] }, //エンコードエラーになるため数字削除
   { label: "New Westminster", value: "newWestminster", railway: ["expo"] },
   { label: "Columbia", value: "columbia", railway: ["expo"] },
   { label: "Sapperton", value: "sapperton", railway: ["expo"] },
