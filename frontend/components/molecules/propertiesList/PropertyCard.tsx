@@ -1,4 +1,4 @@
-import Tag from "@/components/atoms/propertiesList/Tag";
+import Tag from "@/components/atoms/propertiesList/RentTag";
 import { cn } from "@/lib/utils";
 import {
   BadgeCheck,
