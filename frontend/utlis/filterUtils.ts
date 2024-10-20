@@ -56,6 +56,7 @@ export function isAfterMoveInDate(
   return propertyMoveDate <= moveInDateFilter;
 }
 
+// 検索窓用
 export function matchKeyword(property: PropertyData, keyword: string) {
   const title = getPropertyValue(property.タイトル, "title") || "";
   const station = getPropertyValue(property.最寄り駅, "select") || "";

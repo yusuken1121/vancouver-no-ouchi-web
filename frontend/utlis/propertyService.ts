@@ -24,6 +24,8 @@ export interface SearchParams {
   maxKitchenPeople?: string;
   minBathPeople?: string;
   maxBathPeople?: string;
+  minStationTime?: string;
+  maxStationTime?: string;
 
   moveInDate?: string;
 
@@ -60,6 +62,8 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
     maxKitchenPeople,
     minBathPeople,
     maxBathPeople,
+    minStationTime,
+    maxStationTime,
 
     moveInDate,
 
@@ -111,8 +115,8 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
     const matchedMoveDay = isAfterMoveInDate(moveDay, moveInDate);
 
     // レンジの決まっているもの
+    //大文字で、単位がNotionに埋め込まれているもの（3ヶ月、3分等）
     const stayMonth = getPropertyValue(p.properties.ミニマムステイ, "select");
-
     const matchedStayMonth = isUnitValueWithinRange(
       "ヶ月",
       stayMonth.toLowerCase(),
@@ -120,6 +124,15 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
       maxMonth
     );
 
+    const stationTime = getPropertyValue(p.properties.最寄り駅まで, "select");
+    const matchedStationTime = isUnitValueWithinRange(
+      "分",
+      stationTime.toLowerCase(),
+      minStationTime,
+      maxStationTime
+    );
+
+    //単位がNotionに埋め込まれていないもの
     const kitchenPeople = getPropertyValue(
       p.properties.キッチンのシェア人数,
       "select"
@@ -224,6 +237,7 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
       matchedMan &&
       matchedWoman &&
       matchedStation &&
+      matchedStationTime &&
       matchedKeyword
     );
   });

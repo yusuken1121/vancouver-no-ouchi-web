@@ -49,6 +49,8 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   const [maxBathPeople, setMaxBathPeople] = useState<string>("");
   const [minMonth, setMinMonth] = useState<string>("");
   const [maxMonth, setMaxMonth] = useState<string>("");
+  const [minStationTime, setMinStationTime] = useState<string>("");
+  const [maxStationTime, setMaxStationTime] = useState<string>("");
 
   const [date, setDate] = useState<Date | undefined>(undefined);
 
@@ -187,11 +189,6 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             <FilterSelectButtons options={genderOptions} queryKey="gender" />
           </div> */}
 
-          {/* <div className="flex flex-col gap-2">
-            <p>最寄駅からの時間</p>
-            <FilterSelectButtons options={timeOptions} queryKey="stationTime" />
-          </div> */}
-
           {/* Range */}
           {/* ミニマムステイ */}
           <FilterRangeInput
@@ -202,8 +199,8 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             onMaxValueChange={(e) => handleChange(e, "maxMonth", setMaxMonth)}
             label="ミニマムステイ"
             unit="ヶ月"
-            minPlaceholder="最短の期間"
-            maxPlaceholder="最長の期間"
+            minPlaceholder="最短期間"
+            maxPlaceholder="最長期間"
           />
 
           {/* station */}
@@ -211,6 +208,23 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             <p>最寄駅</p>
             <FilterRadioBoxes />
           </div>
+
+          {/* 最寄駅からの時間 */}
+          <FilterRangeInput
+            minValue={minStationTime}
+            maxValue={maxStationTime}
+            errorMessage={errorMessage}
+            onMinValueChange={(e) =>
+              handleChange(e, "minStationTime", setMinStationTime)
+            }
+            onMaxValueChange={(e) =>
+              handleChange(e, "maxStationTime", setMaxStationTime)
+            }
+            label="最寄駅からの時間"
+            unit="分"
+            minPlaceholder="最短時間"
+            maxPlaceholder="最長時間"
+          />
 
           {/* Calendar */}
           <div className="flex flex-col gap-2">
