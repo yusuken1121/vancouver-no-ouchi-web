@@ -42,6 +42,7 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
     ゾーン,
     エリア,
     最寄り駅,
+    最寄り駅まで,
     ミニマムステイ,
     鍵付き,
     ランドリー無料,
@@ -70,6 +71,7 @@ export const PropertyTabs: FC<PropertyTabsProps> = ({ propertyData }) => {
       ゾーン,
       エリア,
       最寄り駅,
+      最寄り駅まで,
       ミニマムステイ,
     ],
     // 部屋設備
