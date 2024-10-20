@@ -1,6 +1,6 @@
 "use client";
 import { PrimarySelect } from "@/components/atoms/propertiesList/SortSelect";
-import { sortOptions } from "@/utlis/commonOptions";
+import { sortOptions } from "@/config/commonOptions";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { SetStateAction } from "react";

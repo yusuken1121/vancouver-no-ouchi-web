@@ -2,7 +2,7 @@ import PropertiesList from "@/components/template/propertiesList/PropertiesList"
 import {
   fetchAndFilterProperties,
   SearchParams,
-} from "@/utlis/propertyService";
+} from "@/utlis/filterSort/propertyService";
 interface PropertiesPageProps {
   searchParams: SearchParams;
 }

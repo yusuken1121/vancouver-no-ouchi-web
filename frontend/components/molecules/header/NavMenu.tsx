@@ -1,5 +1,5 @@
 import HomeNav from "@/components/atoms/header/HomeNav";
-import { headerOptions } from "@/utlis/headerOptions";
+import { headerOptions } from "@/config/headerOptions";
 import React from "react";
 
 const NavMenu = () => {

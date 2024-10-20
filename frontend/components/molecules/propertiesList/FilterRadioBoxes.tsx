@@ -5,7 +5,7 @@ import {
   OptionStationType,
   optionType,
   stationOptions,
-} from "@/utlis/commonOptions";
+} from "@/config/commonOptions";
 import { Label } from "@radix-ui/react-label";
 import { useState } from "react";
 import FilterSelectButtons from "./FilterSelectButtons";

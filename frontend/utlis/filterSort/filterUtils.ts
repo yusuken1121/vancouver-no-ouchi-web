@@ -1,6 +1,6 @@
 import { PropertyData } from "@/types/notionTypes";
-import { getPropertyValue } from "./getPropertyValue";
-import { stationOptions } from "./commonOptions";
+import { getPropertyValue } from "../getPropertyValue";
+import { stationOptions } from "../../config/commonOptions";
 
 // 共通のフィルタリング関数　（下限と上限が決まっている項目用）
 export function isNumberWithinRange(

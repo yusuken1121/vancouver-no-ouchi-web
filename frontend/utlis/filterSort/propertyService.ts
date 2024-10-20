@@ -6,7 +6,7 @@ import {
   matchKeyword,
   matchStation,
 } from "./filterUtils";
-import { getPropertyValue, matchParams } from "./getPropertyValue";
+import { getPropertyValue, matchParams } from "../getPropertyValue";
 import { apiClient } from "@/config/apiClient";
 
 export interface SearchParams {

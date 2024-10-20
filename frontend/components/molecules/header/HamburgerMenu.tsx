@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import { X } from "lucide-react";
 import Link from "next/link";
-import { headerOptions } from "@/utlis/headerOptions";
+import { headerOptions } from "@/config/headerOptions";
 
 export function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);

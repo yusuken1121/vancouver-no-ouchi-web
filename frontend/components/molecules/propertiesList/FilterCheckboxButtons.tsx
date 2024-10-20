@@ -1,5 +1,5 @@
 import FilterCheckBoxButton from "@/components/atoms/propertiesList/FilterCheckboxButton";
-import { checkboxOptionType } from "@/utlis/commonOptions";
+import { checkboxOptionType } from "@/config/commonOptions";
 import React, { FC } from "react";
 
 type FilterCheckboxButtonProps = {

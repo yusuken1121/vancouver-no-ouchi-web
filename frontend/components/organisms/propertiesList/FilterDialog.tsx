@@ -23,7 +23,7 @@ import {
   monthOptions,
   statusOptions,
   zoneOptions,
-} from "@/utlis/commonOptions";
+} from "@/config/commonOptions";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { SlidersHorizontal } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

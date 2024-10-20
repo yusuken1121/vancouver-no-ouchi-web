@@ -6,7 +6,7 @@ import {
   propertyConditionOptions,
   PropertyConditionOptionsType,
   propertyTabsOptions,
-} from "@/utlis/commonOptions";
+} from "@/config/commonOptions";
 import { getPropertyValue, getStartDate } from "@/utlis/getPropertyValue";
 import { FC } from "react";
 

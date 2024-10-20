@@ -1,5 +1,5 @@
 import FilterSelectButton from "@/components/atoms/propertiesList/FilterSelectButton";
-import { optionType } from "@/utlis/commonOptions";
+import { optionType } from "@/config/commonOptions";
 import React, { FC } from "react";
 
 type FilterButtons = {
