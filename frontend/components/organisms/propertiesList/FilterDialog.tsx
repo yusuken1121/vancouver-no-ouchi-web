@@ -20,15 +20,22 @@ import {
   areaOptions,
   checkboxFacilityOptions,
   checkboxGenderOptions,
-  monthOptions,
   statusOptions,
   zoneOptions,
 } from "@/config/commonOptions";
+import {
+  monthSchema,
+  peopleSchema,
+  priceSchema,
+  stationTimeSchema,
+} from "@/types/filterTypesSchema";
 import { createQueryString } from "@/utlis/queryStringHelper";
 import { SlidersHorizontal } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SetStateAction, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+
+import { z } from "zod";
 
 type FilterDialogProps = {
   filteredPropertiesNumbers: number;
@@ -39,22 +46,58 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   const searchParams = useSearchParams();
 
   const [open, setOpen] = useState<boolean>(false);
+
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [minSharePeople, setMinSharePeople] = useState<string>("");
-  const [maxSharePeople, setMaxSharePeople] = useState<string>("");
-  const [minKitchenPeople, setMinKitchenPeople] = useState<string>("");
-  const [maxKitchenPeople, setMaxKitchenPeople] = useState<string>("");
-  const [minBathPeople, setMinBathPeople] = useState<string>("");
-  const [maxBathPeople, setMaxBathPeople] = useState<string>("");
-  const [minMonth, setMinMonth] = useState<string>("");
-  const [maxMonth, setMaxMonth] = useState<string>("");
-  const [minStationTime, setMinStationTime] = useState<string>("");
-  const [maxStationTime, setMaxStationTime] = useState<string>("");
+  const [priceError, setPriceError] = useState({ min: "", max: "" });
+
+  const [minSharePeople, setMinSharePeople] = useState("");
+  const [maxSharePeople, setMaxSharePeople] = useState("");
+  const [sharePeopleError, setSharePeopleError] = useState({
+    min: "",
+    max: "",
+  });
+
+  const [minKitchenPeople, setMinKitchenPeople] = useState("");
+  const [maxKitchenPeople, setMaxKitchenPeople] = useState("");
+  const [kitchenPeopleError, setKitchenPeopleError] = useState({
+    min: "",
+    max: "",
+  });
+
+  const [minBathPeople, setMinBathPeople] = useState("");
+  const [maxBathPeople, setMaxBathPeople] = useState("");
+  const [bathPeopleError, setBathPeopleError] = useState({ min: "", max: "" });
+
+  const [minMonth, setMinMonth] = useState("");
+  const [maxMonth, setMaxMonth] = useState("");
+  const [monthError, setMonthError] = useState({ min: "", max: "" });
+
+  const [minStationTime, setMinStationTime] = useState("");
+  const [maxStationTime, setMaxStationTime] = useState("");
+  const [stationTimeError, setStationTimeError] = useState({
+    min: "",
+    max: "",
+  });
 
   const [date, setDate] = useState<Date | undefined>(undefined);
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const hasErrors = () => {
+    return (
+      priceError.min !== "" ||
+      priceError.max !== "" ||
+      sharePeopleError.min !== "" ||
+      sharePeopleError.max !== "" ||
+      kitchenPeopleError.min !== "" ||
+      kitchenPeopleError.max !== "" ||
+      bathPeopleError.min !== "" ||
+      bathPeopleError.max !== "" ||
+      monthError.min !== "" ||
+      monthError.max !== "" ||
+      stationTimeError.min !== "" ||
+      stationTimeError.max !== ""
+    );
+  };
 
   const handleQueryUpdate = useDebouncedCallback(
     (key: string, value: string) => {
@@ -78,18 +121,21 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     queryKey: string,
-    setFunc: React.Dispatch<SetStateAction<string>>
+    setFunc: React.Dispatch<SetStateAction<string>>,
+    schema: z.ZodSchema,
+    setErrorFunc: (msg: string) => void
   ) => {
     const newValue = e.target.value;
     setFunc(newValue);
-    handleQueryUpdate(queryKey, newValue);
-  };
 
-  // const validatePrice = (price: string) => {
-  //   if (price === "") return true;
-  //   const valuePrice: number = parseInt(price);
-  //   return !isNaN(valuePrice) && valuePrice >= 0 && valuePrice < 10000;
-  // };
+    const result = schema.safeParse(newValue);
+    if (!result.success) {
+      setErrorFunc(result.error.errors[0].message);
+    } else {
+      setErrorFunc("");
+      handleQueryUpdate(queryKey, newValue);
+    }
+  };
 
   // Apply for the filter
   const handleSubmit = () => {
@@ -109,13 +155,17 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
     setMinMonth("");
     setMaxMonth("");
     setDate(undefined);
-    setErrorMessage("");
+    setPriceError({ min: "", max: "" });
+    setSharePeopleError({ min: "", max: "" });
+    setKitchenPeopleError({ min: "", max: "" });
+    setBathPeopleError({ min: "", max: "" });
+    setMonthError({ min: "", max: "" });
+    setStationTimeError({ min: "", max: "" });
   };
   const handleDiscard = () => {
     resetFilters();
     router.push(pathname);
     setOpen(false);
-    setErrorMessage("");
   };
 
   // Calendar
@@ -158,9 +208,17 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             <FilterRangeInput
               minValue={minPrice}
               maxValue={maxPrice}
-              errorMessage={errorMessage}
-              onMinValueChange={(e) => handleChange(e, "minPrice", setMinPrice)}
-              onMaxValueChange={(e) => handleChange(e, "maxPrice", setMaxPrice)}
+              errorMessage={priceError}
+              onMinValueChange={(e) =>
+                handleChange(e, "minPrice", setMinPrice, priceSchema, (msg) =>
+                  setPriceError((prev) => ({ ...prev, min: msg }))
+                )
+              }
+              onMaxValueChange={(e) =>
+                handleChange(e, "maxPrice", setMaxPrice, priceSchema, (msg) =>
+                  setPriceError((prev) => ({ ...prev, max: msg }))
+                )
+              }
               label="家賃"
               unit="$"
               minPlaceholder="最小金額"
@@ -194,9 +252,17 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           <FilterRangeInput
             minValue={minMonth}
             maxValue={maxMonth}
-            errorMessage={errorMessage}
-            onMinValueChange={(e) => handleChange(e, "minMonth", setMinMonth)}
-            onMaxValueChange={(e) => handleChange(e, "maxMonth", setMaxMonth)}
+            errorMessage={monthError}
+            onMinValueChange={(e) =>
+              handleChange(e, "minMonth", setMinMonth, monthSchema, (msg) =>
+                setMonthError((prev) => ({ ...prev, min: msg }))
+              )
+            }
+            onMaxValueChange={(e) =>
+              handleChange(e, "maxMonth", setMaxMonth, monthSchema, (msg) =>
+                setMonthError((prev) => ({ ...prev, max: msg }))
+              )
+            }
             label="ミニマムステイ"
             unit="ヶ月"
             minPlaceholder="最短期間"
@@ -213,12 +279,24 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           <FilterRangeInput
             minValue={minStationTime}
             maxValue={maxStationTime}
-            errorMessage={errorMessage}
+            errorMessage={stationTimeError}
             onMinValueChange={(e) =>
-              handleChange(e, "minStationTime", setMinStationTime)
+              handleChange(
+                e,
+                "minStationTime",
+                setMinStationTime,
+                stationTimeSchema,
+                (msg) => setStationTimeError((prev) => ({ ...prev, min: msg }))
+              )
             }
             onMaxValueChange={(e) =>
-              handleChange(e, "maxStationTime", setMaxStationTime)
+              handleChange(
+                e,
+                "maxStationTime",
+                setMaxStationTime,
+                stationTimeSchema,
+                (msg) => setStationTimeError((prev) => ({ ...prev, max: msg }))
+              )
             }
             label="最寄駅からの時間"
             unit="分"
@@ -240,12 +318,24 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           <FilterRangeInput
             minValue={minSharePeople}
             maxValue={maxSharePeople}
-            errorMessage={errorMessage}
+            errorMessage={sharePeopleError}
             onMinValueChange={(e) =>
-              handleChange(e, "minSharePeople", setMinSharePeople)
+              handleChange(
+                e,
+                "minSharePeople",
+                setMinSharePeople,
+                peopleSchema,
+                (msg) => setSharePeopleError((prev) => ({ ...prev, min: msg }))
+              )
             }
             onMaxValueChange={(e) =>
-              handleChange(e, "maxSharePeople", setMaxSharePeople)
+              handleChange(
+                e,
+                "maxSharePeople",
+                setMaxSharePeople,
+                peopleSchema,
+                (msg) => setSharePeopleError((prev) => ({ ...prev, max: msg }))
+              )
             }
             label="物件のシェア人数"
             unit="人"
@@ -255,12 +345,26 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           <FilterRangeInput
             minValue={minKitchenPeople}
             maxValue={maxKitchenPeople}
-            errorMessage={errorMessage}
+            errorMessage={kitchenPeopleError}
             onMinValueChange={(e) =>
-              handleChange(e, "minKitchenPeople", setMinKitchenPeople)
+              handleChange(
+                e,
+                "minKitchenPeople",
+                setMinKitchenPeople,
+                peopleSchema,
+                (msg) =>
+                  setKitchenPeopleError((prev) => ({ ...prev, min: msg }))
+              )
             }
             onMaxValueChange={(e) =>
-              handleChange(e, "maxKitchenPeople", setMaxKitchenPeople)
+              handleChange(
+                e,
+                "maxKitchenPeople",
+                setMaxKitchenPeople,
+                peopleSchema,
+                (msg) =>
+                  setKitchenPeopleError((prev) => ({ ...prev, max: msg }))
+              )
             }
             label="キッチンのシェア人数"
             unit="人"
@@ -270,12 +374,24 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           <FilterRangeInput
             minValue={minBathPeople}
             maxValue={maxBathPeople}
-            errorMessage={errorMessage}
+            errorMessage={bathPeopleError}
             onMinValueChange={(e) =>
-              handleChange(e, "minBathPeople", setMinBathPeople)
+              handleChange(
+                e,
+                "minBathPeople",
+                setMinBathPeople,
+                peopleSchema,
+                (msg) => setBathPeopleError((prev) => ({ ...prev, min: msg }))
+              )
             }
             onMaxValueChange={(e) =>
-              handleChange(e, "maxBathPeople", setMaxBathPeople)
+              handleChange(
+                e,
+                "maxBathPeople",
+                setMaxBathPeople,
+                peopleSchema,
+                (msg) => setBathPeopleError((prev) => ({ ...prev, max: msg }))
+              )
             }
             label="バスルームのシェア人数"
             unit="人"
@@ -299,8 +415,7 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
             <Button variant="destructive" type="button" onClick={handleDiscard}>
               変更を破棄
             </Button>
-
-            {filteredPropertiesNumbers === 0 ? (
+            {filteredPropertiesNumbers === 0 || hasErrors() ? (
               <Button
                 variant="default"
                 disabled
