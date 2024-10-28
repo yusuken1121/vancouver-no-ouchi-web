@@ -23,6 +23,7 @@ const SearchBar = () => {
 
     if (keyword.length > 0 && !trimmedKeyword) {
       toast.error("空白のみの入力では検索できません。", {
+        position: "top-right",
         icon: <CircleX className="w-4 h-4 text-red-600" />,
       });
       return;
@@ -38,7 +39,7 @@ const SearchBar = () => {
     <div className="relative w-[200px] max-w-sm">
       <Input
         type="search"
-        placeholder="検索..."
+        placeholder="物件名やエリアなど"
         className="w-full pr-12 text-xs" // 右側にアイコン分の余白を確保
         value={keyword}
         onChange={(e) => handleKeywordChange(e)}
