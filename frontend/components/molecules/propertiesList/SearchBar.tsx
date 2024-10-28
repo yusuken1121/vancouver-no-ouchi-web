@@ -23,6 +23,7 @@ const SearchBar = () => {
 
     if (keyword.length > 0 && !trimmedKeyword) {
       toast.error("空白のみの入力では検索できません。", {
+        position: "top-right",
         icon: <CircleX className="w-4 h-4 text-red-600" />,
       });
       return;
