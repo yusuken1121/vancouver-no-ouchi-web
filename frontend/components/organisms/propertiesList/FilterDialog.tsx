@@ -202,9 +202,14 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-10">
-          <div className="">
-            {/* Filter */}
-            {/* 家賃 */}
+          {/* Filter */}
+          <div className="flex flex-col gap-2">
+            <p>住居状況</p>
+            <FilterSelectButtons options={statusOptions} queryKey="status" />
+          </div>
+
+          {/* 家賃 */}
+          <div>
             <FilterRangeInput
               minValue={minPrice}
               maxValue={maxPrice}
@@ -235,11 +240,6 @@ export function FilterDialog({ filteredPropertiesNumbers }: FilterDialogProps) {
           <div className="flex flex-col gap-2">
             <p>エリア</p>
             <FilterSelectButtons options={areaOptions} queryKey="area" />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <p>住居状況</p>
-            <FilterSelectButtons options={statusOptions} queryKey="status" />
           </div>
 
           {/* <div className="flex flex-col gap-2">

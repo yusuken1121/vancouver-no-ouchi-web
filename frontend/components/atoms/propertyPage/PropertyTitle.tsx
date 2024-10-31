@@ -22,7 +22,10 @@ const PropertyTitle: FC<PropertyTitleProps> = ({ title, rent }) => {
     <div className="flex items-center justify-between mb-6">
       <h1 className="text-2xl">{title}</h1>
       {/* <p className="text-2xl">${rent}/月</p> */}
-      <Copy onClick={handleClickCopy} className="text-themeColor mr-2" />
+      <Copy
+        onClick={handleClickCopy}
+        className="text-themeColor mr-2 cursor-pointer"
+      />
     </div>
   );
 };
