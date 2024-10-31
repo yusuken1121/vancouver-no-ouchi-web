@@ -143,6 +143,7 @@ export type PropertyData = {
   ゾーン: SelectProperty;
   物件のシェア人数: SelectProperty;
   タイトル: TitleProperty;
+  マップ表示用座標: RichTextProperty;
 };
 
 // Notionページ全体の型定義

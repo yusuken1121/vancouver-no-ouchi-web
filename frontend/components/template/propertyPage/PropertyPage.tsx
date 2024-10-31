@@ -5,6 +5,7 @@ import PropertyTitle from "@/components/atoms/propertyPage/PropertyTitle";
 import CommentAndInquirySection from "@/components/molecules/propertyPage/CommentAndInquirySection";
 import { PropertyTabs } from "@/components/organisms/propertyPage/PropertyTabs";
 import { NotionPage } from "@/types/notionTypes";
+import PropertyGoogleMap from "@/components/atoms/propertyPage/PropertyGoogleMap";
 
 interface PropertyPageProps {
   property: NotionPage;
@@ -26,6 +27,12 @@ const PropertyPage: FC<PropertyPageProps> = ({ property }) => {
     "url"
   );
 
+  const geoPosition = getPropertyValue(
+    propertyData.マップ表示用座標,
+    "rich_text"
+  );
+  console.log("⭐️", geoPosition);
+
   return (
     <div key={id}>
       <PropertyImage imgUrl={imgUrl} title={title} imgLink={imgLink} />
@@ -44,6 +51,7 @@ const PropertyPage: FC<PropertyPageProps> = ({ property }) => {
             />
           </div>
         </div>
+        <PropertyGoogleMap geoPosition={geoPosition} />
       </div>
     </div>
   );
