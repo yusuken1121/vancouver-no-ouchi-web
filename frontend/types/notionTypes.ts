@@ -149,5 +149,6 @@ export type PropertyData = {
 export type NotionPage = {
   object: "page";
   id: string;
+  created_time: string;
   properties: PropertyData;
 };
