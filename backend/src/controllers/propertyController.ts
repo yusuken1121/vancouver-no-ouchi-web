@@ -21,7 +21,6 @@ function removeUnnecessaryProperties(page: PageObjectResponse) {
     in_trash,
     archived,
     parent,
-    created_time,
     last_edited_time,
     ...restPage
   } = page;
