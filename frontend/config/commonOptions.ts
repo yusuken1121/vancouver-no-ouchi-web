@@ -33,6 +33,7 @@ export type optionType = {
 export const sortOptions: optionType[] = [
   { label: "金額：高い順", value: "金額：高い順" },
   { label: "金額：低い順", value: "金額：低い順" },
+  { label: "新着順", value: "新着順" },
 ];
 
 // filter

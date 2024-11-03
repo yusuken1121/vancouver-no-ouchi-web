@@ -269,6 +269,7 @@ export async function fetchAndFilterProperties(searchParams: SearchParams) {
 // Sort function
 function sortProperties(properties: NotionPage[], sort?: string): NotionPage[] {
   const sortedProperties = [...properties];
+
   switch (sort) {
     case "price-dec":
       sortedProperties.sort((a, b) => {
@@ -284,13 +285,36 @@ function sortProperties(properties: NotionPage[], sort?: string): NotionPage[] {
         return rentB - rentA;
       });
       break;
+    case "latest":
+      sortedProperties.sort((a, b) => {
+        const createdTimeA = new Date(a.created_time).getTime();
+        const createdTimeB = new Date(b.created_time).getTime();
+
+        if (createdTimeA === createdTimeB) {
+          const titleA = getPropertyValue(a.properties.タイトル, "title") || "";
+          const titleB = getPropertyValue(b.properties.タイトル, "title") || "";
+          return titleA.localeCompare(titleB);
+        }
+
+        return createdTimeB - createdTimeA;
+      });
+      break;
+
     default:
       sortedProperties.sort((a, b) => {
-        const rentA = a.properties.家賃.number ?? 0;
-        const rentB = b.properties.家賃.number ?? 0;
-        return rentA - rentB;
+        const createdTimeA = new Date(a.created_time).getTime();
+        const createdTimeB = new Date(b.created_time).getTime();
+
+        if (createdTimeA === createdTimeB) {
+          const titleA = getPropertyValue(a.properties.タイトル, "title") || "";
+          const titleB = getPropertyValue(b.properties.タイトル, "title") || "";
+          return titleA.localeCompare(titleB);
+        }
+
+        return createdTimeB - createdTimeA;
       });
       break;
   }
+
   return sortedProperties;
 }

@@ -21,6 +21,11 @@ const SortSelect = () => {
           pathname + "?" + createQueryString(searchParams, "sort", "price-dec")
         );
         break;
+      case sortOptions[2].value:
+        router.push(
+          pathname + "?" + createQueryString(searchParams, "sort", "latest")
+        );
+        break;
       default:
         router.push(pathname);
     }
