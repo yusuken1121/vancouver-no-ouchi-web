@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  getAllProperties, // over then 100
+  getAllProperties, // over than 100
   // getProperties, // less than 100
   getProperty,
   // getPropertyPage,
